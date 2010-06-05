@@ -1,0 +1,19 @@
+<plugin name='gorm-mongodb' version='0.1' grailsVersion='1.3.1 &gt; *'>
+  <author>Juri Kuehn</author>
+  <authorEmail>juri.kuehn at gmail.com</authorEmail>
+  <title>Grails MongoDB plugin</title>
+  <description>GORM Layer for the superfast, highly scalable, schemafree, document oriented database MongoDB</description>
+  <documentation>http://grails.org/plugin/gorm-mongodb</documentation>
+  <resources>
+    <resource>BuildConfig</resource>
+    <resource>Config</resource>
+    <resource>DataSource</resource>
+    <resource>UrlMappings</resource>
+    <resource>org.acme.Contact</resource>
+    <resource>org.acme.NotMongoDB</resource>
+    <resource>org.acme.Project</resource>
+    <resource>org.acme.Task</resource>
+  </resources>
+  <dependencies />
+  <behavior />
+</plugin>
