@@ -16,7 +16,6 @@ import com.google.code.morphia.Morphia
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.query.Query
 import java.beans.Introspector
-import grails.plugins.mongodb.MongoDomainClass
 
 /**
  * Author: Juri Kuehn

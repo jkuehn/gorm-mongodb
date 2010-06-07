@@ -59,53 +59,7 @@
   </component>
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="StaticMethodsTests.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/StaticMethodsTests.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="97" column="0" selection-start="3643" selection-end="3643" vertical-scroll-proportion="-45.615383">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GormMongodbGrailsPlugin.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/GormMongodbGrailsPlugin.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="26" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Contact.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Contact.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="0.064968154">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BuildConfig.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="49" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Datastore.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$SPRING_DIR$/mongodb/morphia/morphia/src/main/java/com/google/code/morphia/Datastore.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="17" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -129,8 +83,8 @@
         <option value="$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy" />
         <option value="$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/StaticMethodsTests.groovy" />
         <option value="$PROJECT_DIR$/GormMongodbGrailsPlugin.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy" />
         <option value="$PROJECT_DIR$/grails-app/mongo/org/acme/Contact.groovy" />
+        <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy" />
       </list>
     </option>
   </component>
@@ -270,28 +224,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MongoPlugin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gorm-mongodb" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mongo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="acme" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -493,7 +425,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="970" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -507,7 +439,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26682886" sideWeight="0.66503066" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2814274" sideWeight="0.6625616" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2814274" sideWeight="0.6625616" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32883435" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -552,16 +484,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="86" selection-start="1153" selection-end="1170" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Project.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="6" selection-start="287" selection-end="287" vertical-scroll-proportion="0.10786802" />
-      </provider>
-    </entry>
     <entry file="file://$SPRING_DIR$/mongodb/morphia/morphia/src/main/java/com/google/code/morphia/mapping/Mapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="207" column="18" selection-start="7466" selection-end="7466" vertical-scroll-proportion="-1.2662252" />
@@ -600,7 +522,7 @@
     </entry>
     <entry file="file://$SPRING_DIR$/mongodb/morphia/morphia/src/main/java/com/google/code/morphia/Datastore.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="17" selection-start="546" selection-end="546" vertical-scroll-proportion="0.0">
+        <state line="18" column="17" selection-start="546" selection-end="546" vertical-scroll-proportion="-0.5961039">
           <folding />
         </state>
       </provider>
@@ -612,13 +534,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="31" selection-start="909" selection-end="909" vertical-scroll-proportion="0.6713376">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/StaticMethodsTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="97" column="0" selection-start="3643" selection-end="3643" vertical-scroll-proportion="-45.615383">
@@ -626,30 +541,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="464" column="20" selection-start="15849" selection-end="15857" vertical-scroll-proportion="0.4800532">
+        <state line="27" column="49" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.5961039">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/conf/BuildConfig.groovy">
+    <entry file="file://$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="49" selection-start="1172" selection-end="1172" vertical-scroll-proportion="0.0">
+        <state line="18" column="0" selection-start="880" selection-end="880" vertical-scroll-proportion="-2.4727273">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GormMongodbGrailsPlugin.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="26" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Contact.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="68" selection-end="68" vertical-scroll-proportion="0.064968154">
+        <state line="11" column="26" selection-start="531" selection-end="531" vertical-scroll-proportion="0.13246754">
           <folding />
         </state>
       </provider>
