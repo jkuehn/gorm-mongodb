@@ -1,0 +1,14 @@
+h1. delete
+
+h2. Purpose
+
+Deletes the domain class instance from database
+
+h2. Examples
+
+{code:java}
+// get the instance
+def book = Book.get(bookId)
+// and delete it
+book.delete()
+{code}

@@ -1,0 +1,31 @@
+h1. deleteAll
+
+h2. Purpose
+
+Deletes all of the domain class instances for the specified query or the given ids
+
+h2. Examples
+
+{code:java}
+// delete by query
+Book.deleteAll([author:'Dan Brown'])
+// delete by ids
+Book.deleteAll(["4c0cceac61b32d536cc6fdfa", "4c0cceac61b32d536cc6fdfb", "4c0cceac61b32d536cc6fdfc"])
+// deletes nothing
+Book.deleteAll()
+{code}
+
+h2. Description
+
+The basic syntax for the method is:
+
+{code:java}
+Book.deleteAll(Map query)
+Book.deleteAll(List ids)
+{code}
+
+Parameters:
+
+* @query@ - A "filter for querying":http://wiki.github.com/jkuehn/gorm-mongodb/querying
+* @ids@ - A list of ids of documents to delete
+

@@ -1,0 +1,3 @@
+The gorm-mongodb plugin implements the GORM functionality for the "MongoDB":http://www.mongodb.org/ database.
+
+See the "project wiki":http://wiki.github.com/jkuehn/gorm-mongodb/ for further information

@@ -1,0 +1,11 @@
+h2. Change Log
+
+h3. v0.1.1 - 2010-06-07
+* renamed static delete method to deleteAll in order to avoid "conflicts":http://jira.codehaus.org/browse/GROOVY-4239
+* plugin published to the grails plugin repository
+* added user guide
+WIKI: link zu user guide!
+
+
+h3. v0.1 - 2010-06-05
+* initial release

@@ -16,6 +16,7 @@ import com.google.code.morphia.Morphia
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.query.Query
 import java.beans.Introspector
+import grails.plugins.mongodb.MongoDomainClass
 
 /**
  * Author: Juri Kuehn
@@ -44,7 +45,7 @@ class MongoPluginSupport {
           "All",
           "InList",
           "NotInList",
-          "NotBetween",
+//          "NotBetween", // OR operator not supported by mongodb yet
           "Between" ])
   static final COMPARATORS_RE = COMPARATORS.join("|")
   static final DYNAMIC_FINDER_RE = /(\w+?)(${COMPARATORS_RE})?((And)(\w+?)(${COMPARATORS_RE})?)?/
@@ -113,11 +114,16 @@ class MongoPluginSupport {
     }
 
     // cannot use Serializeable here, because Map implements it too
-    metaClass.static.delete = { String docId ->
+    metaClass.static.deleteOne = { String docId ->
       getDatastoreForOperation(application).delete(domainClass.clazz, docId.toString())
     }
 
-    metaClass.static.delete = { Map filter ->
+    // delete all documents with given ids
+    metaClass.static.deleteAll = { List docIds ->
+      getDatastoreForOperation(application).delete(domainClass.clazz, docIds)
+    }
+
+    metaClass.static.deleteAll = { Map filter ->
       Datastore ds = getDatastoreForOperation(application)
       Query query = ds.find(domainClass.clazz)
 
@@ -155,10 +161,6 @@ class MongoPluginSupport {
 
     metaClass.static.list = { Map queryParams = [:] ->
       findAll([:], queryParams)
-    }
-
-    metaClass.static.getDatastore = {
-      getDatastoreForOperation(application)
     }
 
     metaClass.static.getDatastore = {

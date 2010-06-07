@@ -1,0 +1,24 @@
+h1. save
+
+h2. Purpose
+
+Saves the domain class instance
+
+h2. Examples
+
+{code:java}
+def b = new Book(title:"The Shining")
+b.save()
+{code}
+
+h2. Description
+
+The @save@ method returns @null@ if validation failed and the instance was not saved and the instance itself if successful. This allows you to write code like the following:
+
+{code:java}
+if( !b.save() ) {
+   b.errors.each {
+        println it
+   }
+}
+{code}

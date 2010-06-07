@@ -1,0 +1,23 @@
+h1. deleteOne
+
+h2. Purpose
+
+Deletes one of the domain class instances for the specified id
+
+h2. Examples
+
+{code:java}
+Book.deleteOne(bookId)
+{code}
+
+h2. Description
+
+The basic syntax for the method is:
+
+{code:java}
+Book.deleteOne( String id )
+{code}
+
+Parameters:
+
+* @id@ - Id of the entity to delete

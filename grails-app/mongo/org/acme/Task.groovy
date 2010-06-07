@@ -36,19 +36,19 @@ class Task {
   }
 
   def beforeSave = {
-    println "Task before save: $taskId"
+//    println "Task before save: $taskId"
   }
 
   def afterSave = {
-    println "Task after save: $taskId"
+//    println "Task after save: $taskId"
   }
 
   def beforeDelete = {
-    println "Task before delete: $taskId"
+//    println "Task before delete: $taskId"
   }
 
   def afterDelete = {
-    println "Task after delete: $taskId"
+//    println "Task after delete: $taskId"
   }
 
 

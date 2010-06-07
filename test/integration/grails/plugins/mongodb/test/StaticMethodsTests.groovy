@@ -2,7 +2,6 @@ package grails.plugins.mongodb.test
 
 import org.acme.Task
 import com.google.code.morphia.Datastore
-import com.google.code.morphia.DatastoreImpl
 
 /**
  * test the dynamic finders
@@ -33,7 +32,7 @@ class StaticMethodsTests extends GroovyTestCase {
   void testStaticMethods() {
 
     assertEquals "findAll by projectId should find all testobjects", Task.findAll([projectId: projectId])*.taskId, taskList*.taskId
-    assertEquals "find should find the searched task", Task.find(["name >": "Simp"], [sort: "-estimatedHours"])?.taskId, taskList[1].taskId
+    assertEquals "find should find the searched task", Task.find(["name >": "S"], [sort: "-estimatedHours"])?.taskId, taskList[1].taskId
   }
 
   void testDatastore() {
@@ -46,10 +45,35 @@ class StaticMethodsTests extends GroovyTestCase {
   }
 
   /**
+   * test deleteOne and deleteAll
+   */
+  void testStaticDeleteMethods() {
+
+    assertEquals "Database should contain tested objects (1)", taskList.size(), Task.findAll([projectId: projectId]).size()
+
+    // deleteOne
+    Task.deleteOne(taskList[0].taskId)
+
+    assertEquals "Database should contain tested objects (2)", taskList.size()-1, Task.findAll([projectId: projectId]).size()
+
+    // deleteAll by ids list
+    Task.deleteAll([taskList[1].taskId, taskList[2].taskId])
+
+    assertEquals "Database should contain tested objects (3)", taskList.size()-3, Task.findAll([projectId: projectId]).size()
+
+    setUp() // get the objects into db again
+    assertEquals "Database should contain tested objects (4)", taskList.size(), Task.findAll([projectId: projectId]).size()
+
+    // deleteAll by query
+    Task.deleteAll(["name >": "Sim"]) // should match 2 projects
+    assertEquals "Database should contain tested objects (5)", taskList.size()-3, Task.findAll([projectId: projectId]).size()
+  }
+
+  /**
    * create 4 tasks to mess around with
    */
   void setUp() {
-    Task.delete([projectId: projectId])
+    Task.deleteAll([projectId: projectId])
     taskList = []
     taskList << new Task(name: "Simple Task 1", estimatedHours: 10, projectId: projectId)   // 0
     taskList << new Task(name: "Simple Task 2", estimatedHours: 100, projectId: projectId)  // 1
@@ -69,10 +93,8 @@ class StaticMethodsTests extends GroovyTestCase {
    * @return
    */
   void tearDown() {
-    assertTrue "at least 4 tasks should be in the db", Task.count() >= 4
+    Task.deleteAll([projectId: projectId])
 
-    Task.delete([projectId: projectId])
-
-    assertEquals "all tasks should been removed", Task.count(), 0
+    assertEquals "all tasks should been removed", Task.findAll([projectId: projectId]).size(), 0
   }
 }

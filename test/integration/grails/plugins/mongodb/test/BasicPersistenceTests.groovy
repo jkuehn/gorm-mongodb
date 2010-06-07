@@ -115,6 +115,6 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertEquals "referenced contact id should be correct", p2.manager.id, c.id
 
     c.delete()
-//    p.delete()
+    p.delete()
   }
 }
