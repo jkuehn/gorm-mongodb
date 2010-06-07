@@ -17,5 +17,210 @@
   <dependencies>
     <plugin name='core' version='1.3 &gt; *' />
   </dependencies>
-  <behavior />
+  <behavior>
+    <method name='save' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='getConstraints' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='&lt;init&gt;' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='setProperties' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='getProperties' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='hasErrors' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='getErrors' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='setErrors' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+      <argument type='org.springframework.validation.Errors' />
+    </method>
+    <method name='clearErrors' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='validate' artefact='MongoDomain' type='org.acme.Contact'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='getConstraints' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='&lt;init&gt;' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='setProperties' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='getProperties' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='hasErrors' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='getErrors' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='setErrors' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+      <argument type='org.springframework.validation.Errors' />
+    </method>
+    <method name='clearErrors' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='validate' artefact='MongoDomain' type='org.acme.Project'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='save' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='delete' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='getConstraints' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='&lt;init&gt;' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+      <argument type='java.util.Map' />
+    </method>
+    <method name='setProperties' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='getProperties' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='hasErrors' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='getErrors' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='setErrors' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+      <argument type='org.springframework.validation.Errors' />
+    </method>
+    <method name='clearErrors' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <method name='validate' artefact='MongoDomain' type='org.acme.Task'>
+      <description />
+    </method>
+    <property name='datastore' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Contact' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='datastore' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Project' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='datastore' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='constraints' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='properties' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+    <property name='errors' type='org.acme.Task' artefact='MongoDomain'>
+      <description />
+    </property>
+  </behavior>
 </plugin>
