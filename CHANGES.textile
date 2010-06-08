@@ -1,5 +1,8 @@
 h2. Change Log
 
+h3. v0.1.2 - 2010-06-08
+* added a mongo bean to access the preconfigured driver and mapper
+
 h3. v0.1.1 - 2010-06-07
 * renamed static delete method to deleteAll in order to avoid "conflicts":http://jira.codehaus.org/browse/GROOVY-4239
 * plugin published to the grails plugin repository
