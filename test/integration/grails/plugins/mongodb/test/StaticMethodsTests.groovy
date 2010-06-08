@@ -35,15 +35,6 @@ class StaticMethodsTests extends GroovyTestCase {
     assertEquals "find should find the searched task", Task.find(["name >": "S"], [sort: "-estimatedHours"])?.taskId, taskList[1].taskId
   }
 
-  void testDatastore() {
-    Datastore ds = Task.getDatastore()
-
-    def t = ds.get(Task.class, taskList[0].taskId)
-    println t.toString()
-
-    assertEquals "datastore returned the correct task object", t.taskId, taskList[0].taskId
-  }
-
   /**
    * test deleteOne and deleteAll
    */

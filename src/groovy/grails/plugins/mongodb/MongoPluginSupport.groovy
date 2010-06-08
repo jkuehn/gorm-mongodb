@@ -3,7 +3,7 @@ package grails.plugins.mongodb
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.springframework.context.ApplicationContext
 import org.codehaus.groovy.grails.support.SoftThreadLocalMap
-import com.mongodb.Mongo
+
 import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
 import org.codehaus.groovy.grails.plugins.DomainClassPluginSupport
 import org.springframework.beans.BeanUtils
@@ -11,8 +11,7 @@ import org.codehaus.groovy.grails.web.binding.DataBindingUtils
 import org.codehaus.groovy.grails.web.binding.DataBindingLazyMetaPropertyMap
 import org.springframework.validation.BeanPropertyBindingResult
 import org.springframework.validation.Errors
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import com.google.code.morphia.Morphia
+
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.query.Query
 import java.beans.Introspector
@@ -54,13 +53,13 @@ class MongoPluginSupport {
     addStaticMethods(application, domainClass, ctx)
     addInstanceMethods(application, domainClass, ctx)
     addDynamicFinderSupport(application, domainClass, ctx)
-
     addValidationMethods(application, domainClass, ctx)
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
     def metaClass = dc.metaClass
     def domainClass = dc
+    final Datastore datastore = getMongoBean(application).datastore
 
     metaClass.save = {->
       save(null)
@@ -72,7 +71,7 @@ class MongoPluginSupport {
         // only process if beforeSave didnt return false
         if (!triggerEvent(EVENT_BEFORE_SAVE, delegate)) {
           autoTimeStamp(application, delegate)
-          if (getDatastoreForOperation(application).save(delegate)) {
+          if (datastore.save(delegate)) {
             triggerEvent(EVENT_AFTER_SAVE, delegate) // call only on successful save
           }
         }
@@ -85,7 +84,7 @@ class MongoPluginSupport {
 
     metaClass.delete = { ->
       triggerEvent(EVENT_BEFORE_DELETE, delegate)
-      getDatastoreForOperation(application).delete(delegate)
+      datastore.delete(delegate)
       triggerEvent(EVENT_AFTER_DELETE, delegate)
     }
 
@@ -97,10 +96,11 @@ class MongoPluginSupport {
   private static addStaticMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
     def final metaClass = dc.metaClass
     def final domainClass = dc
+    final Datastore datastore = getMongoBean(application).datastore
 
     metaClass.static.get = { Serializable docId ->
       try {
-        return getDatastoreForOperation(application).get(domainClass.clazz, docId.toString())
+        return datastore.get(domainClass.clazz, docId.toString())
       } catch (Exception e) {
         // fall through to return null
       }
@@ -114,27 +114,26 @@ class MongoPluginSupport {
 
     // cannot use Serializeable here, because Map implements it too
     metaClass.static.deleteOne = { String docId ->
-      getDatastoreForOperation(application).delete(domainClass.clazz, docId.toString())
+      datastore.delete(domainClass.clazz, docId.toString())
     }
 
     // delete all documents with given ids
     metaClass.static.deleteAll = { List docIds ->
-      getDatastoreForOperation(application).delete(domainClass.clazz, docIds)
+      datastore.delete(domainClass.clazz, docIds)
     }
 
     metaClass.static.deleteAll = { Map filter ->
-      Datastore ds = getDatastoreForOperation(application)
-      Query query = ds.find(domainClass.clazz)
+      Query query = datastore.find(domainClass.clazz)
 
       filter.each { k, v ->
         query.filter(k.toString(), v)
       }
 
-      ds.delete(query)
+      datastore.delete(query)
     }
 
     metaClass.static.count = {
-      return (getDatastoreForOperation(application).getCount(domainClass.clazz) as Long)
+      return (datastore.getCount(domainClass.clazz) as Long)
     }
 
     /**
@@ -148,7 +147,7 @@ class MongoPluginSupport {
     }
 
     metaClass.static.findAll = { Map filter = [:], Map queryParams = [:] ->
-      Query query = getDatastoreForOperation(application).find(domainClass.clazz)
+      Query query = datastore.find(domainClass.clazz)
       configureQuery query, queryParams
 
       filter.each { k, v ->
@@ -160,10 +159,6 @@ class MongoPluginSupport {
 
     metaClass.static.list = { Map queryParams = [:] ->
       findAll([:], queryParams)
-    }
-
-    metaClass.static.getDatastore = {
-      getDatastoreForOperation(application)
     }
   }
 
@@ -374,44 +369,8 @@ class MongoPluginSupport {
     }
   }
 
-  private static Datastore getDatastoreForOperation(GrailsApplication application) {
-    Datastore morphiaDS = getDatastore(application)
-    if (!morphiaDS) throw new Exception("Morphia instance could not be set up. Plugin did not initialize correctly")
-    morphiaDS
-  }
-
-  public static Datastore getDatastore(GrailsApplication application, forceReload = false) {
-    def servletCtx = ServletContextHolder.getServletContext()
-    if (servletCtx == null) {
-      println "Grails has not finished loading, cannot register MongoDB Morphia Datastore"
-      return
-    }
-    Datastore morphiaDS = null
-    if (!forceReload) morphiaDS = (Datastore)servletCtx.getAttribute(MORPHIA_ATTRIBUTE)
-    if (morphiaDS) return morphiaDS
-
-    // no datastore initialized yet or reload is requested, do this now
-
-    // get configureation
-    def ds = application.config.mongodb
-    String host = ds?.host ?: "localhost"
-    Integer port = ds?.port ?: 27017
-    String database = ds?.database ?: application.metadata["app.name"]
-    String username = ds?.username ?: ""  // not used yet
-    String password = ds?.password ?: ""  // not used yet
-
-    // create mongo instance and datastore
-    Mongo db = new Mongo(host, port)
-    def morphia = new Morphia()
-
-    application.MongoDomainClasses.each { dc ->
-      println "adding domain " + dc.getClazz() + " to morphia"
-      morphia.map(dc.getClazz())
-    }
-
-    morphiaDS = morphia.createDatastore(db, database)
-    servletCtx.setAttribute(MORPHIA_ATTRIBUTE, morphiaDS)
-    return morphiaDS
+  private static MongoHolderBean getMongoBean(GrailsApplication application) {
+    (MongoHolderBean)application.mainContext.getBean("mongo")
   }
 
   /**

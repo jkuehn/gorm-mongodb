@@ -4,10 +4,11 @@ import org.springframework.context.ApplicationContext
 import grails.plugins.mongodb.MongoDomainClass
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean
 import org.codehaus.groovy.grails.validation.GrailsDomainClassValidator
+import grails.plugins.mongodb.MongoHolderBean
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.1.1"
+  def version = "0.1.2"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3 > *"
   // the other plugins this plugin depends on
@@ -40,6 +41,12 @@ class GormMongodbGrailsPlugin {
   ]
 
   def doWithSpring = { ApplicationContext ctx ->
+    // register the mongo bean, which will
+    mongo(MongoHolderBean) { bean ->
+      bean.autowire = 'constructor'
+//      application = ref("grailsApplication", true)
+    }
+
     // register mongo domains as beans
     application.MongoDomainClasses.each { MongoDomainClass dc ->
 
@@ -69,9 +76,14 @@ class GormMongodbGrailsPlugin {
   }
 
   def doWithDynamicMethods = { ApplicationContext ctx ->
+    def morphia = ctx.getBean('mongo').morphia
     application.MongoDomainClasses.each { MongoDomainClass domainClass ->
       // add dynamic finders, validation, querying methods etc
       MongoPluginSupport.enhanceDomainClass(domainClass, application, ctx)
+
+      // add domain class to mapper
+      println "adding domain " + domainClass.getClazz() + " to morphia"
+      morphia.map(domainClass.getClazz())
     }
   }
 
