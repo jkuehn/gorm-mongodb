@@ -31,6 +31,12 @@ class LowLevelTests extends GroovyTestCase {
     // remove it
     mongo.db.getCollection(testedCollection).drop()
     assertFalse "tested collection should have been removed", mongo.db.collectionNames.contains(testedCollection)
+
+    // test returned instance
+    assertTrue "mongo.mongo should return a Mongo instance", (mongo.mongo instanceof com.mongodb.Mongo)
+    assertTrue "mongo.db should return a DB instance", (mongo.db instanceof com.mongodb.DB)
+    assertTrue "mongo.morphia should return a Morphia instance", (mongo.morphia instanceof com.google.code.morphia.Morphia)
+    assertTrue "mongo.datastore should return a Datastore instance", (mongo.datastore instanceof com.google.code.morphia.Datastore)
   }
 
 }
