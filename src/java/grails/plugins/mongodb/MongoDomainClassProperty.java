@@ -198,7 +198,7 @@ public class MongoDomainClassProperty implements GrailsDomainClassProperty {
   }
 
   public String getNaturalName() {
-    return GrailsNameUtils.getNaturalName(domainClass.getShortName());
+    return GrailsNameUtils.getNaturalName(name);
   }
 
   public void setReferencedDomainClass(GrailsDomainClass referencedGrailsDomainClass) {
