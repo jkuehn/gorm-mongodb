@@ -8,7 +8,7 @@ import grails.plugins.mongodb.MongoHolderBean
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.1.2"
+  def version = "0.2"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3 > *"
   // the other plugins this plugin depends on
@@ -32,7 +32,7 @@ class GormMongodbGrailsPlugin {
   def description = '''GORM Layer for the superfast, highly scalable, schemafree, document oriented database MongoDB'''
 
   // URL to the plugin's documentation
-  def documentation = "http://grails.org/plugin/gorm-mongodb"
+  def documentation = "http://wiki.github.com/jkuehn/gorm-mongodb/"
 
   def artefacts = [grails.plugins.mongodb.MongoDomainClassArtefactHandler]
 

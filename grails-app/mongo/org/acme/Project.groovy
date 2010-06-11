@@ -5,11 +5,12 @@ import com.google.code.morphia.annotations.Entity
 import com.google.code.morphia.annotations.Transient
 import com.google.code.morphia.annotations.Embedded
 import com.google.code.morphia.annotations.Id
+import grails.plugins.mongodb.MongoEntity
 
-@Entity
+@MongoEntity
 class Project {
 
-  @Id String id
+  String id
 
   String name
   Date startDate
@@ -18,14 +19,13 @@ class Project {
   Date dateCreated
   Date lastUpdated
 
-  @Embedded
+  @Reference
   Task mainTask
 
   @Reference
   Contact manager
 
-  @Transient
-  String pass = "pass"
+  transient String pass = "pass"
 
   static constraints = {
     id nullable: true

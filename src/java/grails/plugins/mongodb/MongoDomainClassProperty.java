@@ -48,8 +48,8 @@ public class MongoDomainClassProperty implements GrailsDomainClassProperty {
 
   private boolean checkPersistence(PropertyDescriptor descriptor) {
     // check if type is supported
-    if (!MappedClass.isSupportedType(field.getType())
-        && field.getAnnotation(Embedded.class) == null
+    // !MappedClass.isSupportedType(field.getType()) &&
+    if (field.getAnnotation(Embedded.class) == null
         && field.getAnnotation(Reference.class) == null
         ) {
       return false;

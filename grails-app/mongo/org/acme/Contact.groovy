@@ -1,10 +1,11 @@
 package org.acme
 
+import grails.plugins.mongodb.MongoEntity
 import com.google.code.morphia.annotations.Entity
-import com.google.code.morphia.utils.AbstractMongoEntity
 
 @Entity
-class Contact extends AbstractMongoEntity {
+@MongoEntity
+class Contact {
 
   String name
   String company

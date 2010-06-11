@@ -2,6 +2,9 @@ package grails.plugins.mongodb.test
 
 import com.mongodb.BasicDBObjectBuilder
 import com.mongodb.BasicDBObject
+import com.google.code.morphia.Datastore
+import org.acme.Project
+import org.acme.Task
 
 /**
  * tests the mongo bean and access to the wired mongodb driver
@@ -37,6 +40,22 @@ class LowLevelTests extends GroovyTestCase {
     assertTrue "mongo.db should return a DB instance", (mongo.db instanceof com.mongodb.DB)
     assertTrue "mongo.morphia should return a Morphia instance", (mongo.morphia instanceof com.google.code.morphia.Morphia)
     assertTrue "mongo.datastore should return a Datastore instance", (mongo.datastore instanceof com.google.code.morphia.Datastore)
+  }
+
+  void testSaveAndDelete() {
+    Datastore ds = mongo.datastore
+
+    def p = new Project(name: "Testprojekt")
+    def t = new Task(name: "Testtask")
+
+    ds.save(p)
+    ds.save(t)
+
+    println p
+    println t
+
+    assertNotNull "datastore should return project ", ds.get(Project.class, p.id)
+    assertNotNull "datastore should return task ", ds.get(Task.class, t.taskId)
   }
 
 }

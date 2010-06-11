@@ -54,6 +54,9 @@ class MongoPluginSupport {
     addInstanceMethods(application, domainClass, ctx)
     addDynamicFinderSupport(application, domainClass, ctx)
     addValidationMethods(application, domainClass, ctx)
+
+//    application.addArtefact("Domain", new MongoDomainClass(domainClass.clazz))
+    application.addArtefact("Domain", domainClass)
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -100,9 +103,11 @@ class MongoPluginSupport {
 
     metaClass.static.get = { Serializable docId ->
       try {
+        println "getting domain " + domainClass.clazz.name + " id " + docId
         return datastore.get(domainClass.clazz, docId.toString())
       } catch (Exception e) {
         // fall through to return null
+        e.printStackTrace()
       }
       return null
     }
