@@ -31,6 +31,7 @@ public class MongoHolderBean {
    * @throws UnknownHostException
    */
   public MongoHolderBean(GrailsApplication application) throws UnknownHostException {
+    // @todo try catch and degrade gracefully if no configuration is given
     Properties flatConfig = application.getConfig().toProperties();
     String database = flatConfig.get("mongodb.database").toString();
     String host = flatConfig.get("mongodb.host").toString();
