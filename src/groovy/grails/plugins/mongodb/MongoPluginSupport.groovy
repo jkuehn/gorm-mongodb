@@ -270,7 +270,7 @@ class MongoPluginSupport {
       domainClass.constrainedProperties
     }
 
-    metaClass.constructor = {Map map ->
+    metaClass.constructor = { Map map = [:] ->
       def instance = ctx.containsBean(domainClass.fullName) ? ctx.getBean(domainClass.fullName) : BeanUtils.instantiateClass(domainClass.clazz)
       DataBindingUtils.bindObjectToDomainInstance(domainClass, instance, map)
       DataBindingUtils.assignBidirectionalAssociations(instance, map, domainClass)
