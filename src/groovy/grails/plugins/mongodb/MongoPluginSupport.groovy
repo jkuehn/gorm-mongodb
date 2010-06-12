@@ -70,16 +70,14 @@ class MongoPluginSupport {
 
     metaClass.save = {Map args = [:] ->
       // todo: add support for failOnError:true in grails 1.2 (GRAILS-4343)
-      if (validate()) {
-        // only process if beforeSave didnt return false
-        if (!triggerEvent(EVENT_BEFORE_SAVE, delegate)) {
-          autoTimeStamp(application, delegate)
-          if (datastore.save(delegate)) {
-            triggerEvent(EVENT_AFTER_SAVE, delegate) // call only on successful save
-          }
-        }
 
-        return delegate
+      // only process if beforeSave didnt return false
+      if (!triggerEvent(EVENT_BEFORE_SAVE, delegate) && validate()) {
+        autoTimeStamp(application, delegate)
+        if (datastore.save(delegate)) {
+          triggerEvent(EVENT_AFTER_SAVE, delegate) // call only on successful save
+          return delegate
+        }
       }
 
       return null
@@ -277,7 +275,7 @@ class MongoPluginSupport {
       domainClass.constrainedProperties
     }
 
-    metaClass.constructor = {Map map ->
+    metaClass.constructor = { Map map = [:] ->
       def instance = ctx.containsBean(domainClass.fullName) ? ctx.getBean(domainClass.fullName) : BeanUtils.instantiateClass(domainClass.clazz)
       DataBindingUtils.bindObjectToDomainInstance(domainClass, instance, map)
       DataBindingUtils.assignBidirectionalAssociations(instance, map, domainClass)
