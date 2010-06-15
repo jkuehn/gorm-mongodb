@@ -1,0 +1,39 @@
+You have two options for getting objects out of your MongoDB: by using queries/filters or the dynamic finders. 
+
+h2. Filters
+
+The mongo domain classes provide @find@ and @findAll@ methods that accept a map with filtering constraints and optional query options. Every filter consists of a fieldname, operator and a value. If no operator is given, = is assumed.
+
+*Examples*
+
+{code}
+Exampledomain.findAll(["yearsOfOperation >": 5], [max:20, sort:'yearsOfOperation'])
+Exampledomain.findAll(["rooms.maxBeds >=": 2, "rooms.occupied": false])
+Exampledomain.findAll(["rooms.bathrooms exists": 1])
+Exampledomain.findAll(["stars in": [3,4]])
+Exampledomain.findAll(["age >=": age])
+Exampledomain.findAll(["age =": age])
+Exampledomain.findAll(["age": age]) // (if no operator, = is assumed)
+Exampledomain.findAll(["age !=": age])
+Exampledomain.findAll(["age in": ageList])
+Exampledomain.findAll(["customers.loyaltyYears in", yearsList])
+{code}
+
+Valid operators are "=", "==","!=", "<>", ">", "<", ">=", "<=", "in", "nin", "all", "size", "exists". Under the covers the plugin uses Morhias "Datastore":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/Datastore.java and its "Query":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/Query.java implementation
+         
+h3. Query options
+
+You can pass query options to find / findAll for skipping, limiting and sorting your resultset. The query options are represented by a map like @[max: 30, offset: 10, sort:"lastname,firstname"]@
+
+*max*
+Limits the result set to given number of entries
+
+*offset*
+Skips the given number of results
+
+*sort*
+Sorts the results. You can provide multiple fieldnames delimited by comma. If you want the results to be sorted in descending order, you have to prepend the fieldname with a minus: @[sort:"-lastname,-firstname,age"]@
+
+h2. Dynamic finders
+
+The dynamic finders provided by gorm-mongodb work just as the "default gorm finders":http://grails.org/doc/latest/ref/Domain%20Classes/findAllBy.html (example: @Car.findAllByNameAndPsGreaterThan("Polo", 50, [sort: "-ps"])@). 

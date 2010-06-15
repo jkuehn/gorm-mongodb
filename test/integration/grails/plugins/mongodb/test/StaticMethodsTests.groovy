@@ -47,8 +47,13 @@ class StaticMethodsTests extends GroovyTestCase {
 
     assertEquals "Database should contain tested objects (2)", taskList.size()-1, Task.findAll([projectId: projectId]).size()
 
+    println "before delete: " + Task.findAll([projectId: projectId]).toList()
+
     // deleteAll by ids list
-    Task.deleteAll([taskList[1].taskId, taskList[2].taskId])
+    def toDel = [taskList[1].taskId, taskList[2].taskId]
+    Task.deleteAll(toDel)
+
+    println "after delete: " + Task.findAll([projectId: projectId]).toList()
 
     assertEquals "Database should contain tested objects (3)", taskList.size()-3, Task.findAll([projectId: projectId]).size()
 

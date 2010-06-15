@@ -7,6 +7,8 @@ import com.google.code.morphia.annotations.Entity
 @MongoEntity
 class Contact {
 
+  transient mongo // spring bean, dependency injection
+
   String name
   String company
 

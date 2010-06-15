@@ -1,3 +1,35 @@
-The gorm-mongodb plugin implements the GORM functionality for the "MongoDB":http://www.mongodb.org/ database.
+"MongoDB":http://www.mongodb.org/ is a scalable, high-performance, schemafree and "production ready":http://www.mongodb.org/display/DOCS/Production+Deployments NoSQL database. This plugin implements the GORM functionality for MongoDB. Under the hood it uses "Morphia":http://code.google.com/p/morphia/ as a lightweight type-safe library for mapping domain classes to/from MongoDB.
 
-See the "project wiki":http://wiki.github.com/jkuehn/gorm-mongodb/ for further information
+h3. Features
+
+Features implemented to far:
+* Instance methods: save, delete
+* Class methods: get, find, findAll, delete, deleteAll, exists, count, list
+* Dynamic finders like findAllByNameAndDegreeBetween(...)
+* Constraints and validation support
+* Automatic timestamping of dateCreated and lastUpdated
+* Gorm events beforeSave, afterSave, beforeDelete, afterDelete (others, like afterLoad are supported by "Morphia":http://code.google.com/p/morphia/wiki/LifecycleMethods )
+* Works with MongoDB 1.4 and 1.5
+* AST Transformations that inject all necessary fields and annotations for morphia
+* Lazy references supported
+* generate-all support
+
+See the "quickstart":2.%20Quickstart.html page for a usage example. You can also download a "petclinic sample application port":http://github.com/downloads/jkuehn/gorm-mongodb/petclinic-mongodb.zip which uses gorm-mongodb to see the use of embedded and referenced domain classes. 
+
+h3. Questions and Bug Reports
+* "Mailing list":http://www.grails.org/Mailing+lists
+* "Bug tracker":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14453
+
+h3. Other links
+* "Grails Framework":http://www.grails.org/
+* "Grails Documentation":http://grails.org/doc/latest/index.html
+* "MongoDB Java Driver":http://github.com/mongodb/mongo-java-driver
+* "MongoDB Java Language Center":http://www.mongodb.org/display/DOCS/Java+Language+Center
+* "MongoDB Grails Plugin":http://github.com/mpriatel/mongodb-grails that exposes a mongo bean for interaction with MongoDB
+ 
+h3. Change Log
+
+see "here":http://github.com/jkuehn/gorm-mongodb/blob/master/CHANGES.textile
+
+h3. Author:
+* Juri Kuehn (juri.kuehn [at] gmail.com)

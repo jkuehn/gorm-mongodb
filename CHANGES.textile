@@ -1,5 +1,12 @@
 h2. Change Log
 
+h3. v0.2 - 2010-06-15
+* added ast transformations to mongo entities. id, version and needed annotations are injected automatically
+* mongo entities now have to be annotated with grails.plugins.mongodb.MongoEntity
+* updated morphia and mongodb-java-driver libraries. morphia now supports lazy referencing via @Reference(lazy=true)
+* MongoDB 1.5 support
+* generate-all now works with MongoEntity classes
+
 h3. v0.1.2 - 2010-06-08
 * added a mongo bean to access the preconfigured driver and mapper
 

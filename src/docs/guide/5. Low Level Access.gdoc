@@ -1,0 +1,23 @@
+If you want to, you can also access "Morphia's":http://code.google.com/p/morphia/ Datastore or the underlying "MongoDB Java Driver":http://github.com/mongodb/mongo-java-driver directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.
+
+The bean @mongo@ provides access to the configured java driver and morphia instance (since 0.1.2):
+
+*usage:*
+
+{code}
+class MongoController {
+    def mongo
+
+    def lowlevel = {
+        mongo.mongo     // com.mongodb.Mongo - already connected
+        mongo.db        // com.mongodb.DB - configured db
+        mongo.morphia   // com.google.code.morphia.Morphia - used for mapping
+        mongo.datastore // com.google.code.morphia.Datastore - ORM layer
+        
+        // com.mongodb.DBCollection that holds entities for given class
+        mongo.getCollection(Person.class)
+    }
+}
+{code}
+
+todo: implement gridfs access

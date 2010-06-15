@@ -1,0 +1,69 @@
+Here you will find a step by step guide to set up a test project that uses the gorm-mongodb plugin to manipulate domain classes in Grails
+
+h2. Creating a test project that uses gorm-mongodb
+
+We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.
+
+Let's start off, create a new Grails project and install the gorm-mongodb plugin:
+
+{code}
+> grails create-app MongoGrailsQuickstart
+> cd MongoGrailsQuickstart
+> grails install-plugin gorm-mongodb
+{code}
+
+The plugin provides a create-mongodb-class command that creates a stub for the domain class and corresponding test cases. Let's call it:
+
+{code}
+> grails create-mongodb-class Car
+{code}
+
+MongoDB domain classes are put into the grails-app/mongo directory. Now we need to edit some files: Config.groovy for the database connection and our new Car domain, where we want to put some fields:
+
+*grails-app/conf/Config.groovy*
+
+{code}
+mongodb {
+  host = '192.168.1.36'
+  port = 27017
+  database = 'test'
+}
+{code}
+
+Now the fields and constraints 
+
+*grails-app/cong/mongo/mongograilsquickstart/Car.groovy*
+
+{code}
+package mongograilsquickstart
+
+import grails.plugins.mongodb.MongoEntity
+
+@MongoEntity
+class Car {
+    String name
+    String brand
+
+    int ps // horsepower
+    Date buildDate
+
+    Date dateCreated // autoset by plugin
+    Date lastUpdated // autoset by plugin
+
+    int version // not evaluated by MongoDb, needed for templates from generate-all
+
+    static constraints = {
+        brand nullable:true
+        ps min: 30, max: 1001
+    }
+}
+{code}
+
+Now generate the controllers and views and fire up the app!
+
+{code}
+> grails generate-all mongograilsquickstart.Car
+> grails run-app
+{code}
+
+Now point your browser to http://localhost:8080/MongoGrailsQuickstart *Done!*

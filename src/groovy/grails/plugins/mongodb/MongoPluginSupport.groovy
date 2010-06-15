@@ -91,6 +91,11 @@ class MongoPluginSupport {
     metaClass.delete = { Map dontcare -> // in case flush:true is passed in
       delete()
     }
+
+    // allow autowiring. @todo: make this method deprecated and move to factory http://code.google.com/p/morphia/issues/detail?id=65
+    metaClass.autowire = {
+      ctx.beanFactory.autowireBeanProperties(delegate, ctx.beanFactory.AUTOWIRE_BY_NAME, false)
+    }
   }
 
   private static addStaticMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -100,8 +105,10 @@ class MongoPluginSupport {
 
     metaClass.static.get = { Serializable docId ->
       try {
-        println "getting domain " + domainClass.clazz.name + " id " + docId
-        return datastore.get(domainClass.clazz, docId.toString())
+        def obj = datastore.get(domainClass.clazz, docId.toString())
+        // dependency injection
+        if (obj) ctx.beanFactory.autowireBeanProperties(obj, ctx.beanFactory.AUTOWIRE_BY_NAME, false)
+        return obj
       } catch (Exception e) {
         // fall through to return null
         e.printStackTrace()
@@ -121,7 +128,6 @@ class MongoPluginSupport {
 
     // delete all documents with given ids
     metaClass.static.deleteAll = { List docIds ->
-      println docIds
       datastore.delete(domainClass.clazz, docIds)
     }
 
