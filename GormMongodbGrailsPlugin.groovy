@@ -14,7 +14,8 @@ class GormMongodbGrailsPlugin {
   // the other plugins this plugin depends on
   def dependsOn = [core: '1.3 > *']
 
-  def loadAfter = ['core', 'domainClass']
+  // load after hibernate to avoid conflicts with domain artefacts
+  def loadAfter = ['core', 'domainClass', 'hibernate'] 
 
   // resources that are excluded from plugin packaging
   def pluginExcludes = [

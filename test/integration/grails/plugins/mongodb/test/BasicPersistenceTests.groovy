@@ -89,7 +89,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertNotNull "should have saved a project", p
     assertEquals "should have saved project with id = '${id}'", p.id, id
 
-//    p.delete()
+    p.delete()
   }
 
   void testComplexObject() {
@@ -105,6 +105,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     def taskname = "TJ Task"
     def t = new Task(name: taskname, description: "Here we are")
+    t.save()
 
     def p = new Project(id: projectId, name: "TJ Project", manager: c, mainTask: t)
     p.save()
@@ -120,5 +121,24 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     c.delete()
     p.delete()
+  }
+
+  void testRefQuery() {
+    def c = new Contact()
+    c.name = "Tom Jones"
+    c.company = "Acme, Corp."
+    c.save()
+    assertNotNull "should have retrieved id of new contact", c.id
+
+    def p = new Project(name:"Testproject---123", manager: c)
+    p.save()
+    assertNotNull "should have retrieved id of new project", p.id
+
+    // fetch by contact
+    def p2 = Project.find([manager: c])
+    assertNotNull "should find project by contact", p2
+
+    p.delete()
+    c.delete()
   }
 }

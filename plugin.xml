@@ -1,9 +1,9 @@
-<plugin name='gorm-mongodb' version='0.1.2' grailsVersion='1.3 &gt; *'>
+<plugin name='gorm-mongodb' version='0.2' grailsVersion='1.3 &gt; *'>
   <author>Juri Kuehn</author>
   <authorEmail>juri.kuehn at gmail.com</authorEmail>
   <title>Grails MongoDB plugin</title>
   <description>GORM Layer for the superfast, highly scalable, schemafree, document oriented database MongoDB</description>
-  <documentation>http://grails.org/plugin/gorm-mongodb</documentation>
+  <documentation>http://wiki.github.com/jkuehn/gorm-mongodb/</documentation>
   <resources>
     <resource>BuildConfig</resource>
     <resource>Config</resource>

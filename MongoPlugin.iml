@@ -44,6 +44,7 @@
         <JAVADOC />
         <SOURCES>
           <root url="file://$SPRING_DIR$/mongodb/morphia/morphia/src/main/java" />
+          <root url="file://$SPRING_DIR$/mongodb/mongo-java-driver_head/src/main" />
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>

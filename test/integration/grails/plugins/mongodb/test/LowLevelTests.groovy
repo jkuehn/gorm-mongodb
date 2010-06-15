@@ -5,6 +5,7 @@ import com.mongodb.BasicDBObject
 import com.google.code.morphia.Datastore
 import org.acme.Project
 import org.acme.Task
+import com.google.code.morphia.query.Query
 
 /**
  * tests the mongo bean and access to the wired mongodb driver
@@ -56,6 +57,12 @@ class LowLevelTests extends GroovyTestCase {
 
     assertNotNull "datastore should return project ", ds.get(Project.class, p.id)
     assertNotNull "datastore should return task ", ds.get(Task.class, t.taskId)
+
+    ds.delete(p)
+    ds.delete(t)
+
+    assertNull "datastore should have deleted project ", ds.get(Project.class, p.id)
+    assertNull "datastore should have deleted task ", ds.get(Task.class, t.taskId)
   }
 
 }

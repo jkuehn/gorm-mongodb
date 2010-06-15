@@ -55,8 +55,7 @@ class MongoPluginSupport {
     addDynamicFinderSupport(application, domainClass, ctx)
     addValidationMethods(application, domainClass, ctx)
 
-//    application.addArtefact("Domain", new MongoDomainClass(domainClass.clazz))
-    application.addArtefact("Domain", domainClass)
+    application.addArtefact("Domain", domainClass) // for compatibility to generate-all
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -122,10 +121,11 @@ class MongoPluginSupport {
 
     // delete all documents with given ids
     metaClass.static.deleteAll = { List docIds ->
+      println docIds
       datastore.delete(domainClass.clazz, docIds)
     }
 
-    metaClass.static.deleteAll = { Map filter ->
+    metaClass.static.deleteAll = { Map filter = [:] ->
       Query query = datastore.find(domainClass.clazz)
 
       filter.each { k, v ->
