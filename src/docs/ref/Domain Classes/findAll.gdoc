@@ -20,6 +20,7 @@ Book.findAll( Map query, Map queryParams )
 
 Parameters:
 
-* @query@ - A "filter for querying":http://wiki.github.com/jkuehn/gorm-mongodb/querying* @positionalParams@ - A List of parameters for a positional parametrized HQL query
+* @query@ - A "filter for querying":http://wiki.github.com/jkuehn/gorm-mongodb/querying
+* @positionalParams@ - A List of parameters for a positional parametrized HQL query
 * @queryParams@ - A Map containing parameters @max@, @offset@ and @sort@
 
