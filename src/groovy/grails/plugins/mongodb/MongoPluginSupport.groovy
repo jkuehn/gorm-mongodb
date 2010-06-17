@@ -53,9 +53,8 @@ class MongoPluginSupport {
     addStaticMethods(application, domainClass, ctx)
     addInstanceMethods(application, domainClass, ctx)
     addDynamicFinderSupport(application, domainClass, ctx)
-    addValidationMethods(application, domainClass, ctx)
-
-    application.addArtefact("Domain", domainClass) // for compatibility to generate-all
+    addInitMethods(application, domainClass, ctx)
+    // Validation methods in jection is done in domainClass Plugin
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -152,6 +151,7 @@ class MongoPluginSupport {
       queryParams['max'] = 1
 
       def res = findAll(filter, queryParams).toList()
+      if (res) ctx.beanFactory.autowireBeanProperties(res[0], ctx.beanFactory.AUTOWIRE_BY_NAME, false)
       return res?res[0]:null
     }
 
@@ -269,17 +269,9 @@ class MongoPluginSupport {
     }
   }
 
-  private static addValidationMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
+  private static addInitMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
     def metaClass = dc.metaClass
     def domainClass = dc
-
-    metaClass.static.getConstraints = {->
-      domainClass.constrainedProperties
-    }
-
-    metaClass.getConstraints = {->
-      domainClass.constrainedProperties
-    }
 
     metaClass.constructor = { Map map = [:] ->
       def instance = ctx.containsBean(domainClass.fullName) ? ctx.getBean(domainClass.fullName) : BeanUtils.instantiateClass(domainClass.clazz)
@@ -292,59 +284,6 @@ class MongoPluginSupport {
     }
     metaClass.getProperties = {->
       new DataBindingLazyMetaPropertyMap(delegate)
-    }
-
-    metaClass.hasErrors = {-> delegate.errors?.hasErrors() }
-
-    def get
-    def put
-    try {
-      def rch = application.classLoader.loadClass("org.springframework.web.context.request.RequestContextHolder")
-      get = {
-        def attributes = rch.getRequestAttributes()
-        if (attributes) {
-          return attributes.request.getAttribute(it)
-        } else {
-          return PROPERTY_INSTANCE_MAP.get().get(it)
-        }
-      }
-      put = {key, val ->
-        def attributes = rch.getRequestAttributes()
-        if (attributes) {
-          attributes.request.setAttribute(key, val)
-        } else {
-          PROPERTY_INSTANCE_MAP.get().put(key, val)
-        }
-      }
-    } catch (Throwable e) {
-      get = { PROPERTY_INSTANCE_MAP.get().get(it) }
-      put = {key, val -> PROPERTY_INSTANCE_MAP.get().put(key, val) }
-    }
-
-    metaClass.getErrors = {->
-      def errors
-      def key = "org.codehaus.groovy.grails.ERRORS_${delegate.class.name}_${System.identityHashCode(delegate)}"
-      errors = get(key)
-      if (!errors) {
-        errors = new BeanPropertyBindingResult(delegate, delegate.getClass().getName())
-        put key, errors
-      }
-      errors
-    }
-
-    metaClass.setErrors = {Errors errors ->
-      def key = "org.codehaus.groovy.grails.ERRORS_${delegate.class.name}_${System.identityHashCode(delegate)}"
-      put key, errors
-    }
-
-    metaClass.clearErrors = {->
-      delegate.setErrors(new BeanPropertyBindingResult(delegate, delegate.getClass().getName()))
-    }
-
-    if (!metaClass.respondsTo(dc.getReference(), "validate")) {
-      metaClass.validate = {->
-        DomainClassPluginSupport.validateInstance(delegate, ctx)
-      }
     }
   }
 

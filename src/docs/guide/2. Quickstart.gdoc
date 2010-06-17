@@ -24,7 +24,7 @@ MongoDB domain classes are put into the grails-app/mongo directory. Now we need 
 
 {code}
 mongodb {
-  host = '192.168.1.36'
+  host = '192.168.1.36' // adjust this according to your settings
   port = 27017
   database = 'test'
 }

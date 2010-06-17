@@ -9,7 +9,8 @@ public class BasicPersistenceTests extends GroovyTestCase {
   void testValidate() {
     def p = new Project(name: "")
 
-    assertNull "should not have validated", p.save()
+    assertFalse "should not have validated", p.validate()
+    assertNull "should not have saved", p.save()
     assertEquals "should have 1 error", p.errors.allErrors.size(), 1
     assertEquals "name should be in error", p.errors.allErrors[0].field, "name"
 

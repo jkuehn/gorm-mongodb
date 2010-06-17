@@ -24,10 +24,9 @@ class SpringTests extends GroovyTestCase {
 
     m2 = Contact.find([name:"joe"]) // uses internally findAll
     assertNotNull "contact should be fetched by find", m2
-    assertNull "mongo instance does not support autowiring to class fetched with find", m2.mongo
-    // todo: fix autowiring
-    m2.autowire()
     assertNotNull "mongo instance should be autowired to class fetched with find", m2.mongo
+
+    // @todo add findAll test as soon as autowiring works
 
     m.delete()
   }

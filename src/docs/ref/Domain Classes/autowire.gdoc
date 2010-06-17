@@ -1,0 +1,25 @@
+h1. autowire
+
+h2. Purpose
+
+Autowires domain class properties using Spring's dependency injection.
+
+{warning}
+This method will be deprecated in future, as soon as autowiring works for query methods that return collections (findAll, list, findBy*, etc)
+{warning}
+
+h2. Examples
+
+{code:java}
+@MongoEntity
+class Book {
+  transient mailService
+  
+  def afterSave = {
+    if (!mailService) autowire()
+    
+    // mailservice is now injected
+  }
+  
+}
+{code}

@@ -1,5 +1,11 @@
 h2. Change Log
 
+h3. v0.2.1 - 2010-06-17
+* cleaned up code, small fixes
+* Mongo domains are now registered as "Domain" artefacts only
+* Tested with hibernate: gorm-mongodb is not working with hibernate plugin
+* Updated petclinic sample application
+
 h3. v0.2 - 2010-06-15
 * added ast transformations to mongo entities. id, version and needed annotations are injected automatically
 * mongo entities now have to be annotated with grails.plugins.mongodb.MongoEntity

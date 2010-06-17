@@ -1,21 +1,19 @@
-import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 import grails.plugins.mongodb.MongoPluginSupport
 import org.springframework.context.ApplicationContext
 import grails.plugins.mongodb.MongoDomainClass
-import org.springframework.beans.factory.config.MethodInvokingFactoryBean
-import org.codehaus.groovy.grails.validation.GrailsDomainClassValidator
 import grails.plugins.mongodb.MongoHolderBean
+import org.codehaus.groovy.grails.commons.GrailsDomainClass
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.2"
+  def version = "0.2.1"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3 > *"
   // the other plugins this plugin depends on
   def dependsOn = [core: '1.3 > *']
 
   // load after hibernate to avoid conflicts with domain artefacts
-  def loadAfter = ['core', 'domainClass', 'hibernate'] 
+  def loadAfter = ['core', 'controllers', 'domainClass', 'hibernate']
 
   // resources that are excluded from plugin packaging
   def pluginExcludes = [
@@ -42,43 +40,19 @@ class GormMongodbGrailsPlugin {
   ]
 
   def doWithSpring = { ApplicationContext ctx ->
-    // register the mongo bean, which will
+    // register the mongo bean, which will provide access to configured mongo and morphia instances
     mongo(MongoHolderBean) { bean ->
       bean.autowire = 'constructor'
-//      application = ref("grailsApplication", true)
     }
 
-    // register mongo domains as beans
-    application.MongoDomainClasses.each { MongoDomainClass dc ->
-
-      // Note the use of Groovy's ability to use dynamic strings in method names!
-      "${dc.fullName}"(dc.getClazz()) {bean ->
-        bean.singleton = false
-        bean.autowire = "byName"
-      }
-
-      "${dc.fullName}DomainClass"(MethodInvokingFactoryBean) {
-        targetObject = ref("grailsApplication", true)
-        targetMethod = "getArtefact"
-        arguments = [MongoDomainClassArtefactHandler.TYPE, dc.fullName]
-      }
-
-      "${dc.fullName}PersistentClass"(MethodInvokingFactoryBean) {
-        targetObject = ref("${dc.fullName}DomainClass")
-        targetMethod = "getClazz"
-      }
-
-      "${dc.fullName}Validator"(GrailsDomainClassValidator) {
-        messageSource = ref("messageSource")
-        domainClass = ref("${dc.fullName}DomainClass")
-        grailsApplication = ref("grailsApplication", true)
-      }
-    }
+    // mongo domain classes are registered as beans by the domainClass plugin
   }
 
   def doWithDynamicMethods = { ApplicationContext ctx ->
     def morphia = ctx.getBean('mongo').morphia
-    application.MongoDomainClasses.each { MongoDomainClass domainClass ->
+    application.domainClasses.each { GrailsDomainClass domainClass ->
+      if (!(domainClass instanceof MongoDomainClass)) return // process mongo domains only
+
       // add dynamic finders, validation, querying methods etc
       MongoPluginSupport.enhanceDomainClass(domainClass, application, ctx)
 
@@ -95,7 +69,7 @@ class GormMongodbGrailsPlugin {
     if (grails.plugins.mongodb.MongoDomainClassArtefactHandler.isMongoDomainClass(event.source)) {
       // reload needed, reregistering spring beans, enhancing domainclass, evaluating constraints etc
       log.info("MongoDB domain ${event.source} changed, reloading.")
-      application.rebuild()
+      restartContainer()
     }
   }
 }
