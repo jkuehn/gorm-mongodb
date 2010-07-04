@@ -5,16 +5,15 @@ import org.springframework.context.ApplicationContext
 import org.codehaus.groovy.grails.support.SoftThreadLocalMap
 
 import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
-import org.codehaus.groovy.grails.plugins.DomainClassPluginSupport
 import org.springframework.beans.BeanUtils
 import org.codehaus.groovy.grails.web.binding.DataBindingUtils
 import org.codehaus.groovy.grails.web.binding.DataBindingLazyMetaPropertyMap
-import org.springframework.validation.BeanPropertyBindingResult
-import org.springframework.validation.Errors
 
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.query.Query
 import java.beans.Introspector
+import com.mongodb.BasicDBObject
+import com.google.code.morphia.mapping.Mapper
 
 /**
  * Author: Juri Kuehn
@@ -79,6 +78,22 @@ class MongoPluginSupport {
       }
 
       return null
+    }
+
+    /**
+     * call mongodb update function on this entity
+     */
+    metaClass.update = { Map data, boolean createIfMissing = false ->
+      def id = domainClass.identifier.name
+      if (!delegate."$id") {
+        throw new IllegalStateException("Cannot update unsaved instances")
+      }
+      data = data as BasicDBObject
+      def query = datastore.createQuery(delegate.class)
+      query.filter(Mapper.ID_KEY, delegate."$id");
+      println "query: " + query.toString()
+      println "data: " + data
+      datastore.update(query, data, createIfMissing, false)
     }
 
     metaClass.delete = { ->

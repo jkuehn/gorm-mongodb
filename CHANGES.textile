@@ -1,5 +1,11 @@
 h2. Change Log
 
+h3. v0.3 - 2010-07-04
+* added update method
+* updated morphia to latest snapshot (revision 600)
+* tested with Grails 1.3.2
+* added code-coverage plugin (code not fully covered yet)
+
 h3. v0.2.1 - 2010-06-17
 * cleaned up code, small fixes
 * Mongo domains are now registered as "Domain" artefacts only

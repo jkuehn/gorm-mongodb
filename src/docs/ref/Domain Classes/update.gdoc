@@ -1,0 +1,34 @@
+h1. update
+
+h2. Purpose
+
+Updates fields of instance allowing the use of MongoDB commands. See "MongoDB Updating":http://www.mongodb.org/display/DOCS/Updating page
+
+Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state. 
+
+h2. Examples
+
+{code:java}
+// increase field value of actualHours by 5
+task.update([
+  '$inc': ['actualHours': 5]
+])
+
+// update set
+document.update([
+  '$addToSet': [ 'tags': 'mongodb' ]
+])
+{code}
+
+h2. Description
+
+{code:java}
+Book.update( Map data )
+Book.update( Map data, boolean createIfAbsent )
+{code}
+
+Parameters:
+
+* @data@ - Fields and values that should be updated
+* @createIfAbsent@ - If set to true, flieds that are not present in entity will be created
+

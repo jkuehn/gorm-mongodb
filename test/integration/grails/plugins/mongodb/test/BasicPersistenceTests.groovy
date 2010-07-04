@@ -142,4 +142,22 @@ public class BasicPersistenceTests extends GroovyTestCase {
     p.delete()
     c.delete()
   }
+
+  void testUpdateMethod() {
+    def t = new Task(name: "Task that will be updated!", actualHours: 10)
+    t.save()
+
+    assertNotNull "task should get an id", t.taskId
+    assertEquals "task should have the right actualHours value", 10, t.actualHours
+
+    t.update([
+        '$inc': ['actualHours': 5]
+    ])
+
+    t = Task.get(t.taskId) // get from db
+    assertNotNull "task should should be reretrieved from db", t.taskId
+    assertEquals "task should have incremented actualHours value", 15, t.actualHours
+
+//    t.delete()
+  }
 }
