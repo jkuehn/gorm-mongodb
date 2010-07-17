@@ -3,7 +3,7 @@ package org.acme
 import grails.plugins.mongodb.MongoEntity
 import com.google.code.morphia.annotations.Entity
 
-@Entity
+@Entity(noClassnameStored = true)
 @MongoEntity
 class Contact {
 
@@ -14,6 +14,11 @@ class Contact {
 
   static constraints = {
     company nullable: true
+  }
+
+  static mapping = {
+    name index: 'name_idx'
+    company index: 'name_idx, company_idx'
   }
 
   public String toString ( ) {

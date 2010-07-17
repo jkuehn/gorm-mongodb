@@ -14,6 +14,9 @@ import com.google.code.morphia.query.Query
 import java.beans.Introspector
 import com.mongodb.BasicDBObject
 import com.google.code.morphia.mapping.Mapper
+import org.codehaus.groovy.grails.commons.GrailsDomainClass
+import com.google.code.morphia.mapping.MappingException
+import com.mongodb.DBCollection
 
 /**
  * Author: Juri Kuehn
@@ -54,6 +57,36 @@ class MongoPluginSupport {
     addDynamicFinderSupport(application, domainClass, ctx)
     addInitMethods(application, domainClass, ctx)
     // Validation methods in jection is done in domainClass Plugin
+
+    ensureIndices(application, domainClass, ctx)
+  }
+
+  static void ensureIndices(application, domainClass, ctx) {
+    def domain = domainClass.clazz
+    final DBCollection collection = getMongoBean(application).datastore.getCollection(domain)
+
+    try {
+      def f = domain.getDeclaredField(domainClass.ORM_MAPPING)
+      f.accessible = true
+      def mappingClosure = f.get()
+      def evaluator = new DomainClassMappingEvaluator()
+      mappingClosure.delegate = evaluator
+      mappingClosure()
+
+      def idx = evaluator.indices
+      for (i in idx) {
+        def iName = i.key
+        def fields = [:]
+        i.value.each {
+          fields[it] = 1
+        }
+        collection.ensureIndex(fields as BasicDBObject, iName)
+      }
+    } catch (NoSuchFieldException nsfe) {
+      // no problem
+    } catch (e) {
+      throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
+    }
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {

@@ -1,6 +1,7 @@
 h1. TODOs / ideas for next releases
 
-* add support for $addToSet http://www.mongodb.org/display/DOCS/Updating#Updating-%24addToSet or better: for easy command execution on Mongo Domains (add update method on instance)
+* implement getAll http://grails.org/doc/1.3.x/ref/Domain%20Classes/getAll.html
+* update method: handle references to instances properly
 * add support for addTo* methods from GORM
 * implement equals method for mongo domains which compares the ids
 >   def boolean equals(Object obj) {
