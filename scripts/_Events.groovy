@@ -45,9 +45,8 @@ eventGenerateForOneStart = tweakForGenerate
  */
 eventConfigureAppEnd = {
   if (doinGenerateAction) {
-    def mdc = classLoader.loadClass('grails.plugins.mongodb.MongoDomainClass')
     grailsApp.MongoDomainClasses.each {
-      grailsApp.addArtefact(DomainClassArtefactHandler.TYPE, mdc.newInstance(it.clazz))
+      grailsApp.addArtefact(DomainClassArtefactHandler.TYPE, it)
     }
   }
 }

@@ -92,19 +92,46 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MongoPluginSupport.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy">
+      <file leaf-file-name="_Events.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/scripts/_Events.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="330" column="0" selection-start="11267" selection-end="11267" vertical-scroll-proportion="0.0">
+            <state line="47" column="0" selection-start="1423" selection-end="1423" vertical-scroll-proportion="0.75714284">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_Events.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/scripts/_Events.groovy">
+      <file leaf-file-name="DefaultGrailsTemplateGenerator.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://G:/Programme/grails-1.3.4/src/java/org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.21643287">
+            <state line="189" column="28" selection-start="7110" selection-end="7110" vertical-scroll-proportion="-16.32">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MongoDomainClass.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClass.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="80" column="29" selection-start="3539" selection-end="3539" vertical-scroll-proportion="-21.44">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MongoDomainClassProperty.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassProperty.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="0" selection-start="1593" selection-end="1593" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Contact.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/someotherdir/org/acme/Contact.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="6" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -139,28 +166,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Project.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Project.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="6" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Task.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy">
           <provider selected="true" editor-type-id="text-editor">
             <state line="4" column="6" selection-start="71" selection-end="71" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Contact.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/someotherdir/org/acme/Contact.groovy">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="6" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -176,7 +185,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/java/grails/plugins/mongodb/annotations/MongoEntity.java" />
         <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/DomainClassMappingEvaluator.groovy" />
         <option value="$PROJECT_DIR$/grails-app/someotherdir/acme/Contact.groovy" />
         <option value="$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy" />
@@ -187,10 +195,11 @@
         <option value="$PROJECT_DIR$/grails-app/someotherdir/org/acme/Address.java" />
         <option value="$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/BasicPersistenceTests.groovy" />
         <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy" />
-        <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/ast/MongoDomainASTTransformation.groovy" />
         <option value="$PROJECT_DIR$/grails-app/mongo/org/acme/Project.groovy" />
         <option value="$PROJECT_DIR$/GormMongodbGrailsPlugin.groovy" />
         <option value="$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassArtefactHandler.java" />
+        <option value="$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/ast/MongoDomainASTTransformation.groovy" />
+        <option value="$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassProperty.java" />
         <option value="$PROJECT_DIR$/scripts/_Events.groovy" />
       </list>
     </option>
@@ -663,7 +672,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3239264" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3239264" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.398773" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Grails View" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -717,30 +726,46 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/UnicodeTests.groovy">
+    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassArtefactHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="6" selection-start="719" selection-end="719" vertical-scroll-proportion="0.94902915">
+        <state line="22" column="32" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://G:/Programme/grails-1.3.4/src/java/org/codehaus/groovy/grails/scaffolding/DomainClassPropertyComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="13" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.118351065">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassProperty.java">
+    <entry file="jar://G:/Programme/grails-1.3.4/lib/groovy-all-1.7.4.jar!/groovy/text/Template.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="17" selection-start="4534" selection-end="4534" vertical-scroll-proportion="-1.386755">
+        <state line="9" column="23" selection-start="232" selection-end="232" vertical-scroll-proportion="0.18681319">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/BasicPersistenceTests.groovy">
+    <entry file="jar://G:/Programme/grails-1.3.4/lib/groovy-all-1.7.4.jar!/groovy/text/TemplateEngine.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="16" selection-start="3402" selection-end="3402" vertical-scroll-proportion="0.3319239">
+        <state line="11" column="30" selection-start="467" selection-end="467" vertical-scroll-proportion="0.23842917">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/integration/grails/plugins/mongodb/test/SpringTests.groovy">
+    <entry file="jar://G:/Programme/grails-1.3.4/lib/groovy-all-1.7.4.jar!/groovy/text/SimpleTemplateEngine.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="19" selection-start="187" selection-end="187" vertical-scroll-proportion="-7.1923075">
+        <state line="10" column="9" selection-start="330" selection-end="330" vertical-scroll-proportion="0.21458626">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://G:/Programme/grails-1.3.4/src/java/org/codehaus/groovy/grails/scaffolding/DefaultGrailsTemplateGenerator.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="189" column="28" selection-start="7110" selection-end="7110" vertical-scroll-proportion="-16.32">
           <folding />
         </state>
       </provider>
@@ -752,13 +777,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="6" selection-start="71" selection-end="71" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/MongoPluginSupport.groovy">
       <provider selected="true" editor-type-id="text-editor">
         <state line="330" column="0" selection-start="11267" selection-end="11267" vertical-scroll-proportion="0.0">
@@ -766,37 +784,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/_Install.groovy">
+    <entry file="jar://$PROJECT_DIR$/lib/morphia-0.94.jar!/com/google/code/morphia/mapping/MappedClass.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="39" column="24" selection-start="2383" selection-end="2383" vertical-scroll-proportion="0.33239833">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/_Upgrade.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/mongo/org/acme/Task.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="4" column="6" selection-start="71" selection-end="71" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GormMongodbGrailsPlugin.groovy">
+    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClass.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="30" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
+        <state line="80" column="29" selection-start="3539" selection-end="3539" vertical-scroll-proportion="-21.44">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.6.0_16/src.zip!/java/beans/PropertyDescriptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="13" selection-start="438" selection-end="438" vertical-scroll-proportion="0.22606383">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/groovy/grails/plugins/mongodb/ast/MongoDomainASTTransformation.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="18" selection-start="953" selection-end="953" vertical-scroll-proportion="0.28099173">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/CreateMongodbClass.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="20" selection-start="985" selection-end="985" vertical-scroll-proportion="0.0">
+        <state line="136" column="93" selection-start="5332" selection-end="5332" vertical-scroll-proportion="0.678426">
           <folding />
         </state>
       </provider>
@@ -808,25 +826,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClass.java">
+    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassProperty.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="9" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.33264464">
+        <state line="47" column="0" selection-start="1593" selection-end="1593" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/java/grails/plugins/mongodb/MongoDomainClassArtefactHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="32" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/_Events.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.21643287">
+        <state line="47" column="0" selection-start="1423" selection-end="1423" vertical-scroll-proportion="0.75714284">
           <folding />
         </state>
       </provider>

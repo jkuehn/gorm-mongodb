@@ -11,10 +11,7 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty;
 import org.codehaus.groovy.grails.validation.ConstrainedProperty;
 
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -41,17 +38,21 @@ public class MongoDomainClassProperty implements GrailsDomainClassProperty {
     this.name = descriptor.getName();
     this.type = descriptor.getPropertyType();
     this.getter = descriptor.getReadMethod();
-    this.persistent = checkPersistence(descriptor);
+    this.persistent = checkPersistence(descriptor, field);
 
     checkIfTransient();
   }
 
-  private boolean checkPersistence(PropertyDescriptor descriptor) {
+  private boolean checkPersistence(PropertyDescriptor descriptor, Field field) {
+    // no transients
+    if ((field.getModifiers() & Modifier.TRANSIENT) > 0 || field.getAnnotation(Transient.class) != null) {
+      return false;
+    }
+
     // check if type is supported
-    // !MappedClass.isSupportedType(field.getType()) &&
-    if (field.getAnnotation(Embedded.class) == null
-        && field.getAnnotation(Reference.class) == null
-        ) {
+    if (!MappedClass.isSupportedType(field.getType())
+        && field.getAnnotation(Embedded.class) == null
+        && field.getAnnotation(Reference.class) == null) {
       return false;
     }
     // check if groovy/java property
