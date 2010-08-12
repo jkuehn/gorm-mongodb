@@ -1,5 +1,4 @@
 import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
-import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 includeTargets << grailsScript("_GrailsClean")
 
@@ -33,7 +32,7 @@ eventCompileStart = {
  */
 def tweakForGenerate = {
   // do it the dirty way
-  MongoDomainClassArtefactHandler.TYPE = DomainClassArtefactHandler.TYPE
+  grails.plugins.mongodb.MongoDomainClassArtefactHandler.TYPE = DomainClassArtefactHandler.TYPE
 
   // registering artefacts doesnt work, because a new grailsapplication instance is constructed in generate
 //  loadApp()
