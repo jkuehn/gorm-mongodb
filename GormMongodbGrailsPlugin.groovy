@@ -24,6 +24,7 @@ class GormMongodbGrailsPlugin {
       "grails-app/controllers/**", // they exist only for testing purposes
       "grails-app/conf/Config.groovy",
       "grails-app/mongo/**",
+      "grails-app/someotherdir/**",
       "lib/hibernate*" //  see issue GRAILS-6341 NoClassDefFoundError: org/hibernate/mapping/Value when Hibernate not present
   ]
 

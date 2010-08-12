@@ -1,4 +1,4 @@
-package grails.plugins.mongodb.annotations;
+package grails.plugins.mongodb;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

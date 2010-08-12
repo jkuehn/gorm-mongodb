@@ -27,22 +27,27 @@ eventCompileStart = {
         classpath()
 }
 
+
 /**
  * Make generate-* work
  */
+def doinGenerateAction = false // hacky hack
 def tweakForGenerate = {
-  // do it the dirty way
-  grails.plugins.mongodb.MongoDomainClassArtefactHandler.TYPE = DomainClassArtefactHandler.TYPE
-
-  // registering artefacts doesnt work, because a new grailsapplication instance is constructed in generate
-//  loadApp()
-//  grailsApp.MongoDomainClasses.each {
-//    println it
-//    grailsApp.addArtefact(DomainClassArtefactHandler.TYPE, new MongoDomainClass(it.clazz))
-//  }
+  doinGenerateAction = true
 }
-
+// use following two events to mark that we are currently generating
 eventUberGenerateStart = tweakForGenerate
-
 eventGenerateForOneStart = tweakForGenerate
 
+/**
+ * register artefacts as Domains here, so that we are modifying the same
+ * grailsApp that is used to find domainClasses for generation
+ */
+eventConfigureAppEnd = {
+  if (doinGenerateAction) {
+    def mdc = classLoader.loadClass('grails.plugins.mongodb.MongoDomainClass')
+    grailsApp.MongoDomainClasses.each {
+      grailsApp.addArtefact(DomainClassArtefactHandler.TYPE, mdc.newInstance(it.clazz))
+    }
+  }
+}

@@ -20,6 +20,7 @@ public class MongoDomainClassArtefactHandler extends ArtefactHandlerAdapter {
         return isMongoDomainClass(clazz);
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean isMongoDomainClass(Class clazz) {
         return clazz != null && clazz.getAnnotation(Entity.class) != null;
     }

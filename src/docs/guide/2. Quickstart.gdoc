@@ -12,12 +12,6 @@ Let's start off, create a new Grails project and install the gorm-mongodb plugin
 > grails install-plugin gorm-mongodb
 {code}
 
-For current releases you need to uninstall the hibernate plugin:
-
-{code}
-grails uninstall-plugin hibernate
-{code}
-
 The gorm-mongodb plugin provides a create-mongodb-class command that creates a stub for the domain class, as well as corresponding test cases. Let's call it:
 
 {code}
