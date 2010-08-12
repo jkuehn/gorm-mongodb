@@ -1,11 +1,7 @@
 package org.acme
 
-import com.google.code.morphia.annotations.Entity
 import com.google.code.morphia.annotations.Id
-import com.google.code.morphia.annotations.Transient
-import grails.plugins.mongodb.MongoEntity
 
-@MongoEntity
 class Task {
 
   @Id

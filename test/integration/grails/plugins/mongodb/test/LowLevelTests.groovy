@@ -5,7 +5,6 @@ import com.mongodb.BasicDBObject
 import com.google.code.morphia.Datastore
 import org.acme.Project
 import org.acme.Task
-import com.google.code.morphia.query.Query
 
 /**
  * tests the mongo bean and access to the wired mongodb driver

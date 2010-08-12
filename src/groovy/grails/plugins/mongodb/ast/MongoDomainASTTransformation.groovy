@@ -8,18 +8,17 @@ import org.codehaus.groovy.control.CompilePhase
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty
-import grails.plugins.mongodb.MongoEntity
 import com.google.code.morphia.annotations.Id
 import com.google.code.morphia.annotations.Version
 import org.codehaus.groovy.ast.ASTNode
 import org.codehaus.groovy.ast.AnnotationNode
-import org.codehaus.groovy.ast.AnnotatedNode
 import org.codehaus.groovy.ast.FieldNode
 import org.codehaus.groovy.ast.PropertyNode
 import org.apache.commons.lang.StringUtils
 import com.google.code.morphia.annotations.Entity
 import java.lang.reflect.Modifier
 import com.google.code.morphia.annotations.Transient
+import org.codehaus.groovy.ast.ModuleNode
 
 /**
  *
@@ -32,7 +31,6 @@ class MongoDomainASTTransformation implements ASTTransformation {
   private static final String IDENTITY = GrailsDomainClassProperty.IDENTITY
   private static final String VERSION = GrailsDomainClassProperty.VERSION
 
-  private static final ClassNode MONGO_ENTITY = new ClassNode(MongoEntity)
   private static final ClassNode MORPHIA_ENTITY = new ClassNode(Entity)
 
   private static final ClassNode MORPHIA_ID = new ClassNode(Id)
@@ -45,25 +43,29 @@ class MongoDomainASTTransformation implements ASTTransformation {
   private static final eventMethods = ['beforeSave', 'afterSave', 'beforeDelete', 'afterDelete']
 
   public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
-    if (nodes.length != 2 || !(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
-      throw new RuntimeException("Internal error: expecting [AnnotationNode, AnnotatedNode] but got: " + Arrays.asList(nodes))
+    if (nodes.length != 1 || !(nodes[0] instanceof ModuleNode)) {
+      throw new RuntimeException("Internal error: expecting [ModuleNode] but got: " + Arrays.asList(nodes))
     }
 
-//    println "\n\n\n-------------------------------------------"
-//    println "Wanted inject $sourceUnit.name"
+    // process alls classes within grails-app/mongo
+    boolean isMongoDir = false
+    if (sourceUnit.name =~ /grails-app.mongo/) {
+      // dirrty?
+      isMongoDir = true
+    }
 
-    AnnotationNode node = (AnnotationNode) nodes[0]
-    ClassNode owner = (ClassNode) nodes[1]
+    nodes[0].getClasses().each { ClassNode owner ->
+      if (!isMongoDir && !owner.getAnnotations(MORPHIA_ENTITY)) return // do not process this class
 
-    injectEntityType(owner, node)
-
-    injectIdProperty(owner)
-    injectVersionProperty(owner)
-    annotateTransients(owner)
-    excludeEventMethods(owner)
+      injectEntityType(owner)
+      injectIdProperty(owner)
+      injectVersionProperty(owner)
+      annotateTransients(owner)
+      excludeEventMethods(owner)
+    }
   }
 
-  private void injectEntityType(ClassNode classNode, AnnotationNode entity) {
+  private void injectEntityType(ClassNode classNode) {
     // annotate with morphias Entity if not already the case
     if (classNode.getAnnotations(MORPHIA_ENTITY).size() > 0) return; // already annotated
 

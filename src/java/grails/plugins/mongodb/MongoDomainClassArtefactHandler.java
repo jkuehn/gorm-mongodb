@@ -10,7 +10,7 @@ import org.codehaus.groovy.grails.commons.GrailsClass;
  */
 public class MongoDomainClassArtefactHandler extends ArtefactHandlerAdapter {
 
-    public static final String TYPE = "Domain"; // dont change, plugin relies on this artefact name
+    public static final String TYPE = "MongoDomain"; // dont change, plugin relies on this artefact name
 
     public MongoDomainClassArtefactHandler() {
       super(TYPE, MongoDomainClass.class, MongoDomainClass.class, null);
@@ -21,7 +21,7 @@ public class MongoDomainClassArtefactHandler extends ArtefactHandlerAdapter {
     }
 
     public static boolean isMongoDomainClass(Class clazz) {
-        return clazz != null && clazz.getAnnotation(MongoEntity.class) != null;
+        return clazz != null && clazz.getAnnotation(Entity.class) != null;
     }
 
     public GrailsClass newArtefactClass(Class artefactClass) {

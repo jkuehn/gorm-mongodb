@@ -3,10 +3,13 @@ import org.springframework.context.ApplicationContext
 import grails.plugins.mongodb.MongoDomainClass
 import grails.plugins.mongodb.MongoHolderBean
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
+import org.codehaus.groovy.grails.validation.GrailsDomainClassValidator
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean
+import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.3.1"
+  def version = "0.4"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3 > *"
   // the other plugins this plugin depends on
@@ -45,12 +48,36 @@ class GormMongodbGrailsPlugin {
       bean.autowire = 'constructor'
     }
 
-    // mongo domain classes are registered as beans by the domainClass plugin
+    // register all mongo domains as beans
+    application.MongoDomainClasses.each { GrailsDomainClass dc ->
+      // Note the use of Groovy's ability to use dynamic strings in method names!
+      "${dc.fullName}"(dc.clazz) { bean ->
+          bean.singleton = false
+          bean.autowire = "byName"
+      }
+      "${dc.fullName}DomainClass"(MethodInvokingFactoryBean) { bean ->
+          targetObject = ref("grailsApplication", true)
+          targetMethod = "getArtefact"
+          bean.lazyInit = true
+          arguments = [MongoDomainClassArtefactHandler.TYPE, dc.fullName]
+      }
+      "${dc.fullName}PersistentClass"(MethodInvokingFactoryBean) { bean ->
+          targetObject = ref("${dc.fullName}DomainClass")
+          bean.lazyInit = true
+          targetMethod = "getClazz"
+      }
+      "${dc.fullName}Validator"(GrailsDomainClassValidator) { bean ->
+          messageSource = ref("messageSource")
+          bean.lazyInit = true
+          domainClass = ref("${dc.fullName}DomainClass")
+          grailsApplication = ref("grailsApplication", true)
+      }
+    }
   }
 
   def doWithDynamicMethods = { ApplicationContext ctx ->
     def morphia = ctx.getBean('mongo').morphia
-    application.domainClasses.each { GrailsDomainClass domainClass ->
+    application.MongoDomainClasses.each { GrailsDomainClass domainClass ->
       if (!(domainClass instanceof MongoDomainClass)) return // process mongo domains only
 
       // add dynamic finders, validation, querying methods etc

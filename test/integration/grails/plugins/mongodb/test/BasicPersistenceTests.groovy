@@ -158,6 +158,6 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertNotNull "task should should be reretrieved from db", t.taskId
     assertEquals "task should have incremented actualHours value", 15, t.actualHours
 
-//    t.delete()
+    t.delete()
   }
 }

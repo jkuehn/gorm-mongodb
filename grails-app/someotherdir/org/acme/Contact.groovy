@@ -1,10 +1,11 @@
 package org.acme
 
-import grails.plugins.mongodb.MongoEntity
 import com.google.code.morphia.annotations.Entity
 
+/**
+ * For testing domain classes outside of grails-app/mongo directory
+ */
 @Entity(noClassnameStored = true)
-@MongoEntity
 class Contact {
 
   transient mongo // spring bean, dependency injection

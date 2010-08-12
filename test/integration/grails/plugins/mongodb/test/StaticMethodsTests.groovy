@@ -1,7 +1,6 @@
 package grails.plugins.mongodb.test
 
 import org.acme.Task
-import com.google.code.morphia.Datastore
 
 /**
  * test the dynamic finders

@@ -17,6 +17,11 @@ import com.google.code.morphia.mapping.Mapper
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
 import com.google.code.morphia.mapping.MappingException
 import com.mongodb.DBCollection
+import org.springframework.validation.BeanPropertyBindingResult
+import org.springframework.validation.Errors
+import org.codehaus.groovy.grails.plugins.DomainClassPluginSupport
+import org.codehaus.groovy.grails.commons.GrailsClassUtils
+import org.codehaus.groovy.grails.commons.GrailsDomainConfigurationUtil
 
 /**
  * Author: Juri Kuehn
@@ -52,11 +57,12 @@ class MongoPluginSupport {
 //  static final DYNAMIC_FINDER_RE = /(\w+?)(${COMPARATORS_RE})?((And|Or)(\w+?)(${COMPARATORS_RE})?)?/
 
   static enhanceDomainClass(MongoDomainClass domainClass, GrailsApplication application, ApplicationContext ctx) {
+    addGrailsDomainPluginMethods(application, domainClass, ctx)
+
     addStaticMethods(application, domainClass, ctx)
     addInstanceMethods(application, domainClass, ctx)
     addDynamicFinderSupport(application, domainClass, ctx)
     addInitMethods(application, domainClass, ctx)
-    // Validation methods in jection is done in domainClass Plugin
 
     ensureIndices(application, domainClass, ctx)
   }
@@ -363,6 +369,8 @@ class MongoPluginSupport {
     if (id) {
       domain[id.name]
     }
+
+    null
   }
 
   private static MongoHolderBean getMongoBean(GrailsApplication application) {
@@ -432,4 +440,207 @@ class MongoPluginSupport {
       return 1
     }
   }
+
+  /**
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   * COPY & PASTE FROM org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin START
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   */
+  static void addGrailsDomainPluginMethods(application, domainClass, ctx) {
+    MetaClass metaClass = domainClass.metaClass
+
+    metaClass.ident = {-> delegate[domainClass.identifier.name] }
+    metaClass.constructor = { ->
+      if (ctx.containsBean(domainClass.fullName)) {
+        ctx.getBean(domainClass.fullName)
+      }
+      else {
+        BeanUtils.instantiateClass(domainClass.clazz)
+      }
+    }
+    metaClass.static.create = { ->
+      if (ctx.containsBean(domainClass.fullName)) {
+        ctx.getBean(domainClass.fullName)
+      }
+      else {
+        BeanUtils.instantiateClass(domainClass.clazz)
+      }
+    }
+
+    addValidationMethods(application, domainClass, ctx)
+    addRelationshipManagementMethods(domainClass)
+  }
+
+  private static addValidationMethods(GrailsApplication application, GrailsDomainClass dc, ApplicationContext ctx) {
+    def metaClass = dc.metaClass
+    def domainClass = dc
+
+    registerConstraintsProperty(metaClass, domainClass)
+
+    metaClass.hasErrors = {-> delegate.errors?.hasErrors() }
+
+    def get
+    def put
+    try {
+      def rch = application.classLoader.loadClass("org.springframework.web.context.request.RequestContextHolder")
+      get = {
+        def attributes = rch.getRequestAttributes()
+        if (attributes) {
+          return attributes.request.getAttribute(it)
+        }
+        return PROPERTY_INSTANCE_MAP.get().get(it)
+      }
+      put = { key, val ->
+        def attributes = rch.getRequestAttributes()
+        if (attributes) {
+          attributes.request.setAttribute(key,val)
+        }
+        else {
+          PROPERTY_INSTANCE_MAP.get().put(key,val)
+        }
+      }
+    }
+    catch (Throwable e) {
+      get = { PROPERTY_INSTANCE_MAP.get().get(it) }
+      put = { key, val -> PROPERTY_INSTANCE_MAP.get().put(key,val) }
+    }
+
+    metaClass.getErrors = { ->
+      def errors
+      def key = "org.codehaus.groovy.grails.ERRORS_${delegate.class.name}_${System.identityHashCode(delegate)}"
+      errors = get(key)
+      if (!errors) {
+        errors =  new BeanPropertyBindingResult( delegate, delegate.getClass().getName())
+        put key, errors
+      }
+      errors
+    }
+    metaClass.setErrors = { Errors errors ->
+      def key = "org.codehaus.groovy.grails.ERRORS_${delegate.class.name}_${System.identityHashCode(delegate)}"
+      put key, errors
+    }
+    metaClass.clearErrors = { ->
+      delegate.setErrors (new BeanPropertyBindingResult(delegate, delegate.getClass().getName()))
+    }
+    if (!domainClass.hasMetaMethod("validate")) {
+      metaClass.validate = { ->
+        DomainClassPluginSupport.validateInstance(delegate, ctx)
+      }
+    }
+  }
+
+  /**
+   * Registers the constraints property for the given MetaClass and domainClass instance
+   */
+  static void registerConstraintsProperty(MetaClass metaClass, GrailsDomainClass domainClass) {
+    metaClass.'static'.getConstraints = { -> domainClass.constrainedProperties }
+
+    metaClass.getConstraints = {-> domainClass.constrainedProperties }
+  }
+
+  private static addRelationshipManagementMethods(GrailsDomainClass dc) {
+    def metaClass = dc.metaClass
+    for (p in dc.persistantProperties) {
+      def prop = p
+      if (prop.basicCollectionType) { // @todo check on these - never true right now
+        def collectionName = GrailsClassUtils.getClassNameRepresentation(prop.name)
+        metaClass."addTo$collectionName" = { obj ->
+          if (obj instanceof CharSequence && !(obj instanceof String)) {
+            obj = obj.toString()
+          }
+          if (prop.referencedPropertyType.isInstance(obj)) {
+            if (delegate[prop.name] == null) {
+              delegate[prop.name] = GrailsClassUtils.createConcreteCollection(prop.type)
+            }
+            delegate[prop.name] << obj
+            return delegate
+          }
+          else {
+            throw new MissingMethodException("addTo${collectionName}", dc.clazz, [obj] as Object[])
+          }
+        }
+        metaClass."removeFrom$collectionName" = { obj ->
+          if (delegate[prop.name]) {
+            if (obj instanceof CharSequence && !(obj instanceof String)) {
+              obj = obj.toString()
+            }
+            delegate[prop.name].remove(obj)
+          }
+          return delegate
+        }
+      }
+      else if (prop.oneToOne || prop.manyToOne) { // @todo check on these - never true right now
+        def identifierPropertyName = "${prop.name}Id"
+        if (!dc.hasMetaProperty(identifierPropertyName)) {
+          def getterName = GrailsClassUtils.getGetterName(identifierPropertyName)
+          metaClass."$getterName" = {-> GrailsDomainConfigurationUtil.getAssociationIdentifier(
+              delegate, prop.name, prop.referencedDomainClass) }
+        }
+      }
+      else if (prop.oneToMany || prop.manyToMany) { // @todo check on these - never true right now
+        if (metaClass instanceof ExpandoMetaClass) {
+          def propertyName = prop.name
+          def collectionName = GrailsClassUtils.getClassNameRepresentation(propertyName)
+          def otherDomainClass = prop.referencedDomainClass
+
+          metaClass."addTo${collectionName}" = { Object arg ->
+            Object obj
+            if (delegate[prop.name] == null) {
+              delegate[prop.name] = GrailsClassUtils.createConcreteCollection(prop.type)
+            }
+            if (arg instanceof Map) {
+              obj = otherDomainClass.newInstance()
+              obj.properties = arg
+              delegate[prop.name].add(obj)
+            }
+            else if (otherDomainClass.clazz.isInstance(arg)) {
+              obj = arg
+              delegate[prop.name].add(obj)
+            }
+            else {
+              throw new MissingMethodException("addTo${collectionName}", dc.clazz, [arg] as Object[])
+            }
+            if (prop.bidirectional && prop.otherSide) {
+              def otherSide = prop.otherSide
+              if (otherSide.oneToMany || otherSide.manyToMany) {
+                String name = prop.otherSide.name
+                if (!obj[name]) {
+                  obj[name] = GrailsClassUtils.createConcreteCollection(prop.otherSide.type)
+                }
+                obj[prop.otherSide.name].add(delegate)
+              }
+              else {
+                obj[prop.otherSide.name] = delegate
+              }
+            }
+            delegate
+          }
+          metaClass."removeFrom${collectionName}" = {Object arg ->
+            if (otherDomainClass.clazz.isInstance(arg)) {
+              delegate[prop.name]?.remove(arg)
+              if (prop.bidirectional) {
+                if (prop.manyToMany) {
+                  String name = prop.otherSide.name
+                  arg[name]?.remove(delegate)
+                }
+                else {
+                  arg[prop.otherSide.name] = null
+                }
+              }
+            }
+            else {
+              throw new MissingMethodException("removeFrom${collectionName}", dc.clazz, [arg] as Object[])
+            }
+            delegate
+          }
+        }
+      }
+    }
+  }
+  /**
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   * COPY & PASTE FROM org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin END
+   * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   */
+
 }

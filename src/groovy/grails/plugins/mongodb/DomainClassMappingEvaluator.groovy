@@ -1,6 +1,7 @@
 package grails.plugins.mongodb
 
 /**
+ * Evaluates the mapping DSL closure on domain classes 
  *
  * @author: Juri Kuehn
  */
