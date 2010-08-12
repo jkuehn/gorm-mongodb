@@ -27,7 +27,6 @@ class GormMongodbGrailsPlugin {
       "lib/hibernate*" //  see issue GRAILS-6341 NoClassDefFoundError: org/hibernate/mapping/Value when Hibernate not present
   ]
 
-  // TODO Fill in these fields
   def author = "Juri Kuehn"
   def authorEmail = "juri.kuehn at gmail.com"
   def title = "Grails MongoDB plugin"

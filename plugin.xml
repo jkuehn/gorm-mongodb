@@ -1,4 +1,4 @@
-<plugin name='gorm-mongodb' version='0.3.2' grailsVersion='1.3 &gt; *'>
+<plugin name='gorm-mongodb' version='0.4' grailsVersion='1.3 &gt; *'>
   <author>Juri Kuehn</author>
   <authorEmail>juri.kuehn at gmail.com</authorEmail>
   <title>Grails MongoDB plugin</title>
@@ -9,10 +9,9 @@
     <resource>Config</resource>
     <resource>DataSource</resource>
     <resource>UrlMappings</resource>
-    <resource>acme.Contact</resource>
-    <resource>org.acme.NotMongoDB</resource>
     <resource>org.acme.Project</resource>
     <resource>org.acme.Task</resource>
+    <resource>org.acme.Contact</resource>
   </resources>
   <dependencies>
     <plugin name='core' version='1.3 &gt; *' />

@@ -2,10 +2,6 @@ package org.acme
 
 import com.google.code.morphia.annotations.Reference
 
-import grails.plugins.mongodb.annotations.MongoEntity
-import org.acme.Contact
-
-@MongoEntity
 class Project {
 
   String id

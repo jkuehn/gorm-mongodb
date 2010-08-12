@@ -6,7 +6,7 @@ Classes that should be mapped to MongoDB should be put into the _/grails-app/mon
 > grails create-mongodb-class Car
 {code}
 
-Classes that should be mapped are recognized via the @grails.plugins.mongodb.MongoEntity@ annotation, which is mandatory.
+Classes that should be mapped have to be put into the grails-app/mongo directory or have to be annotated with the @com.google.code.morphia.annotations.Entity@ annotation.
 
 h3. Dependency Injection
 
@@ -15,7 +15,6 @@ Mapped MongoDB entities are autowires as described in the "Grails user guide":ht
 *Limitation:* injected properties have to be marked as transient, otherwise a MappingException will occurr.
 
 {code}
-@MongoEntity
 class Car {
 
   transient mongo // autowired by spring

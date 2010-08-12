@@ -43,9 +43,6 @@ Now the fields and constraints
 {code}
 package mongograilsquickstart
 
-import grails.plugins.mongodb.MongoEntity
-
-@MongoEntity
 class Car {
     String name
     String brand

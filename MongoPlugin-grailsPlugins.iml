@@ -7,6 +7,7 @@
           <root url="file://$USER_HOME_GRAILS$/1.3.1/projects/gorm-mongodb/plugins/code-coverage-1.1.8/web-app" relative="/" />
           <root url="file://$USER_HOME_GRAILS$/1.3.2/projects/gorm-mongodb/plugins/code-coverage-1.1.8/web-app" relative="/" />
           <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/gorm-mongodb/plugins/code-coverage-1.1.8/web-app" relative="/" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/gorm-mongodb/plugins/code-coverage-1.1.8/web-app" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>

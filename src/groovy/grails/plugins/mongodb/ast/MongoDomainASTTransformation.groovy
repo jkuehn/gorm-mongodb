@@ -47,7 +47,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
       throw new RuntimeException("Internal error: expecting [ModuleNode] but got: " + Arrays.asList(nodes))
     }
 
-    // process alls classes within grails-app/mongo
+    // process all classes within grails-app/mongo
     boolean isMongoDir = false
     if (sourceUnit.name =~ /grails-app.mongo/) {
       // dirrty?
