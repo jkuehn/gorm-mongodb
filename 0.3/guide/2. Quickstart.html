@@ -11,7 +11,8 @@
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
   port = 27017
   database = 'test'
-&#125;</pre></div><p class="paragraph"/>Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-app/cong/mongo/mongograilsquickstart/Car.groovy</strong><p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> mongograilsquickstart<p class="paragraph"/>class Car &#123;
+&#125;</pre></div><p class="paragraph"/>Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-app/cong/mongo/mongograilsquickstart/Car.groovy</strong><p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> mongograilsquickstart<p class="paragraph"/><span class="java&#45;keyword">import</span> grails.plugins.mongodb.MongoEntity<p class="paragraph"/>@MongoEntity
+class Car &#123;
     <span class="java&#45;object">String</span> name
     <span class="java&#45;object">String</span> brand<p class="paragraph"/>    <span class="java&#45;object">int</span> ps // horsepower
     Date buildDate<p class="paragraph"/>    Date dateCreated // autoset by plugin
