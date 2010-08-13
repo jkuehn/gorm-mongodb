@@ -29,6 +29,7 @@ class Task {
     description nullable: true
     name blank: false
     actualHours nullable: true
+    estimatedHours nullable: true
     startDate nullable: true
     completionDate nullable: true
   }

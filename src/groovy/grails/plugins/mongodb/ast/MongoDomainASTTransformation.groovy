@@ -19,6 +19,7 @@ import com.google.code.morphia.annotations.Entity
 import java.lang.reflect.Modifier
 import com.google.code.morphia.annotations.Transient
 import org.codehaus.groovy.ast.ModuleNode
+import org.codehaus.groovy.ast.ClassHelper
 
 /**
  *
@@ -38,7 +39,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
   private static final ClassNode MORPHIA_TRANSIENT = new ClassNode(Transient)
 
   private static final ClassNode STRING_TYPE = new ClassNode(String)
-  private static final ClassNode LONG_TYPE = new ClassNode(Long)
+  private static final ClassNode LONG_TYPE = ClassHelper.long_TYPE
 
   private static final eventMethods = ['beforeSave', 'afterSave', 'beforeDelete', 'afterDelete']
 
@@ -130,18 +131,21 @@ class MongoDomainASTTransformation implements ASTTransformation {
     }
 
     // annotate node if present, otherwise inject version property
-    PropertyNode identity = getProperty(classNode, VERSION)
+    PropertyNode version = getProperty(classNode, VERSION)
 
-    if (!identity) { // there is no version property at all
+    if (!version) { // there is no version property at all - inject one for compatibility reasons
       log.debug("Adding property [" + VERSION + "] to class [" + classNode.getName() + "]")
-      identity = classNode.addProperty(VERSION, Modifier.PUBLIC, LONG_TYPE, null, null, null)
+      version = classNode.addProperty(VERSION, Modifier.PUBLIC, LONG_TYPE, null, null, null)
+      // set it transient, because it is unwanted anyway
+      version.getField().setModifiers(Modifier.TRANSIENT)
+      version.getField().addAnnotation(new AnnotationNode(MORPHIA_TRANSIENT))
     } else {
       // add annotation if field already there
-      identity.getField().addAnnotation(new AnnotationNode(MORPHIA_VERSION))
+      version.getField().addAnnotation(new AnnotationNode(MORPHIA_VERSION))
       // version must be long
-      if (identity.type.typeClass != Long.class) {
+      if (version.type.typeClass != Long.class) {
         log.warn("Changing the type of property [" + VERSION + "] of class [" + classNode.getName() + "] to Long.")
-        identity.field.type = LONG_TYPE
+        version.field.type = LONG_TYPE
       }
     }
   }

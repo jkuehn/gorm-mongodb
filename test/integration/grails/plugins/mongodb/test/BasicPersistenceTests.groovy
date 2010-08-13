@@ -11,6 +11,9 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     assertFalse "should not have validated", p.validate()
     assertNull "should not have saved", p.save()
+
+    println p.errors.allErrors
+
     assertEquals "should have 1 error", p.errors.allErrors.size(), 1
     assertEquals "name should be in error", p.errors.allErrors[0].field, "name"
 
@@ -58,6 +61,8 @@ public class BasicPersistenceTests extends GroovyTestCase {
     t1.pass = "transient test"
 
     t1.save()
+    println "task save errors:"
+    println t1.errors?.allErrors
 
     def t2 = Task.get(t1.taskId)
     assertNotNull "should have retrieved a task", t2
@@ -105,14 +110,18 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertNotNull "should have retrieved id of new contact", c.id
 
     def taskname = "TJ Task"
-    def t = new Task(name: taskname, description: "Here we are")
+    def t = new Task(name: taskname, description: "Here we are", projectId: projectId)
     t.save()
+    println "testComplexObject:task:"
+    println t.errors?.allErrors
+    assertNotNull "should have retrieved id of new task", t.taskId
+
 
     def p = new Project(id: projectId, name: "TJ Project", manager: c, mainTask: t)
     p.save()
-
     assertNotNull "should have retrieved id of new project", p.id
 
+    
     def p2 = Project.get(p.id)
     println p
     println p2
@@ -144,8 +153,10 @@ public class BasicPersistenceTests extends GroovyTestCase {
   }
 
   void testUpdateMethod() {
-    def t = new Task(name: "Task that will be updated!", actualHours: 10)
+    def t = new Task(name: "Task that will be updated!", actualHours: 10, projectId: "my Project 123")
     t.save()
+    println "testUpdateMethod:task:"
+    println t.errors?.allErrors
 
     assertNotNull "task should get an id", t.taskId
     assertEquals "task should have the right actualHours value", 10, t.actualHours
