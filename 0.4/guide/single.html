@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>gorm-mongodb 0.4.2 - Reference Documentation</title>
+        <title>gorm-mongodb 0.4 - Reference Documentation</title>
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Style" charset="utf-8"/>
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
     </head>
@@ -15,8 +15,8 @@
             </div>
             <div class="message">gorm-mongodb</div>
             <h1>gorm-mongodb - Reference Documentation</h1>
-            <p><strong>Authors:</strong> Juri Kuehn</p>
-            <p><strong>Version:</strong> 0.4.2</p>
+            <p><strong>Authors:</strong> </p>
+            <p><strong>Version:</strong> 0.4</p>
             <em></em>
         </div>
 
@@ -37,7 +37,7 @@
 <li>AST Transformations that inject all necessary fields and annotations for morphia</li>
 <li>Lazy references supported</li>
 <li>generate-all support</li>
-</ul><p class="paragraph"/>See the <a href="2.%20Quickstart.html">quickstart</a> page for a usage example. You can also download a <a href="http://github.com/downloads/jkuehn/gorm-mongodb/petclinic-mongodb.zip" target="blank">petclinic sample application port</a> which uses gorm-mongodb to see the use of embedded and referenced domain classes.<p class="paragraph"/><h3>Questions and Bug Reports</h3>
+</ul><p class="paragraph"/>See the <a href="2.%20Quickstart.html">quickstart</a> page for a usage example. You can also download a <a href="http://github.com/downloads/jkuehn/gorm-mongodb/petclinic-mongodb.zip" target="blank">petclinic sample application port</a> which uses gorm-mongodb to see the use of embedded and referenced domain classes.<p class="paragraph"/>The gorm-mongodb plugin does not work with other GORM plugins. If you want to use MongoDB along with other GORM plugins like hibernate, consider <a href="http://www.grails.org/plugin/mongodb-tools" target="blank">this plugin</a><p class="paragraph"/><h3>Questions and Bug Reports</h3>
 <ul class="star">
 <li><a href="http://www.grails.org/Mailing+lists" target="blank">Mailing list</a></li>
 <li><a href="http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14453" target="blank">Bug tracker</a></li>
@@ -58,7 +58,7 @@
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
   port = 27017
   database = 'test'
-&#125;</pre></div><p class="paragraph"/>Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-app/mongo/mongograilsquickstart/Car.groovy</strong><p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> mongograilsquickstart<p class="paragraph"/>class Car &#123;
+&#125;</pre></div><p class="paragraph"/>Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-app/cong/mongo/mongograilsquickstart/Car.groovy</strong><p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> mongograilsquickstart<p class="paragraph"/>class Car &#123;
     <span class="java&#45;object">String</span> name
     <span class="java&#45;object">String</span> brand<p class="paragraph"/>    <span class="java&#45;object">int</span> ps // horsepower
     Date buildDate<p class="paragraph"/>    Date dateCreated // autoset by plugin
