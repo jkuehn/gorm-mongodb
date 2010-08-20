@@ -32,7 +32,7 @@ mongodb {
 
 Now the fields and constraints 
 
-*grails-app/cong/mongo/mongograilsquickstart/Car.groovy*
+*grails-app/mongo/mongograilsquickstart/Car.groovy*
 
 {code}
 package mongograilsquickstart

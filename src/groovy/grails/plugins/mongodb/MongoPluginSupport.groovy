@@ -90,6 +90,9 @@ class MongoPluginSupport {
       }
     } catch (NoSuchFieldException nsfe) {
       // no problem
+    } catch (com.mongodb.MongoException mongoEx) {
+      // usually communications problems, cannot ensure index
+      throw mongoEx
     } catch (e) {
       throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
     }

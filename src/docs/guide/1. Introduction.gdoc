@@ -16,8 +16,6 @@ Features implemented to far:
 
 See the "quickstart":2.%20Quickstart.html page for a usage example. You can also download a "petclinic sample application port":http://github.com/downloads/jkuehn/gorm-mongodb/petclinic-mongodb.zip which uses gorm-mongodb to see the use of embedded and referenced domain classes. 
 
-The gorm-mongodb plugin does not work with other GORM plugins. If you want to use MongoDB along with other GORM plugins like hibernate, consider "this plugin":http://www.grails.org/plugin/mongodb-tools
-
 h3. Questions and Bug Reports
 * "Mailing list":http://www.grails.org/Mailing+lists
 * "Bug tracker":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14453

@@ -11,7 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.groovy.grails.commons.GrailsApplication;
 
 import java.net.UnknownHostException;
-import java.util.Properties;
+import java.util.Map;
 
 /**
  * should be registered with spring. provides access to
@@ -26,21 +26,42 @@ public class MongoHolderBean {
   private DatastoreImpl datastore;
 
   /**
-   * create database connection and morphia and datastore instances
+   * Parses config options, creates database connection and morphia & datastore instances
+   *
    * @param application
    * @throws UnknownHostException
    */
   public MongoHolderBean(GrailsApplication application) throws UnknownHostException {
-    // @todo try catch and degrade gracefully if no configuration is given
-    Properties flatConfig = application.getConfig().toProperties();
-    String database = flatConfig.get("mongodb.database").toString();
-    String host = flatConfig.get("mongodb.host").toString();
-    int port = Integer.parseInt(flatConfig.get("mongodb.port").toString());
+    Map flatConfig = application.getConfig().flatten();
+
+    String host = getConfigVar(flatConfig, "mongodb.host", "localhost");
+    int port = parsePortFromConfig(getConfigVar(flatConfig, "mongodb.port", "27017"), 27017);
+    String database = getConfigVar(flatConfig, "mongodb.database", "test");
 
     log.info("Creating MongoDB connection to host " + host + ":" + port + " and database " + database);
 
     morphia = new Morphia();
     datastore = (DatastoreImpl)morphia.createDatastore(new Mongo(host, port), database);
+  }
+
+  private String getConfigVar(Map config, String key, String defaultValue) {
+    if (!config.containsKey(key)) {
+      log.info("MongoDB configuration option missing: '" + key + "'. Using default value '" + defaultValue + "'.");
+      return defaultValue;
+    }
+    return config.get(key).toString();
+  }
+
+  private int parsePortFromConfig(String configVal, int defaultValue) {
+    int port;
+    try { // in case port is not a valid number
+      port = Integer.parseInt(configVal);
+    } catch (Exception e) {
+      log.info("MongoDB port invalid: '" + configVal + "' is not a number. Using default value " + defaultValue);
+      return defaultValue;
+    }
+
+    return port;
   }
 
   public Morphia getMorphia() {
