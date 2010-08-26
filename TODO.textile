@@ -1,8 +1,14 @@
 h1. TODOs / ideas for next releases
 
+* upgrade to morphia 0.95
+** Removed implicit conversions from String -> ObjectId; please use ObjectId directly; Breaking Change
+** see http://code.google.com/p/morphia/wiki/ReleaseNotes
+** and http://code.google.com/p/morphia/wiki/EntityAnnotation
+** Document changes: http://groups.google.com/group/morphia/browse_thread/thread/b6c3ce51884b74e1/eb9eb71383f17a57
+** Autoinjected id should be ObjectId, user may define and override what he wants
 * update method: handle references to instances properly
 * implement unique index definition
-* move config to dataSources, throw exception that tells to move config for upgraders
+* move config to dataSources, throw exception that tells to move config for upgraders. Create "Configuration" documentation
 * implement GridFS access
 * implement getAll http://grails.org/doc/1.3.x/ref/Domain%20Classes/getAll.html
 * add support for addTo* methods from GORM

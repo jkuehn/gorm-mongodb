@@ -230,9 +230,9 @@ class MongoPluginSupport {
 
   public static void configureQuery(Query query, Map queryParams) {
     // @todo be more graceful
-    def sort = queryParams.remove('sort')?.toString()
-    def limit = (int)(queryParams.remove('max') ?: 25)
-    def offset = (int)(queryParams.remove('offset') ?: 0)
+    def sort = queryParams.get('sort')?.toString()
+    def limit = (int)(queryParams.get('max') ?: 25)
+    def offset = (int)(queryParams.get('offset') ?: 0)
 
     if (sort) query.order(sort)
     query.limit(limit)

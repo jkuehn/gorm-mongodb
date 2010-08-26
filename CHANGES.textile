@@ -1,5 +1,10 @@
 h2. Change Log
 
+Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes
+
+h3. v0.4.3 - 2010-08-26
+* Fixes "GRAILSPLUGINS-2405":http://jira.codehaus.org/browse/GRAILSPLUGINS-2405 - Pagination parameters falsely removed
+
 h3. v0.4.2 - 2010-08-20
 * Fixes "GRAILSPLUGINS-2399":http://jira.codehaus.org/browse/GRAILSPLUGINS-2399 - Better error handling in case config is missing
 * Fixes "GRAILSPLUGINS-2398":http://jira.codehaus.org/browse/GRAILSPLUGINS-2398 - Documentation fixes
@@ -14,7 +19,7 @@ h3. v0.4 - 2010-08-12
 * updated petclinic
 
 h3. v0.3.2 - 2010-07-20
-* updated morphia library
+* updated morphia library to *0.94*
 * added support for index mapping
 
 h3. v0.3 - 2010-07-04
