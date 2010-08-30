@@ -17,16 +17,17 @@ grails.project.dependency.resolution = {
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
-        //mavenCentral()
+        mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://morphia.googlecode.com/svn/mavenrepo/" 
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        build 'org.hibernate:hibernate-core:3.3.1.GA' // workaround for grails 1.3.1 see http://jira.codehaus.org/browse/GRAILS-6341
         // runtime 'mysql:mysql-connector-java:5.1.5'
+        runtime 'com.google.code.morphia:morphia:0.94'
     }
 
 }
