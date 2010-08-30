@@ -15,8 +15,7 @@ class GormMongodbGrailsPlugin {
   // the other plugins this plugin depends on
   def dependsOn = [core: '1.3.4 > *']
 
-  // load after hibernate to avoid conflicts with domain artefacts
-  def loadAfter = ['core', 'controllers', 'domainClass', 'hibernate']
+  def loadAfter = ['core', 'controllers', 'domainClass']
 
   // resources that are excluded from plugin packaging
   def pluginExcludes = [
@@ -25,7 +24,6 @@ class GormMongodbGrailsPlugin {
       "grails-app/conf/Config.groovy",
       "grails-app/mongo/**",
       "grails-app/someotherdir/**",
-      "lib/hibernate*" //  see issue GRAILS-6341 NoClassDefFoundError: org/hibernate/mapping/Value when Hibernate not present
   ]
 
   def author = "Juri Kuehn"
