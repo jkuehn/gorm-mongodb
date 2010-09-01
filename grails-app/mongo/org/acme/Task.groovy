@@ -1,13 +1,7 @@
 package org.acme
-
-import com.google.code.morphia.annotations.Id
-
 class Task {
-
-  @Id
-  String taskId
-
-  String projectId
+	String taskId
+	String projectId
   String name
 
   Date startDate
@@ -23,7 +17,12 @@ class Task {
   int version
 
   transient String pass = "pass"
-
+  
+	static indexes = {
+		idx_date unique:true, dropDups:false, columns:[dateCreated:"asc", lastUpdated:"desc"]
+		idx_project colums:[projectId:'asc']
+	}
+	
   static constraints = {
     projectId blank: true
     description nullable: true

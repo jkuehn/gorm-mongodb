@@ -1,25 +1,13 @@
 package org.acme
 
-import com.google.code.morphia.annotations.Reference
-
 class Project {
-
-  String id
-
+	String id
   String name
   Date startDate
   String frequency
 
   Date dateCreated
   Date lastUpdated
-
-  @Reference
-  Task mainTask
-
-  @Reference
-  Contact manager
-
-  transient String pass = "pass"
 
   static constraints = {
     id nullable: true

@@ -20,7 +20,7 @@ import java.lang.reflect.Modifier
 import com.google.code.morphia.annotations.Transient
 import org.codehaus.groovy.ast.ModuleNode
 import org.codehaus.groovy.ast.ClassHelper
-
+import org.bson.types.ObjectId
 /**
  *
  * @author: Juri Kuehn
@@ -37,11 +37,10 @@ class MongoDomainASTTransformation implements ASTTransformation {
   private static final ClassNode MORPHIA_ID = new ClassNode(Id)
   private static final ClassNode MORPHIA_VERSION = new ClassNode(Version)
   private static final ClassNode MORPHIA_TRANSIENT = new ClassNode(Transient)
+  private static final ClassNode OBJECTID_TYPE = new ClassNode(ObjectId)
 
   private static final ClassNode STRING_TYPE = new ClassNode(String)
   private static final ClassNode LONG_TYPE = ClassHelper.long_TYPE
-
-  private static final eventMethods = ['beforeSave', 'afterSave', 'beforeDelete', 'afterDelete']
 
   public void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
     if (nodes.length != 1 || !(nodes[0] instanceof ModuleNode)) {
@@ -52,17 +51,20 @@ class MongoDomainASTTransformation implements ASTTransformation {
     boolean isMongoDir = false
     if (sourceUnit.name =~ /grails-app.mongo/) {
       // dirrty?
+     
       isMongoDir = true
+      /* Hacky to import org.bson.types.*, but it failed. Don't know why.
+      ModuleNode module = (ModuleNode) nodes[0];
+      module.addStarImport("org.bson.types.")
+      */
     }
-
     nodes[0].getClasses().each { ClassNode owner ->
       if (!isMongoDir && !owner.getAnnotations(MORPHIA_ENTITY)) return // do not process this class
-
       injectEntityType(owner)
       injectIdProperty(owner)
       injectVersionProperty(owner)
       annotateTransients(owner)
-      excludeEventMethods(owner)
+      annotateClosureAsTransients(owner)
     }
   }
 
@@ -84,7 +86,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
 
     if (!identity) { // there is no id property at all
       log.debug("Adding property [" + IDENTITY + "] to class [" + classNode.getName() + "]")
-      identity = classNode.addProperty(IDENTITY, Modifier.PUBLIC, STRING_TYPE, null, null, null)
+      identity = classNode.addProperty(IDENTITY, Modifier.PUBLIC, OBJECTID_TYPE, null, null, null)
     }
 
     // id must be string - leave it up to morphia to throw an exception
@@ -108,19 +110,6 @@ class MongoDomainASTTransformation implements ASTTransformation {
       if (f.getAnnotations(MORPHIA_TRANSIENT).size() > 0) return // this one is annotated already
 
       f.addAnnotation(new AnnotationNode(MORPHIA_TRANSIENT))
-    }
-  }
-
-  /**
-   * annotate event methods as transients
-   */
-  private void excludeEventMethods(ClassNode classNode) {
-    eventMethods.each {
-      PropertyNode evtProp = getProperty(classNode, it)
-      if (!evtProp || evtProp.getField().getAnnotations(MORPHIA_TRANSIENT)) return
-
-      // add annotation
-      evtProp.getField().addAnnotation(new AnnotationNode(MORPHIA_TRANSIENT))
     }
   }
 
@@ -149,6 +138,16 @@ class MongoDomainASTTransformation implements ASTTransformation {
       }
     }
   }
+  
+  private void annotateClosureAsTransients(ClassNode classNode) {
+		/*Find all closures.*/
+    def closures = classNode.getFields().findAll { FieldNode f -> f.getType().toString() == "java.lang.Object"}
+    
+    closures.each { FieldNode f ->
+      if (f.getAnnotations(MORPHIA_TRANSIENT).size() > 0) return // this one is annotated already
+      f.addAnnotation(new AnnotationNode(MORPHIA_TRANSIENT))
+    }
+	}
 
   private PropertyNode getProperty(ClassNode classNode, String propertyName) {
     if (classNode == null || StringUtils.isBlank(propertyName))

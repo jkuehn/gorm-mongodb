@@ -68,7 +68,7 @@ class MongoPluginSupport {
   }
 
   static void ensureIndices(application, domainClass, ctx) {
-    def domain = domainClass.clazz
+    /*def domain = domainClass.clazz
     final DBCollection collection = getMongoBean(application).datastore.getCollection(domain)
 
     try {
@@ -95,7 +95,7 @@ class MongoPluginSupport {
       throw mongoEx
     } catch (e) {
       throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
-    }
+    }*/
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -461,6 +461,7 @@ class MongoPluginSupport {
         BeanUtils.instantiateClass(domainClass.clazz)
       }
     }
+
     metaClass.static.create = { ->
       if (ctx.containsBean(domainClass.fullName)) {
         ctx.getBean(domainClass.fullName)
