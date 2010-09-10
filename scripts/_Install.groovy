@@ -8,3 +8,12 @@
 //
 //    ant.mkdir(dir:"${basedir}/grails-app/jobs")
 //
+
+includeTargets << grailsScript("_GrailsClean")
+
+// Because we make use of ASTTransformations, make sure that everything is clean
+// after installing the plugin.
+cleanAll()
+
+// make the mongodb domains folder
+ant.mkdir(dir:"${basedir}/grails-app/mongo")

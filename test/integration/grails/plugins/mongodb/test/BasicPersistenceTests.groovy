@@ -3,6 +3,7 @@ package grails.plugins.mongodb.test
 import org.acme.Contact
 import org.acme.Project
 import org.acme.Task
+import org.bson.types.ObjectId
 
 public class BasicPersistenceTests extends GroovyTestCase {
 
@@ -54,7 +55,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
     def t1 = new Task()
     t1.taskId = "${p2.id}-task"
     t1.name = "task"
-    t1.projectId = p2.id
+    t1.projectId = p2.makeKey()
     t1.startDate = new Date()
     t1.description = "This is the description."
     t1.estimatedHours = 5
@@ -64,7 +65,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
     println "task save errors:"
     println t1.errors?.allErrors
 
-    def t2 = Task.get(t1.taskId)
+    def t2 = Task.findOneByDescription(t1.description) // test dynamic finders
     assertNotNull "should have retrieved a task", t2
     assertTrue "the task field 'pass' is transient and should not have been saved", t1.pass != t2.pass
 
@@ -73,7 +74,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
   }
 
   void testUpdateAndDelete() {
-    def id = "gorm-mongodb"
+    def id = ObjectId.get()
 
     def p = Project.get(id)
     if (!p) {
@@ -99,7 +100,8 @@ public class BasicPersistenceTests extends GroovyTestCase {
   }
 
   void testComplexObject() {
-    def projectId = "tempProject"
+    def projectId = ObjectId.get()
+
     def c = new Contact()
 
     c.name = "Tom Jones"
@@ -110,18 +112,16 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertNotNull "should have retrieved id of new contact", c.id
 
     def taskname = "TJ Task"
-    def t = new Task(name: taskname, description: "Here we are", projectId: projectId)
+    def t = new Task(taskId: "manualTaskID", name: taskname, description: "Here we are")
     t.save()
     println "testComplexObject:task:"
     println t.errors?.allErrors
-    assertNotNull "should have retrieved id of new task", t.taskId
-
+    assertFalse "task should save without errors", ((boolean)t.errors?.allErrors)
 
     def p = new Project(id: projectId, name: "TJ Project", manager: c, mainTask: t)
     p.save()
     assertNotNull "should have retrieved id of new project", p.id
 
-    
     def p2 = Project.get(p.id)
     println p
     println p2
@@ -153,7 +153,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
   }
 
   void testUpdateMethod() {
-    def t = new Task(name: "Task that will be updated!", actualHours: 10, projectId: "my Project 123")
+    def t = new Task(name: "Task that will be updated!", actualHours: 10)
     t.save()
     println "testUpdateMethod:task:"
     println t.errors?.allErrors

@@ -9,7 +9,7 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.4.4-SNAPSHOT"
+  def version = "0.5"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on

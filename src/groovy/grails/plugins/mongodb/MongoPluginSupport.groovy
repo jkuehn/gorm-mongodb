@@ -65,10 +65,15 @@ class MongoPluginSupport {
     addInitMethods(application, domainClass, ctx)
 
     ensureIndices(application, domainClass, ctx)
+    ensureIndicesDeprecated(application, domainClass, ctx)
   }
 
   static void ensureIndices(application, domainClass, ctx) {
-    /*def domain = domainClass.clazz
+
+  }
+
+  static void ensureIndicesDeprecated(application, domainClass, ctx) {
+    def domain = domainClass.clazz
     final DBCollection collection = getMongoBean(application).datastore.getCollection(domain)
 
     try {
@@ -80,6 +85,7 @@ class MongoPluginSupport {
       mappingClosure()
 
       def idx = evaluator.indices
+      if (idx) println("*** " + domain.name + " uses deprecated index definitions. See user guide for new syntax.")
       for (i in idx) {
         def iName = i.key
         def fields = [:]
@@ -95,7 +101,7 @@ class MongoPluginSupport {
       throw mongoEx
     } catch (e) {
       throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
-    }*/
+    }
   }
 
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
@@ -120,6 +126,13 @@ class MongoPluginSupport {
       }
 
       return null
+    }
+
+    /**
+     * creates a key object that can be used for referencing
+     */
+    metaClass.makeKey = {
+      return datastore.getKey(delegate)
     }
 
     /**
@@ -161,7 +174,7 @@ class MongoPluginSupport {
 
     metaClass.static.get = { Serializable docId ->
       try {
-        def obj = datastore.get(domainClass.clazz, docId.toString())
+        def obj = datastore.get(domainClass.clazz, docId)
         // dependency injection
         if (obj) ctx.beanFactory.autowireBeanProperties(obj, ctx.beanFactory.AUTOWIRE_BY_NAME, false)
         return obj
@@ -177,8 +190,7 @@ class MongoPluginSupport {
       get(docId) != null
     }
 
-    // cannot use Serializeable here, because Map implements it too
-    metaClass.static.deleteOne = { String docId ->
+    metaClass.static.deleteOne = { Serializable docId ->
       datastore.delete(domainClass.clazz, docId.toString())
     }
 
@@ -245,10 +257,11 @@ class MongoPluginSupport {
 
     // This adds basic dynamic finder support.
     metaClass.static.methodMissing = { method, args ->
-      def m = method =~ /^find(All)?By${DYNAMIC_FINDER_RE}$/
+      def m = method =~ /^find(All|One)?By${DYNAMIC_FINDER_RE}$/
       if (m) {
         def fields = []
         def comparator = m[0][3]
+        boolean returnOne = (m[0][1] == "One")
         // How many arguments do we need to pass for the given
         // comparator?
         def numArgs = getArgCountForComparator(comparator)
@@ -296,6 +309,9 @@ class MongoPluginSupport {
             queryParams = localArgs[expectedMinArgsCount]
           else
             queryParams = [:]
+
+          // return only the first result
+          if (returnOne) return find(filter, queryParams)
 
           // return the iterator for this collection
           return findAll(filter, queryParams)

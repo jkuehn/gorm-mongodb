@@ -15,7 +15,7 @@
  */
 package grails.plugins.mongodb.test
 
-import org.acme.Project
+import org.acme.Task
 
 /**
  *
@@ -26,24 +26,24 @@ class UnicodeTests extends GroovyTestCase {
     void testSaveUnicodeData() {
         def id = "unicode-test-正規"
 
-        def p = Project.get(id)
-        if (p) {
-            p.delete()
+        def t = Task.get(id)
+        if (t) {
+            t.delete()
         }
 
-        p = new Project()
+        t = new Task()
 
-        p.id = id
-        p.name = "»» 正規表達式 ... \u6B63"
-        p.save()
+        t.taskId = id
+        t.name = "»» 正規表達式 ... \u6B63"
+        t.save()
 
-        assertNotNull "should have saved new unicode project", p.id
+        assertNotNull "should have no errors on new unicode task", ((boolean)t.errors?.allErrors)
 
-        def p2 = Project.get(id)
+        def t2 = Task.get(id)
 
-        assertNotNull "should have read unicode project", p2
-        assertEquals "Unicode name should be the same", p.name, p2.name
+        assertNotNull "should have read unicode project", t2
+        assertEquals "Unicode name should be the same", t.name, t2.name
 
-        p2.delete()
+        t2.delete()
     }
 }

@@ -1,10 +1,11 @@
 package grails.plugins.mongodb
 
 /**
- * Evaluates the mapping DSL closure on domain classes 
+ * Evaluates the mapping DSL closure on domain classes
  *
  * @author: Juri Kuehn
  */
+@Deprecated
 class DomainClassMappingEvaluator {
 
     def indices = [:]

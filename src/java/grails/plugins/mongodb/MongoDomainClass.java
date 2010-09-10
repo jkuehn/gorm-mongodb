@@ -91,10 +91,6 @@ public class MongoDomainClass extends AbstractGrailsClass implements GrailsDomai
       throw new MappingException("You need to set the morphia Id annotation upon your id field on class " + getClazz().getName());
     }
 
-    if (this.identifier.getType() != String.class) {
-        throw new GrailsDomainException("Identity property in domain class [" + getFullName() + "] must be a String.");
-    }
-
     this.identifier.setIdentity(true);
 
     // convert to arrays for optimization - as used by grails

@@ -2,6 +2,12 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes
 
+h3. v0.5 - 2010-09-10
+* Maven is now used to resolve MongoDB driver and morphia dependency
+* updated morphia library to *0.95* - ObjectId is now default id type 
+* using MongoDB java driver *2.1*
+* Redefined and extended index mapping
+
 h3. v0.4.3 - 2010-08-26
 * Fixes "GRAILSPLUGINS-2405":http://jira.codehaus.org/browse/GRAILSPLUGINS-2405 - Pagination parameters falsely removed
 

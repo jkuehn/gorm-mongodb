@@ -7,6 +7,7 @@ mongodb {
 grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 
+// + Hubert Chang
 grails.doc.authors = "Juri Kuehn"
 grails.doc.license = "Apache License"
 

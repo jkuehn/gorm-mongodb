@@ -46,7 +46,7 @@ class LowLevelTests extends GroovyTestCase {
     Datastore ds = mongo.datastore
 
     def p = new Project(name: "Testprojekt")
-    def t = new Task(name: "Testtask")
+    def t = new Task(taskId: "testedTaskId", name: "Testtask")
 
     ds.save(p)
     ds.save(t)

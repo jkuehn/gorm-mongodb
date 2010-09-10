@@ -50,13 +50,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
     // process all classes within grails-app/mongo
     boolean isMongoDir = false
     if (sourceUnit.name =~ /grails-app.mongo/) {
-      // dirrty?
-     
       isMongoDir = true
-      /* Hacky to import org.bson.types.*, but it failed. Don't know why.
-      ModuleNode module = (ModuleNode) nodes[0];
-      module.addStarImport("org.bson.types.")
-      */
     }
     nodes[0].getClasses().each { ClassNode owner ->
       if (!isMongoDir && !owner.getAnnotations(MORPHIA_ENTITY)) return // do not process this class
@@ -88,12 +82,6 @@ class MongoDomainASTTransformation implements ASTTransformation {
       log.debug("Adding property [" + IDENTITY + "] to class [" + classNode.getName() + "]")
       identity = classNode.addProperty(IDENTITY, Modifier.PUBLIC, OBJECTID_TYPE, null, null, null)
     }
-
-    // id must be string - leave it up to morphia to throw an exception
-//    if (identity.type.typeClass != String.class) {
-//      log.debug("Changing the type of property [" + IDENTITY + "] of class [" + classNode.getName() + "] to String.")
-//      identity.field.type = STRING_TYPE
-//    }
 
     // now add annotation
     identity.getField().addAnnotation(new AnnotationNode(MORPHIA_ID))
@@ -138,11 +126,11 @@ class MongoDomainASTTransformation implements ASTTransformation {
       }
     }
   }
-  
+
   private void annotateClosureAsTransients(ClassNode classNode) {
 		/*Find all closures.*/
     def closures = classNode.getFields().findAll { FieldNode f -> f.getType().toString() == "java.lang.Object"}
-    
+
     closures.each { FieldNode f ->
       if (f.getAnnotations(MORPHIA_TRANSIENT).size() > 0) return // this one is annotated already
       f.addAnnotation(new AnnotationNode(MORPHIA_TRANSIENT))

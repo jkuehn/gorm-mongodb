@@ -1,6 +1,9 @@
 package grails.plugins.mongodb.test
 
 import org.acme.Task
+import com.google.code.morphia.Key
+import org.acme.Project
+import org.bson.types.ObjectId
 
 /**
  * test the dynamic finders
@@ -9,7 +12,7 @@ import org.acme.Task
  */
 class StaticMethodsTests extends GroovyTestCase {
 
-  def projectId = "UnnrealProject------"
+  def projectId = new Key(Project.class, ObjectId.get())
   def taskList
 
   void testDynamicFinders() {
@@ -69,14 +72,16 @@ class StaticMethodsTests extends GroovyTestCase {
    */
   void setUp() {
     Task.deleteAll([projectId: projectId])
+    def taskCount = 1
     taskList = []
-    taskList << new Task(name: "Simple Task 1", estimatedHours: 10, projectId: projectId)   // 0
-    taskList << new Task(name: "Simple Task 2", estimatedHours: 100, projectId: projectId)  // 1
-    taskList << new Task(name: "Complex Task", estimatedHours: 30, projectId: projectId)    // 2
-    taskList << new Task(name: "Simulated Task", estimatedHours: 20, projectId: projectId)  // 3
+    taskList << new Task(taskId: "testTask" + (taskCount++), name: "Simple Task 1", estimatedHours: 10, projectId: projectId)   // 0
+    taskList << new Task(taskId: "testTask" + (taskCount++), name: "Simple Task 2", estimatedHours: 100, projectId: projectId)  // 1
+    taskList << new Task(taskId: "testTask" + (taskCount++), name: "Complex Task", estimatedHours: 30, projectId: projectId)    // 2
+    taskList << new Task(taskId: "testTask" + (taskCount++), name: "Simulated Task", estimatedHours: 20, projectId: projectId)  // 3
 
     taskList*.save()
 
+    // do something else here, id is always set - maybe count by projectId
     assertNotNull "task 1 should save successfully", taskList[0].taskId
     assertNotNull "task 2 should save successfully", taskList[1].taskId
     assertNotNull "task 3 should save successfully", taskList[2].taskId
