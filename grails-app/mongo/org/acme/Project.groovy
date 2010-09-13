@@ -22,10 +22,6 @@ class Project {
 
   transient String pass = "pass"
 
-  static mapping = {
-    name index:'imdeprecated'
-  }
-
   static constraints = {
     id nullable: true
     name blank: false

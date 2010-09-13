@@ -22,12 +22,18 @@ import org.springframework.validation.Errors
 import org.codehaus.groovy.grails.plugins.DomainClassPluginSupport
 import org.codehaus.groovy.grails.commons.GrailsClassUtils
 import org.codehaus.groovy.grails.commons.GrailsDomainConfigurationUtil
+import grails.plugins.mongodb.dsl.IndexInfoBuilder
+import org.apache.commons.logging.Log
+import org.apache.commons.logging.LogFactory
+import com.google.code.morphia.utils.IndexFieldDef
+import com.mongodb.WriteConcern
 
 /**
  * Author: Juri Kuehn
  * Date: 30.05.2010
  */
 class MongoPluginSupport {
+  private static final Log log = LogFactory.getLog(MongoDomainClass.class);
 
   static final PROPERTY_INSTANCE_MAP = new SoftThreadLocalMap()
   public static final String MORPHIA_ATTRIBUTE = "morphiaDS"
@@ -69,9 +75,35 @@ class MongoPluginSupport {
   }
 
   static void ensureIndices(application, domainClass, ctx) {
+    def domain = domainClass.clazz
+    final Datastore datastore = getMongoBean(application).datastore
 
-  }
+    try {
+      def f = domain.getDeclaredField("indexes")
+      f.accessible = true
+      def mappingClosure = f.get()
+      def builder = new IndexInfoBuilder()
+      mappingClosure.delegate = builder
+      mappingClosure()
 
+      builder.errors.each {
+        log.error("Error in index definition for class ${domain.class.name}: $it")
+      }
+
+      for (i in builder.indexes) {
+        println "adding index $i"
+        datastore.ensureIndex(domain, i.name, i.fields as IndexFieldDef[], i.unique, i.dropDups)
+      }
+    } catch (NoSuchFieldException nsfe) {
+      // no problem
+    } catch (com.mongodb.MongoException mongoEx) {
+      // usually communications problems, cannot ensure index
+      throw mongoEx
+    } catch (e) {
+      throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
+    }  }
+
+  // @todo REMOVE ME from 0.6 on
   static void ensureIndicesDeprecated(application, domainClass, ctx) {
     def domain = domainClass.clazz
     final DBCollection collection = getMongoBean(application).datastore.getCollection(domain)
@@ -85,7 +117,7 @@ class MongoPluginSupport {
       mappingClosure()
 
       def idx = evaluator.indices
-      if (idx) println("*** " + domain.name + " uses deprecated index definitions. See user guide for new syntax.")
+      if (idx) println("\n\n*** " + domain.name + " uses deprecated index definitions. See user guide for new syntax.\n\n\n")
       for (i in idx) {
         def iName = i.key
         def fields = [:]
@@ -137,18 +169,25 @@ class MongoPluginSupport {
 
     /**
      * call mongodb update function on this entity
+     * http://code.google.com/p/morphia/wiki/Updating
      */
-    metaClass.update = { Map data, boolean createIfMissing = false ->
-      def id = domainClass.identifier.name
-      if (!delegate."$id") {
-        throw new IllegalStateException("Cannot update unsaved instances")
+    metaClass.update = { Closure data, boolean createIfMissing = false, WriteConcern wc = null ->
+      if (!delegate.ident()) {
+        throw new IllegalStateException("Cannot update instances without an id")
       }
-      data = data as BasicDBObject
       def query = datastore.createQuery(delegate.class)
-      query.filter(Mapper.ID_KEY, delegate."$id");
+      def updateOp = datastore.createUpdateOperations(delegate.class)
+
+      query.filter(Mapper.ID_KEY, delegate.ident());
+
+      data.delegate = updateOp
+      data()
+
       println "query: " + query.toString()
-      println "data: " + data
-      datastore.update(query, data, createIfMissing, false)
+      println "updateop: " + updateOp
+
+      def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
+      println updateResult
     }
 
     metaClass.delete = { ->

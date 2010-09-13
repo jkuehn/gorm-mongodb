@@ -16,8 +16,8 @@ class StaticMethodsTests extends GroovyTestCase {
   def taskList
 
   void testDynamicFinders() {
-    assertEquals "findByProjectId should find all testobjects", Task.findByProjectId(projectId)*.taskId, taskList*.taskId
-    assertEquals "subsequent call to now cached findByProjectId should find all testobjects", Task.findByProjectId(projectId)*.taskId, taskList*.taskId
+    assertEquals "findByProjectId should find all testobjects", Task.findByProjectId(projectId)*.taskId.sort(), taskList*.taskId.sort()
+    assertEquals "subsequent call to now cached findByProjectId should find all testobjects", Task.findByProjectId(projectId)*.taskId.sort(), taskList*.taskId.sort()
 
     // test sorting
     def found = Task.findByProjectIdAndNameGreaterThan(projectId, "Sim", [sort: "estimatedHours"]).toList()
@@ -32,8 +32,7 @@ class StaticMethodsTests extends GroovyTestCase {
   }
 
   void testStaticMethods() {
-
-    assertEquals "findAll by projectId should find all testobjects", Task.findAll([projectId: projectId])*.taskId, taskList*.taskId
+    assertEquals "findAll by projectId should find all testobjects", Task.findAll([projectId: projectId])*.taskId.sort(), taskList*.taskId.sort()
     assertEquals "find should find the searched task", Task.find(["name >": "S"], [sort: "-estimatedHours"])?.taskId, taskList[1].taskId
   }
 
