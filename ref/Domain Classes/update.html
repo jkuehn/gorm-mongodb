@@ -1,21 +1,27 @@
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <title>gorm-mongodb 0.4.2 - Reference Documentation</title>
+        <title>gorm-mongodb 0.5 - Reference Documentation</title>
         <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
     </head>
     <body class="body">
-    <h1>update</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Updates fields of instance allowing the use of MongoDB commands. See <a href="http://www.mongodb.org/display/DOCS/Updating" target="blank">MongoDB Updating</a> page<p class="paragraph"/>Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state.<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>// increase field value of actualHours by 5
-task.update(&#91;
-  '$inc': &#91;'actualHours': 5&#93;
-&#93;)<p class="paragraph"/>// update set
-document.update(&#91;
-  '$addToSet': &#91; 'tags': 'mongodb' &#93;
-&#93;)</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/><div class="code"><pre>Book.update( Map data )
-Book.update( Map data, <span class="java&#45;object">boolean</span> createIfAbsent )</pre></div><p class="paragraph"/>Parameters:
+    <h1>update</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Updates fields of instances<p class="paragraph"/>Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state.<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>// increase field value of actualHours by 5
+task.update &#123;
+  inc 'actualHours', 5
+&#125;<p class="paragraph"/>// update set
+document.update &#123;
+  add 'tags', 'mongodb' // add string 'mongodb' to the 'tags' set
+&#125;</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/><div class="code"><pre>Book.update( Closure updateOperations )
+Book.update( Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent )
+Book.update( Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent, WriteConcern wc )</pre></div><p class="paragraph"/>Parameters:
 <ul class="star">
-<li><code>data</code> - Fields and values that should be updated</li>
+<li><code>updateOperations</code> - This closure is executed within the context of morphias <a href="http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/UpdateOperations.java" target="blank">UpdateOperations</a></li>
 <li><code>createIfAbsent</code> - If set to true, flieds that are not present in entity will be created</li>
-</ul><p class="paragraph"/>
+<li><code>wc</code> - A WriteConcern object which configures the write strategy for the update operation</li>
+</ul><p class="paragraph"/><h2>See also</h2>
+<ul class="star">
+<li><a href="http://code.google.com/p/morphia/wiki/Updating" target="blank">Morphia - How to update data</a></li>
+<li><a href="http://api.mongodb.org/java/current/com/mongodb/WriteConcern.html" target="blank">WriteConcern api docs</a></li>
+</ul><p class="paragraph"/>.
     </body>
 </html>
