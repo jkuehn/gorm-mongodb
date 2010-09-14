@@ -1,0 +1,42 @@
+h1. index
+
+h2. Purpose
+
+Defines properties that should be indexed by MongoDB
+
+h2. Examples
+
+{code:java}
+class Book {
+	String title
+	Date releaseDate
+	Author author
+	String ISBN
+	
+	static indexes = {
+		idx_isbn unique:true, dropDups:true, fields:[desc('ISBN')]
+		idx_author fields:[asc('author')]
+		idx_book fields:[both('author'), 'title'] // asc is the default direction
+	}
+}
+{code}
+
+h2. Description
+
+Syntax is the following:
+
+{code}
+  <index name> <index properties>
+{code}
+
+Where <index properties> may be:
+
+* *unique*: guarantees that no two documents have the same values for given fields. Defaults to false
+* *dropDups*: if you create unique indexes on existing data, setting dropDups to true tells MongoDB to drop documents with same unique values. Defaults to false
+* *fields*: a list of fields that should be indexed. You can set the index direction by enclosing the property names by the sorting keywords @asc@, @desc@ or @both@.
+
+h2. See also
+
+* "MongoDB Wiki - Indexes":http://www.mongodb.org/display/DOCS/Indexes
+
+.

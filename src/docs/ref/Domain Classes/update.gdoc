@@ -2,7 +2,7 @@ h1. update
 
 h2. Purpose
 
-Updates fields of instance allowing the use of MongoDB commands. See "MongoDB Updating":http://www.mongodb.org/display/DOCS/Updating page
+Updates fields of instances
 
 Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state. 
 
@@ -10,25 +10,33 @@ h2. Examples
 
 {code:java}
 // increase field value of actualHours by 5
-task.update([
-  '$inc': ['actualHours': 5]
-])
+task.update {
+  inc 'actualHours', 5
+}
 
 // update set
-document.update([
-  '$addToSet': [ 'tags': 'mongodb' ]
-])
+document.update {
+  add 'tags', 'mongodb' // add string 'mongodb' to the 'tags' set
+}
 {code}
 
 h2. Description
 
 {code:java}
-Book.update( Map data )
-Book.update( Map data, boolean createIfAbsent )
+Book.update( Closure updateOperations )
+Book.update( Closure updateOperations, boolean createIfAbsent )
+Book.update( Closure updateOperations, boolean createIfAbsent, WriteConcern wc )
 {code}
 
 Parameters:
 
-* @data@ - Fields and values that should be updated
+* @updateOperations@ - This closure is executed within the context of morphias "UpdateOperations":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/UpdateOperations.java 
 * @createIfAbsent@ - If set to true, flieds that are not present in entity will be created
+* @wc@ - A WriteConcern object which configures the write strategy for the update operation
 
+h2. See also
+
+* "Morphia - How to update data":http://code.google.com/p/morphia/wiki/Updating
+* "WriteConcern api docs":http://api.mongodb.org/java/current/com/mongodb/WriteConcern.html
+
+.
