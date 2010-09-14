@@ -27,9 +27,8 @@ class Task {
   transient String pass = "pass" // test ignore transients
 
   static indexes = {
-    idx_date unique:true, dropDups:true, fields:[dateCreated:"asc", lastUpdated:"DESC"]
-    idx_desc unique:false, dropDups:true, fields:[description:-1] // 1 = ASC, -1 = DESC
-    idx_project fields:[projectId:IndexDirection.BOTH] // you can use morphias IndexDirection directly
+    idx_date unique:true, dropDups:true, fields:[asc('dateCreated'), desc('lastUpdated')]
+    idx_project fields:[both('projectId'), 'startDate'] // if direction is omitted, asc is default
 
   }
 
