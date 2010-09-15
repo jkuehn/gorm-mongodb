@@ -33,7 +33,7 @@
 <li>Constraints and validation support</li>
 <li>Automatic timestamping of dateCreated and lastUpdated</li>
 <li>Gorm events beforeSave, afterSave, beforeDelete, afterDelete (others, like afterLoad are supported by <a href="http://code.google.com/p/morphia/wiki/LifecycleMethods" target="blank">Morphia</a> )</li>
-<li>Works with MongoDB 1.4 and 1.5</li>
+<li>Works with MongoDB 1.4 and 1.6</li>
 <li>AST Transformations that inject all necessary fields and annotations for morphia</li>
 <li>Lazy references supported</li>
 <li>generate-all support</li>
@@ -62,7 +62,7 @@
     <span class="java&#45;object">String</span> name
     <span class="java&#45;object">String</span> brand<p class="paragraph"/>    <span class="java&#45;object">int</span> ps // horsepower
     Date buildDate<p class="paragraph"/>    Date dateCreated // autoset by plugin
-    Date lastUpdated // autoset by plugin<p class="paragraph"/>    <span class="java&#45;object">int</span> version // not evaluated by MongoDb, needed <span class="java&#45;keyword">for</span> templates from generate&#45;all<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
+    Date lastUpdated // autoset by plugin<p class="paragraph"/>    <span class="java&#45;keyword">static</span> constraints = &#123;
         brand nullable:<span class="java&#45;keyword">true</span>
         ps min: 30, max: 1001
     &#125;
