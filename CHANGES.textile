@@ -2,7 +2,7 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes
 
-h3. v0.5 - 2010-09-10
+h3. v0.5 - 2010-09-15
 * Maven is now used to resolve MongoDB driver and morphia dependency
 * updated morphia library to *0.95*
 ** ObjectId is now default id type

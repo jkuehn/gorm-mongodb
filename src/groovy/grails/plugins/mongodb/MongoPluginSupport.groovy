@@ -27,6 +27,7 @@ import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 import com.google.code.morphia.utils.IndexFieldDef
 import com.mongodb.WriteConcern
+import org.bson.types.ObjectId
 
 /**
  * Author: Juri Kuehn
@@ -91,7 +92,7 @@ class MongoPluginSupport {
       }
 
       for (i in builder.indexes) {
-        println "adding index $i"
+        // add index to db
         datastore.ensureIndex(domain, i.name, i.fields as IndexFieldDef[], i.unique, i.dropDups)
       }
     } catch (NoSuchFieldException nsfe) {
@@ -213,7 +214,9 @@ class MongoPluginSupport {
 
     metaClass.static.get = { Serializable docId ->
       try {
-        def obj = datastore.get(domainClass.clazz, docId)
+        // fetch from db
+        def obj = datastore.get(domainClass.clazz, _checkedId(domainClass, docId))
+
         // dependency injection
         if (obj) ctx.beanFactory.autowireBeanProperties(obj, ctx.beanFactory.AUTOWIRE_BY_NAME, false)
         return obj
@@ -230,12 +233,12 @@ class MongoPluginSupport {
     }
 
     metaClass.static.deleteOne = { Serializable docId ->
-      datastore.delete(domainClass.clazz, docId.toString())
+      datastore.delete(domainClass.clazz, _checkedId(domainClass, docId))
     }
 
     // delete all documents with given ids
     metaClass.static.deleteAll = { List docIds ->
-      datastore.delete(domainClass.clazz, docIds)
+      datastore.delete(domainClass.clazz, docIds?.collect { _checkedId(domainClass, it) })
     }
 
     metaClass.static.deleteAll = { Map filter = [:] ->
@@ -422,13 +425,16 @@ class MongoPluginSupport {
     return domain
   }
 
-  private static String getDocumentId(MongoDomainClass dc, Object domain) {
-    def id = dc.getIdentifier()
-    if (id) {
-      domain[id.name]
-    }
+  /**
+   * autoconvert to ObjectId if neccessary
+   * @param id
+   * @return
+   */
+  protected static Serializable  _checkedId(domainClass, id) {
+    if (domainClass.identifier.type == ObjectId.class && !(id instanceof ObjectId))
+      return new ObjectId(id.toString())
 
-    null
+    return id
   }
 
   private static MongoHolderBean getMongoBean(GrailsApplication application) {

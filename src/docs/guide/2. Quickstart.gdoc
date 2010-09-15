@@ -30,7 +30,7 @@ mongodb {
 }
 {code}
 
-Now the fields and constraints 
+Now the fields and constraints
 
 *grails-app/mongo/mongograilsquickstart/Car.groovy*
 
@@ -46,8 +46,6 @@ class Car {
 
     Date dateCreated // autoset by plugin
     Date lastUpdated // autoset by plugin
-
-    int version // not evaluated by MongoDb, needed for templates from generate-all
 
     static constraints = {
         brand nullable:true
