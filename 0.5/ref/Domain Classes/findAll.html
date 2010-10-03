@@ -1,13 +1,13 @@
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <title>gorm-mongodb 0.5.1 - Reference Documentation</title>
+        <title>gorm-mongodb 0.5 - Reference Documentation</title>
         <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
     </head>
     <body class="body">
-    <h1>find</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Finds domain class instances for the specified query and returns the first result<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>// 1 book from Dan Brown staring from 5th book ordered by release date
-Book.find(&#91;author:'Dan Brown'&#93;,&#91;offset:5,sort:'releaseDate'&#93;)</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/><div class="code"><pre>Book.find( Map query )
-Book.find( Map query, Map queryParams )</pre></div><p class="paragraph"/>Parameters:
+    <h1>findAll</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Finds all of the domain class instances for the specified query<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>// 10 books from Dan Brown staring from 5th book ordered by release date
+Book.findAll(&#91;author:'Dan Brown'&#93;,&#91;max:10,offset:5,sort:'releaseDate'&#93;)</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/><div class="code"><pre>Book.findAll( Map query )
+Book.findAll( Map query, Map queryParams )</pre></div><p class="paragraph"/>Parameters:
 <ul class="star">
 <li><code>query</code> - A <a href="http://wiki.github.com/jkuehn/gorm-mongodb/querying" target="blank">filter for querying</a></li>
 <li><code>positionalParams</code> - A List of parameters for a positional parametrized HQL query</li>
