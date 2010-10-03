@@ -2,6 +2,9 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes
 
+h3. v0.5.1 - 2010-10-03
+* added static update method
+
 h3. v0.5 - 2010-09-15
 * Maven is now used to resolve MongoDB driver and morphia dependency
 * updated morphia library to *0.95*

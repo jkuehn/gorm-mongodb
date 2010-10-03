@@ -4,7 +4,7 @@ h2. Purpose
 
 Updates fields of instances
 
-Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state. 
+Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state.
 
 h2. Examples
 
@@ -14,6 +14,11 @@ task.update {
   inc 'actualHours', 5
 }
 
+// increase field value of actualHours by 5, create entity if not in db
+Task.update(params.id, {
+  inc 'actualHours', 5
+}, true)
+
 // update set
 document.update {
   add 'tags', 'mongodb' // add string 'mongodb' to the 'tags' set
@@ -22,15 +27,32 @@ document.update {
 
 h2. Description
 
+On instances:
+
 {code:java}
-Book.update( Closure updateOperations )
-Book.update( Closure updateOperations, boolean createIfAbsent )
-Book.update( Closure updateOperations, boolean createIfAbsent, WriteConcern wc )
+book.update( Closure updateOperations )
+book.update( Closure updateOperations, boolean createIfAbsent )
+book.update( Closure updateOperations, boolean createIfAbsent, WriteConcern wc )
 {code}
+
+As class method:
+
+{code:java}
+book.update( id, Closure updateOperations )
+book.update( id, Closure updateOperations, boolean createIfAbsent )
+book.update( id, Closure updateOperations, boolean createIfAbsent, WriteConcern wc )
+
+book.update( Map query, Closure updateOperations )
+book.update( Map query, Closure updateOperations, boolean createIfAbsent )
+book.update( Map query, Closure updateOperations, boolean createIfAbsent, WriteConcern wc )
+{code}
+
 
 Parameters:
 
-* @updateOperations@ - This closure is executed within the context of morphias "UpdateOperations":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/UpdateOperations.java 
+* @id@ - id of the entity
+* @query@ - query as used in findAll method
+* @updateOperations@ - This closure is executed within the context of morphias "UpdateOperations":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/UpdateOperations.java
 * @createIfAbsent@ - If set to true, flieds that are not present in entity will be created
 * @wc@ - A WriteConcern object which configures the write strategy for the update operation
 
