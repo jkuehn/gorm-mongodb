@@ -184,11 +184,7 @@ class MongoPluginSupport {
       data.delegate = updateOp
       data()
 
-      println "query: " + query.toString()
-      println "updateop: " + updateOp
-
       def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
-      println updateResult
     }
 
     metaClass.delete = { ->
@@ -279,6 +275,22 @@ class MongoPluginSupport {
 
     metaClass.static.list = { Map queryParams = [:] ->
       findAll([:], queryParams)
+    }
+
+    metaClass.static.update = { filter, Closure data, boolean createIfMissing = false, WriteConcern wc = null ->
+      if (!(filter instanceof Map)) filter = [(Mapper.ID_KEY): filter] 
+
+      def query = datastore.createQuery(domainClass.clazz)
+      def updateOp = datastore.createUpdateOperations(domainClass.clazz)
+
+      filter.each { k, v ->
+        query.filter(k.toString(), v)
+      }
+
+      data.delegate = updateOp
+      data()
+
+      def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
     }
   }
 

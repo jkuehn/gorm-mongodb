@@ -66,6 +66,31 @@ class StaticMethodsTests extends GroovyTestCase {
     assertEquals "Database should contain tested objects (5)", taskList.size()-3, Task.findAll([projectId: projectId]).size()
   }
 
+  void testStaticUpdateMethods() {
+    assertEquals "Database should contain tested objects (1)", taskList.size(), Task.findAll([projectId: projectId]).size()
+
+    println "manipulating " + taskList[0]
+    // update by id
+    def prevVal = taskList[0].estimatedHours
+    Task.update(taskList[0].taskId, {
+      inc 'estimatedHours'
+    })
+    def curTask = Task.get(taskList[0].taskId)
+    println "manipulated " + curTask
+    assertEquals "estimatedHours should have been updated", prevVal+1, curTask.estimatedHours
+
+
+    println "manipulating " + taskList[1]
+    // update by query
+    prevVal = taskList[1].estimatedHours
+    Task.update([estimatedHours: prevVal], {
+      inc 'estimatedHours'
+    })
+    curTask = Task.get(taskList[1].taskId)
+    println "manipulated " + curTask
+    assertEquals "estimatedHours should have been updated", prevVal+1, curTask.estimatedHours
+  }
+
   /**
    * create 4 tasks to mess around with
    */
