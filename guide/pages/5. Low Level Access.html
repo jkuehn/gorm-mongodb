@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
     </head>
     <body class="body">
-    If you want to, you can also access <a href="http://code.google.com/p/morphia/" target="blank">Morphia's</a> Datastore or the underlying <a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a> directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.<p class="paragraph"/>The bean <code>mongo</code> provides access to the configured java driver and morphia instance (since 0.1.2):<p class="paragraph"/><strong class="bold">usage:</strong><p class="paragraph"/><div class="code"><pre>class MongoController &#123;
+    If you want to, you can also access <a href="http://code.google.com/p/morphia/" target="blank">Morphia's</a> Datastore or the underlying <a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a> directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.<p class="paragraph"/><h2>Access using the mongo bean</h2><p class="paragraph"/>The bean <code>mongo</code> provides access to the configured java driver and morphia instance (since 0.1.2):<p class="paragraph"/><strong class="bold">usage:</strong><p class="paragraph"/><div class="code"><pre>class MongoController &#123;
     def mongo<p class="paragraph"/>    def lowlevel = &#123;
         mongo.mongo     // com.mongodb.Mongo &#45; already connected
         mongo.db        // com.mongodb.DB &#45; configured db
@@ -13,7 +13,6 @@
         mongo.datastore // com.google.code.morphia.Datastore &#45; ORM layer<p class="paragraph"/>        // com.mongodb.DBCollection that holds entities <span class="java&#45;keyword">for</span> given class
         mongo.getCollection(Person.class)
     &#125;
-&#125;</pre></div><p class="paragraph"/>todo: implement gridfs access
-
+&#125;</pre></div><p class="paragraph"/><h2>Access using the collection property</h2><p class="paragraph"/>Every MongoDB domain has a <code>collection</code> property for convenient access to the drivers <a href="http://api.mongodb.org/java/current/com/mongodb/DBCollection.html" target="blank">DBCollection</a> instance:<p class="paragraph"/><strong class="bold">usage example:</strong><p class="paragraph"/><div class="code"><pre>Project.collection.insert(<span class="java&#45;keyword">new</span> BasicDBObject('name', 'Project MongoDB'))</pre></div><p class="paragraph"/>
     </body>
 </html>
