@@ -27,7 +27,8 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // runtime 'mysql:mysql-connector-java:5.1.5'
-        runtime 'com.google.code.morphia:morphia:0.95'
+        runtime 'com.google.code.morphia:morphia:0.96'
+        runtime 'com.google.code.morphia:logging-slf4j:0.96'
     }
 
 }

@@ -5,6 +5,7 @@ import com.google.code.morphia.annotations.Reference;
 import com.google.code.morphia.annotations.Transient;
 import com.google.code.morphia.mapping.MappedClass;
 import grails.util.GrailsNameUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.codehaus.groovy.grails.commons.GrailsDomainClass;
 import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty;
@@ -12,10 +13,7 @@ import org.codehaus.groovy.grails.validation.ConstrainedProperty;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Author: Juri Kuehn
@@ -239,7 +237,14 @@ public class MongoDomainClassProperty implements GrailsDomainClassProperty {
   }
 
   public boolean isBasicCollectionType() {
-    return false;
+    // @todo cache result?
+    Class c = this.type;
+    boolean found = (c == Collection.class);
+    while (c != null && !found) {
+      found = (ArrayUtils.contains(c.getInterfaces(), Collection.class));
+      c = c.getSuperclass();
+    }
+    return found;
   }
 
   public boolean isAnnotatedWith(Class annotation) {

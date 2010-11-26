@@ -21,6 +21,7 @@ import com.google.code.morphia.annotations.Transient
 import org.codehaus.groovy.ast.ModuleNode
 import org.codehaus.groovy.ast.ClassHelper
 import org.bson.types.ObjectId
+import org.codehaus.groovy.ast.expr.ConstantExpression
 /**
  *
  * @author: Juri Kuehn
@@ -66,7 +67,9 @@ class MongoDomainASTTransformation implements ASTTransformation {
     // annotate with morphias Entity if not already the case
     if (classNode.getAnnotations(MORPHIA_ENTITY).size() > 0) return; // already annotated
 
-    classNode.addAnnotation(new AnnotationNode(MORPHIA_ENTITY))
+    AnnotationNode entityAN = new AnnotationNode(MORPHIA_ENTITY)
+    entityAN.setMember('noClassnameStored', ConstantExpression.TRUE) // by default, do not store class name
+    classNode.addAnnotation(entityAN)
   }
 
   private void injectIdProperty(ClassNode classNode) {

@@ -228,6 +228,10 @@ class MongoPluginSupport {
       get(docId) != null
     }
 
+    metaClass.static.getCollection = {
+      datastore.getCollection(domainClass.clazz)
+    }
+
     metaClass.static.deleteOne = { Serializable docId ->
       datastore.delete(domainClass.clazz, _checkedId(domainClass, docId))
     }
@@ -278,7 +282,7 @@ class MongoPluginSupport {
     }
 
     metaClass.static.update = { filter, Closure data, boolean createIfMissing = false, WriteConcern wc = null ->
-      if (!(filter instanceof Map)) filter = [(Mapper.ID_KEY): _checkedId(domainClass, filter)] 
+      if (!(filter instanceof Map)) filter = [(Mapper.ID_KEY): _checkedId(domainClass, filter)]
 
       def query = datastore.createQuery(domainClass.clazz)
       def updateOp = datastore.createUpdateOperations(domainClass.clazz)

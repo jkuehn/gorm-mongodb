@@ -1,0 +1,13 @@
+h1. collection
+
+h2. Purpose
+
+Returns the "DBCollection":http://api.mongodb.org/java/current/com/mongodb/DBCollection.html instance for the given domain class.
+
+h2. Examples
+
+{code:java}
+assert (Book.collection instanceof DBCollection)
+// insert data into collection
+Project.collection.insert(new BasicDBObject('name', 'Project MongoDB'))
+{code}

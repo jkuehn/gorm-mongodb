@@ -4,6 +4,8 @@ import org.acme.Task
 import com.google.code.morphia.Key
 import org.acme.Project
 import org.bson.types.ObjectId
+import com.mongodb.BasicDBObject
+import com.mongodb.DBCollection
 
 /**
  * test the dynamic finders
@@ -89,6 +91,22 @@ class StaticMethodsTests extends GroovyTestCase {
     curTask = Task.get(taskList[1].taskId)
     println "manipulated " + curTask
     assertEquals "estimatedHours should have been updated", prevVal+1, curTask.estimatedHours
+  }
+
+  void testCollectionAccess() {
+    String pName = "******TestProject12345567890"
+
+    assert (Project.collection instanceof DBCollection)
+
+    Project.collection.insert(new BasicDBObject('name', pName))
+
+    def p = Project.findOneByName(pName)
+
+    assertNotNull "should find project", p
+
+    println "found manually inserted project: " + p
+
+    p.delete()
   }
 
   /**

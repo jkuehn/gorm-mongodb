@@ -99,6 +99,29 @@ public class BasicPersistenceTests extends GroovyTestCase {
     p.delete()
   }
 
+  void testAddToMethods() {
+    def projectId = ObjectId.get()
+
+    def c = new Contact()
+
+    c.name = "Tom Jones 2"
+    c.company = "Acme, Corp."
+    c.save()
+
+    def p = new Project(name: "TJ Project")
+    p.addToTeammembers c
+    p.save()
+
+    assertNotNull "should have retrieved id of new project", p.id
+
+    p = Project.get(p.id)
+    assertNotNull "should have retrieved new project", p
+    assertNotNull "should have added one teammember", p.teammembers
+
+    p.delete()
+    c.delete()
+  }
+
   void testComplexObject() {
     def projectId = ObjectId.get()
 

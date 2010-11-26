@@ -20,7 +20,7 @@ The gorm-mongodb plugin provides a create-mongodb-class command that creates a s
 
 MongoDB domain classes are put into the grails-app/mongo directory. Now we need to edit some files: Config.groovy for the database connection and our new Car domain, where we want to put some fields:
 
-*grails-app/conf/Config.groovy*
+*grails-app/conf/DataSource.groovy*
 
 {code}
 mongodb {
