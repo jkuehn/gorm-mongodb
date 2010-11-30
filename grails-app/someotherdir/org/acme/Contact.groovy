@@ -5,7 +5,7 @@ import com.google.code.morphia.annotations.Entity
 /**
  * For testing domain classes outside of grails-app/mongo directory
  */
-@Entity(noClassnameStored = true)
+@Entity(noClassnameStored = false)
 class Contact {
 
   // autoinjected id

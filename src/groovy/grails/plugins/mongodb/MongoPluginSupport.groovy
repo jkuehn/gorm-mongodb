@@ -101,8 +101,9 @@ class MongoPluginSupport {
       // usually communications problems, cannot ensure index
       throw mongoEx
     } catch (e) {
-      throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
-    }  }
+      throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name + " - " + e.message)
+    }
+  }
 
   // @todo REMOVE ME from 0.6 on
   static void ensureIndicesDeprecated(application, domainClass, ctx) {

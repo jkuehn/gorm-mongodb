@@ -24,7 +24,7 @@ class IndexInfoBuilder {
   }
 
   def both = { String field ->
-    __createIndexField(field, IndexDirection.BOTH)
+    __createIndexField(field, IndexDirection.ASC)
   }
 
   private __createIndexField(String name, IndexDirection direction) {

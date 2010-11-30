@@ -5,10 +5,13 @@ Also see the "release notes of underlying morphia library":http://code.google.co
 h3. v0.6 - upcoming
 * morphia now uses grails logger *TODO* http://code.google.com/p/morphia/wiki/SLF4JExtension
 
-h3. v0.5.2 - 2010-11-
+h3. v0.5.2 - 2010-11-30
+* updated morphia library to *0.97*
+
+h3. v0.5.2 - 2010-11-26
 * updated morphia library to *0.96*
 * added static collection property to access the unterlying mongodb collection
-* added addTo* methods support  
+* added addTo* methods support
 * by default the classname is not stored for every document anymore. Add annotation @com.google.code.morphia.annotations.Entity(noClassnameStored=false) to enable manually
 
 h3. v0.5.1 - 2010-10-03

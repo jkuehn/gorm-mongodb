@@ -9,7 +9,7 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.5.2"
+  def version = "0.5.3"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on
@@ -75,15 +75,20 @@ class GormMongodbGrailsPlugin {
 
   def doWithDynamicMethods = { ApplicationContext ctx ->
     def morphia = ctx.getBean('mongo').morphia
+
     application.MongoDomainClasses.each { GrailsDomainClass domainClass ->
-      if (!(domainClass instanceof MongoDomainClass)) return // process mongo domains only
+      try {
+        if (!(domainClass instanceof MongoDomainClass)) return // process mongo domains only
 
-      // add dynamic finders, validation, querying methods etc
-      MongoPluginSupport.enhanceDomainClass(domainClass, application, ctx)
+        // add dynamic finders, validation, querying methods etc
+        MongoPluginSupport.enhanceDomainClass(domainClass, application, ctx)
 
-      // add domain class to mapper
-      println "adding domain " + domainClass.getClazz() + " to morphia"
-      morphia.map(domainClass.getClazz())
+        // add domain class to mapper
+        println "adding domain " + domainClass.getClazz() + " to morphia"
+        morphia.map(domainClass.getClazz())
+      } catch (e) {
+        log.error ("Error processing mongodb domain $domainClass: " + e.message)
+      }
     }
   }
 
