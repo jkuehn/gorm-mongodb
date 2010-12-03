@@ -1,0 +1,18 @@
+h1. getAll
+
+h2. Purpose
+
+Retrieves instances of the domain classes for the specified ids, otherwise returns null
+
+h2. Examples
+
+{code:java}
+def books = Book.getAll("4c0cceac61b32d536cc6fdfb", "4c0cceac61b32d536cc6fdfc", "4c0cceac61b32d536cc6fdfd")
+{code}
+
+h2. Description
+
+Parameters:
+
+* @idlist@ - A List of ids of the objects to retrieve
+

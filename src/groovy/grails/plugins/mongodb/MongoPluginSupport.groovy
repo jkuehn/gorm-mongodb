@@ -224,6 +224,10 @@ class MongoPluginSupport {
       return null
     }
 
+    metaClass.static.getAll = { Collection docIds ->
+      findAll('id in': docIds)
+    }
+
     // Foo.exists(1)
     metaClass.static.exists = {Serializable docId ->
       get(docId) != null

@@ -9,7 +9,7 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.5.3"
+  def version = "0.5.4"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on
@@ -96,10 +96,15 @@ class GormMongodbGrailsPlugin {
    * in order to reload the mongoclasses grails app has to be reloaded
    */
   def onChange = {event ->
-    if (grails.plugins.mongodb.MongoDomainClassArtefactHandler.isMongoDomainClass(event.source)) {
+    if (event?.source instanceof Class &&
+      grails.plugins.mongodb.MongoDomainClassArtefactHandler.isMongoDomainClass(event.source)) {
       // reload needed, reregistering spring beans, enhancing domainclass, evaluating constraints etc
       log.info("MongoDB domain ${event.source} changed, reloading.")
       restartContainer()
+    } else {
+//      println event
+//      println event.source
+//      println event.source.class
     }
   }
 }
