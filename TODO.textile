@@ -3,12 +3,12 @@ h1. TODOs / ideas for next releases
 Implement countAll
 
 class BootStrap {
-   
+
     def mongo
-   
+
     def init = { servletContext ->
         def final metaClass = Wish.metaClass
-       
+
         metaClass.static.countAll = { Map filter = [:], Map queryParams = [:] ->
             Query query = mongo.datastore.find(Wish)
             filter.each { k, v ->
@@ -17,16 +17,14 @@ class BootStrap {
             return query.countAll()
          }
     }
-   
+
     def destroy = {
     }
-} 
+}
 
 
 
 * Make conversions between List and MorphiaIterator more convenient
-* Test domain class reloading (Plugin onChange)
-* Test getAll method
 * add a refresh method to instances, to pull current data from db again
 * use "GMongo":http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/ as driver wrapper
 * check out "GORM Redis":http://grails.org/plugin/redis plugin and the "inconsequential":http://github.com/grails/inconsequential implementation and derive some best practices

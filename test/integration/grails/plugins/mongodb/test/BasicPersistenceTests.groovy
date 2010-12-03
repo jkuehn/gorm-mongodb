@@ -122,6 +122,26 @@ public class BasicPersistenceTests extends GroovyTestCase {
     c.delete()
   }
 
+  void testGetAll() {
+    def c1 = new Contact(name: "Tom Jones 1", company: "Acme, Corp.")
+    c1.save()
+    assertNotNull "Contact 1 should have been saved", c1.id
+
+    def c2 = new Contact(name: "Tom Jones 2", company: "Acme, Corp.")
+    c2.save()
+    assertNotNull "Contact 2 should have been saved", c2.id
+
+    // test getAll
+    def all = Contact.getAll([c1.id, c2.id])?.toList()
+    println all
+    assertEquals "getAll should fetch the two contacts", 2, all.size()
+    assertTrue "getAll should contain contact 1", all*.id.contains(c1.id)
+    assertTrue "getAll should contain contact 2", all*.id.contains(c2.id)
+
+    c1.delete()
+    c2.delete()
+  }
+
   void testComplexObject() {
     def projectId = ObjectId.get()
 

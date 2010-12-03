@@ -101,10 +101,6 @@ class GormMongodbGrailsPlugin {
       // reload needed, reregistering spring beans, enhancing domainclass, evaluating constraints etc
       log.info("MongoDB domain ${event.source} changed, reloading.")
       restartContainer()
-    } else {
-//      println event
-//      println event.source
-//      println event.source.class
     }
   }
 }
