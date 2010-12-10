@@ -256,6 +256,16 @@ class MongoPluginSupport {
       datastore.delete(query)
     }
 
+    metaClass.static.countAll = { Map filter = [:] ->
+      Query query = datastore.find(domainClass.clazz)
+
+      filter.each { k, v ->
+        query.filter(k.toString(), v)
+      }
+
+      datastore.getCount(query)
+    }
+
     metaClass.static.count = {
       return (datastore.getCount(domainClass.clazz) as Long)
     }

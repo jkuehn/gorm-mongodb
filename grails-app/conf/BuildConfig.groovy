@@ -22,13 +22,16 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        mavenRepo "http://morphia.googlecode.com/svn/mavenrepo/"
+//        mavenRepo "http://morphia.googlecode.com/svn/mavenrepo/"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
         // runtime 'mysql:mysql-connector-java:5.1.5'
-        runtime 'com.google.code.morphia:morphia:0.97'
-        runtime 'com.google.code.morphia:logging-slf4j:0.97'
+
+//        not using ivy currently because of https://issues.apache.org/jira/browse/IVY-933 resolution of the 0.98 version fails
+//        runtime 'com.google.code.morphia:morphia:0.98'
+//        runtime 'com.google.code.morphia:logging-slf4j:0.98'
+        runtime 'org.mongodb:mongo-java-driver:2.3'
     }
 
 }

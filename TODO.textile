@@ -1,29 +1,5 @@
 h1. TODOs / ideas for next releases
 
-Implement countAll
-
-class BootStrap {
-
-    def mongo
-
-    def init = { servletContext ->
-        def final metaClass = Wish.metaClass
-
-        metaClass.static.countAll = { Map filter = [:], Map queryParams = [:] ->
-            Query query = mongo.datastore.find(Wish)
-            filter.each { k, v ->
-              query.filter(k.toString(), v)
-            }
-            return query.countAll()
-         }
-    }
-
-    def destroy = {
-    }
-}
-
-
-
 * Make conversions between List and MorphiaIterator more convenient
 * add a refresh method to instances, to pull current data from db again
 * use "GMongo":http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/ as driver wrapper
