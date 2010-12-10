@@ -5,10 +5,6 @@ Also see the "release notes of underlying morphia library":http://code.google.co
 h3. v0.6 - upcoming
 * morphia now uses grails logger *TODO* http://code.google.com/p/morphia/wiki/SLF4JExtension
 
-h3. v0.5.4 - 2010-12-08
-* updated morphia library to *0.98*
-
-
 h3. v0.5.4 - 2010-12-10
 * support for getAll method
 * support for countAll method
