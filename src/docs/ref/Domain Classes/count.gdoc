@@ -29,6 +29,6 @@ Count by query is not implemented yet
 
 Parameters:
 
-* @query@ - A "filter for querying":http://wiki.github.com/jkuehn/gorm-mongodb/querying
+* @query@ - A "filter for querying":http://jkuehn.github.com/gorm-mongodb/guide/4.%20Querying.html
 
 
