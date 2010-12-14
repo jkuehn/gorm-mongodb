@@ -1,0 +1,14 @@
+h1. makeKey
+
+h2. Purpose
+
+Creates a com.google.code.morphia.Key<T> object that can be used for referencing.
+
+h2. Examples
+
+{code:java}
+book.makeKey()
+{code}
+
+source:http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/Key.java
+

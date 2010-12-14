@@ -5,6 +5,10 @@ Also see the "release notes of underlying morphia library":http://code.google.co
 h3. v0.6 - upcoming
 * morphia now uses grails logger *TODO* http://code.google.com/p/morphia/wiki/SLF4JExtension
 
+h3. v0.5.5 - 2010-12-25
+* *breaking change* findByX is no longer synonym for findAllByX, but for findOneByX. So findByX now returns only the first result, and is consistent with find() and findAll() methods.
+* implemented the beforeValidate event introduced in "grails 1.3.6":http://grails.org/1.3.6+Release+Notes 
+
 h3. v0.5.4 - 2010-12-10
 * support for getAll method
 * support for countAll method

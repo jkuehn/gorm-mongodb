@@ -1,0 +1,49 @@
+h1. findBy*
+
+h2. Purpose
+
+Dynamic method that uses the properties of the domain class to allow the creation of Grails query method expressions that return all instances of the domain class.
+Returns only the first result, if any.
+
+h2. Examples
+
+Given the domain class @Book@:
+
+{code:java}
+class Book {
+   Long id
+   Long version
+   String title
+   Date releaseDate
+   String author
+}
+{code}
+
+The following are all possible:
+
+{code:java}
+def book = Book.findByTitle("The Shining")
+book = Book.findByTitleAndAuthor("The Sum of All Fears", "Tom Clancy")
+book = Book.findByReleaseDateBetween(firstDate, new Date())
+book = Book.findByReleaseDateGreaterThanEquals(firstDate)
+book = Book.findByTitleNotEqual("Harry Potter")
+book = Book.findByReleaseDateIsNull()
+book = Book.findByReleaseDateIsNotNull()
+{code}
+
+h2. Description
+
+The following operator names can be used within the respective dynamic methods:
+
+* @LessThan@
+* @LessThanEquals@
+* @GreaterThan@
+* @GreaterThanEquals@
+* @Between@
+* @IsNotNull@
+* @IsNull@
+* @Equal@
+* @NotEqual@
+* @And@
+
+The above operator names can be considered keywords, and you will run into problems when querying domain classes that have one of these names used as property names.

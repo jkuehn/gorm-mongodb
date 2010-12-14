@@ -57,6 +57,10 @@ class Task {
 //    println "Task after delete: $taskId"
   }
 
+  def beforeValidate = {
+//    println "Task before validate: $taskId"
+  }
+
 
   public String toString ( ) {
     return "Task{" +

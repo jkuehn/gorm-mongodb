@@ -65,7 +65,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
     println "task save errors:"
     println t1.errors?.allErrors
 
-    def t2 = Task.findOneByDescription(t1.description) // test dynamic finders
+    def t2 = Task.findByDescription(t1.description) // test dynamic finders
     assertNotNull "should have retrieved a task", t2
     assertTrue "the task field 'pass' is transient and should not have been saved", t1.pass != t2.pass
 
@@ -147,6 +147,69 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     assertEquals "countAll should return 0", 0, Contact.countAll([company: companyName])
   }
+
+  void testEvents() {
+    def taskId = "manualTaskID1234"
+    def t = new Task(taskId: taskId, name: "Testing events", description: "Here we are")
+
+    // before validate
+    boolean testValidate = false
+    t.beforeValidate = {
+      println "beforeValidate"
+      testValidate = true
+    }
+    t.validate()
+    assertTrue "beforeValidate should have been called", testValidate
+
+    // before and after save test
+    boolean testBeforeSave = false
+    boolean testAfterSave = false
+    testValidate = false
+    t.beforeSave = {
+      println "beforeSave"
+      testBeforeSave = true
+    }
+    t.afterSave = {
+      println "afterSave"
+      testAfterSave = true
+    }
+    t.save()
+    assertTrue "beforeValidate should have been called", testValidate
+    assertTrue "beforeSave should have been called", testBeforeSave
+    assertTrue "afterSave should have been called", testAfterSave
+
+    // before and after delete test
+    boolean testBeforeDelete = false
+    boolean testAfterDelete = false
+    t.beforeDelete = {
+      println "beforeDelete"
+      testBeforeDelete = true
+    }
+    t.afterDelete = {
+      println "afterDelete"
+      testAfterDelete = true
+    }
+    t.delete()
+    assertTrue "beforeDelete should have been called", testBeforeDelete
+    assertTrue "afterDelete should have been called", testAfterDelete
+  }
+
+//  void testRefresh() {
+//    def c = new Contact(name: "Tom Jones", company: "Acme, Corp.")
+//    c.save()
+//
+//    def c2 = Contact.get(c.id)
+//    c2.name = 'Tommy Jones'
+//    c2.save()
+//
+//    assertTrue "Names of contacts should differ", !c.name.equals(c2.name)
+//
+//    def x = c.refresh()
+//    println x.name
+//    assertEquals "Names of contacts should be equal", c.name, c2.name
+//
+//    c.delete()
+//  }
 
   void testComplexObject() {
     def projectId = ObjectId.get()

@@ -43,6 +43,7 @@ class MongoPluginSupport {
   public static final String EVENT_AFTER_SAVE = "afterSave"
   public static final String EVENT_BEFORE_DELETE = "beforeDelete"
   public static final String EVENT_AFTER_DELETE = "afterDelete"
+  public static final String EVENT_BEFORE_VALIDATE = "beforeValidate"
 
   // for dynamic finders
   static final COMPARATORS = Collections.unmodifiableList([
@@ -167,6 +168,13 @@ class MongoPluginSupport {
      */
     metaClass.makeKey = {
       return datastore.getKey(delegate)
+    }
+
+    /**
+     * merge instance values into database instance
+     */
+    metaClass.merge = {
+      return datastore.merge(delegate)
     }
 
     /**
@@ -334,7 +342,7 @@ class MongoPluginSupport {
       if (m) {
         def fields = []
         def comparator = m[0][3]
-        boolean returnOne = (m[0][1] == "One")
+        boolean returnOne = !(m[0][1] == "All")
         // How many arguments do we need to pass for the given
         // comparator?
         def numArgs = getArgCountForComparator(comparator)
@@ -540,6 +548,7 @@ class MongoPluginSupport {
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    * COPY & PASTE FROM org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin START
    * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   * added triggerEvent to validate method: triggerEvent(EVENT_BEFORE_VALIDATE, delegate)
    */
   static void addGrailsDomainPluginMethods(application, domainClass, ctx) {
     MetaClass metaClass = domainClass.metaClass
@@ -620,6 +629,7 @@ class MongoPluginSupport {
     }
     if (!domainClass.hasMetaMethod("validate")) {
       metaClass.validate = { ->
+        triggerEvent(EVENT_BEFORE_VALIDATE, delegate)
         DomainClassPluginSupport.validateInstance(delegate, ctx)
       }
     }
