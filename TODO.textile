@@ -1,5 +1,6 @@
 h1. TODOs / ideas for next releases
 
+* process belongsTo and hasMany properties (via AST)
 * Make conversions between List and MorphiaIterator more convenient
 * add a refresh method to instances, to pull current data from db again
 * use "GMongo":http://blog.paulopoiati.com/2010/06/20/gmongo-0-5-released/ as driver wrapper
