@@ -28,7 +28,7 @@ class MongodbMorphiaGrailsPlugin {
 
   def author = "Juri Kuehn"
   def authorEmail = "juri.kuehn at gmail.com"
-  def title = "Alternative MongoDB GORM based on the Morphia library"
+  def title = "Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb)"
   def description = '''GORM implementation for the MongoDB NoSQL database based on the Morphia library'''
 
   // URL to the plugin's documentation
