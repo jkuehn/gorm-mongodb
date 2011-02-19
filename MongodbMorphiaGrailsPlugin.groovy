@@ -7,7 +7,7 @@ import org.codehaus.groovy.grails.validation.GrailsDomainClassValidator
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean
 import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
-class GormMongodbGrailsPlugin {
+class MongodbMorphiaGrailsPlugin {
   // the plugin version
   def version = "0.6"
   // the version or versions of Grails the plugin is designed for

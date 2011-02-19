@@ -2,7 +2,7 @@ import org.codehaus.groovy.grails.commons.DomainClassArtefactHandler
 
 includeTargets << grailsScript("_GrailsClean")
 
-def mongoAstPath = "${gormMongodbPluginDir}/src/groovy/grails/plugins/mongodb/ast"
+def mongoAstPath = "${mongodbMorphiaPluginDir}/src/groovy/grails/plugins/mongodb/ast"
 def mongoAstDest = "${projectWorkDir}/ast/gorm-mongodb"
 
 eventCleanStart = {
