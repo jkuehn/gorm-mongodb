@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>4. Querying</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1><a name="4. Querying">4. Querying</a></h1>You have two options for getting objects out of your MongoDB: by using queries/filters or the dynamic finders.<p class="paragraph"/><h2>Filters</h2><p class="paragraph"/>The mongo domain classes provide <code>find</code> and <code>findAll</code> methods that accept a map with filtering constraints and optional query options. Every filter consists of a fieldname, operator and a value. If no operator is given, = is assumed.<p class="paragraph"/><strong class="bold">Examples</strong><p class="paragraph"/><div class="code"><pre>Exampledomain.findAll(&#91;<span class="java&#45;quote">"yearsOfOperation &#62;"</span>: 5&#93;, &#91;max:20, sort:'yearsOfOperation'&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"rooms.maxBeds &#62;="</span>: 2, <span class="java&#45;quote">"rooms.occupied"</span>: <span class="java&#45;keyword">false</span>&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"rooms.bathrooms exists"</span>: 1&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"stars in"</span>: &#91;3,4&#93;&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"age &#62;="</span>: age&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"age ="</span>: age&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"age"</span>: age&#93;) // (<span class="java&#45;keyword">if</span> no <span class="java&#45;keyword">operator</span>, = is assumed)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"age !="</span>: age&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"age in"</span>: ageList&#93;)
+Exampledomain.findAll(&#91;<span class="java&#45;quote">"customers.loyaltyYears in"</span>, yearsList&#93;)</pre></div><p class="paragraph"/>Valid operators are "=", "==","!=", "&#60;&#62;", "&#62;", "&#60;", "&#62;=", "&#60;=", "in", "nin", "all", "size", "exists". Under the covers the plugin uses Morhias <a href="http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/Datastore.java" target="blank">Datastore</a> and its <a href="http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/Query.java" target="blank">Query</a> implementation<p class="paragraph"/><h3>Query options</h3><p class="paragraph"/>You can pass query options to find / findAll for skipping, limiting and sorting your resultset. The query options are represented by a map like <code>max: 30, offset: 10, sort:"lastname,firstname"</code><p class="paragraph"/><strong class="bold">max</strong>
+Limits the result set to given number of entries<p class="paragraph"/><strong class="bold">offset</strong>
+Skips the given number of results<p class="paragraph"/><strong class="bold">sort</strong>
+Sorts the results. You can provide multiple fieldnames delimited by comma. If you want the results to be sorted in descending order, you have to prepend the fieldname with a minus: <code>sort:"-lastname,-firstname,age"</code><p class="paragraph"/><h2>Dynamic finders</h2><p class="paragraph"/>The dynamic finders provided by gorm-mongodb work just as the <a href="http://grails.org/doc/latest/ref/Domain%20Classes/findAllBy.html" target="blank">default gorm finders</a> (example: <code>Car.findAllByNameAndPsGreaterThan("Polo", 50, sort: "-ps")</code>). 
+
+    </body>
+</html>

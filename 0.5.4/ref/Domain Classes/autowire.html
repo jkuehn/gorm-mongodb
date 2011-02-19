@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>gorm-mongodb 0.5.4 - Reference Documentation</title>
+        <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1>autowire</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Autowires domain class properties using Spring's dependency injection.<p class="paragraph"/><blockquote class="warning">
+This method will be deprecated in future, as soon as autowiring works for query methods that return collections (findAll, list, findBy*, etc)
+</blockquote><p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>@MongoEntity
+class Book &#123;
+  <span class="java&#45;keyword">transient</span> mailService<p class="paragraph"/>  def afterSave = &#123;
+    <span class="java&#45;keyword">if</span> (!mailService) autowire()<p class="paragraph"/>    // mailservice is now injected
+  &#125;<p class="paragraph"/>&#125;</pre></div>
+
+    </body>
+</html>
