@@ -1,18 +1,18 @@
-Here you will find a step by step guide to set up a test project that uses the gorm-mongodb plugin to manipulate domain classes in Grails
+Here you will find a step by step guide to set up a test project that uses the mongodb-morphia plugin to manipulate domain classes in Grails
 
-h2. Creating a test project that uses gorm-mongodb
+h2. Creating a test project that uses mongodb-morphia
 
 We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.
 
-Let's start off, create a new Grails project and install the gorm-mongodb plugin:
+Let's start off, create a new Grails project and install the mongodb-morphia plugin:
 
 {code}
 > grails create-app MongoGrailsQuickstart
 > cd MongoGrailsQuickstart
-> grails install-plugin gorm-mongodb
+> grails install-plugin mongodb-morphia
 {code}
 
-The gorm-mongodb plugin provides a create-mongodb-class command that creates a stub for the domain class, as well as corresponding test cases. Let's call it:
+The mongodb-morphia plugin provides a create-mongodb-class command that creates a stub for the domain class, as well as corresponding test cases. Let's call it:
 
 {code}
 > grails create-mongodb-class Car
@@ -26,9 +26,19 @@ MongoDB domain classes are put into the grails-app/mongo directory. Now we need 
 mongodb {
   host = '192.168.1.36' // adjust this according to your settings
   port = 27017
-  database = 'test'
+  databaseName = 'test'
 }
 {code}
+
+You can configure "replica sets":http://www.mongodb.org/display/DOCS/Replica+Sets this way:
+
+{code}
+mongodb {
+  replicaSet = [ "localhost:27017", "localhost:27018"]
+  databaseName = 'test'
+}
+{code}
+
 
 Now the fields and constraints
 

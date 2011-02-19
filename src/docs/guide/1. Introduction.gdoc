@@ -8,17 +8,17 @@ Features implemented to far:
 * Dynamic finders like findAllByNameAndDegreeBetween(...)
 * Constraints and validation support
 * Automatic timestamping of dateCreated and lastUpdated
-* Gorm events beforeSave, afterSave, beforeDelete, afterDelete (others, like afterLoad are supported by "Morphia":http://code.google.com/p/morphia/wiki/LifecycleMethods )
+* Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by "Morphia":http://code.google.com/p/morphia/wiki/LifecycleMethods )
 * Works with MongoDB 1.4 and 1.6
 * AST Transformations that inject all necessary fields and annotations for morphia
 * Lazy references supported
 * generate-all support
 
-See the "quickstart":2.%20Quickstart.html page for a usage example. You can also download a "petclinic sample application port":http://github.com/downloads/jkuehn/gorm-mongodb/petclinic-mongodb.zip which uses gorm-mongodb to see the use of embedded and referenced domain classes. 
+This plugin is not feature complete concerning the GORM api. Yet it has been proven to be very stable in our production environment. See the "quickstart":2.%20Quickstart.html page for a usage example. You can also download a "petclinic sample application port":https://github.com/jkuehn/gorm-mongodb which uses mongodb-morphia to see the use of embedded and referenced domain classes.
 
 h3. Questions and Bug Reports
 * "Mailing list":http://www.grails.org/Mailing+lists
-* "Bug tracker":http://jira.codehaus.org/browse/GRAILSPLUGINS/component/14453
+* "Bug tracker":https://github.com/jkuehn/gorm-mongodb/issues
 
 h3. Other links
 * "Grails Framework":http://www.grails.org/
@@ -26,7 +26,7 @@ h3. Other links
 * "MongoDB Java Driver":http://github.com/mongodb/mongo-java-driver
 * "MongoDB Java Language Center":http://www.mongodb.org/display/DOCS/Java+Language+Center
 * "MongoDB Grails Plugin":http://github.com/mpriatel/mongodb-grails that exposes a mongo bean for interaction with MongoDB
- 
+
 h3. Change Log
 
 see "here":http://github.com/jkuehn/gorm-mongodb/blob/master/CHANGES.textile

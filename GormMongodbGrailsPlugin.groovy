@@ -9,7 +9,7 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class GormMongodbGrailsPlugin {
   // the plugin version
-  def version = "0.5.5"
+  def version = "0.6"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on
@@ -28,8 +28,8 @@ class GormMongodbGrailsPlugin {
 
   def author = "Juri Kuehn"
   def authorEmail = "juri.kuehn at gmail.com"
-  def title = "Grails MongoDB plugin"
-  def description = '''GORM Layer for the superfast, highly scalable, schemafree, document oriented database MongoDB'''
+  def title = "Alternative MongoDB GORM based on the Morphia library"
+  def description = '''GORM implementation for the MongoDB NoSQL database based on the Morphia library'''
 
   // URL to the plugin's documentation
   def documentation = "http://wiki.github.com/jkuehn/gorm-mongodb/"

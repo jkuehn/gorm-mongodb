@@ -2,8 +2,7 @@ h1. findBy*
 
 h2. Purpose
 
-Dynamic method that uses the properties of the domain class to allow the creation of Grails query method expressions that return all instances of the domain class.
-Returns only the first result, if any.
+Dynamic method that uses the properties of the domain class to allow the creation of Grails query method expressions that return one instance of the domain class. Returns only the first result, if any.
 
 h2. Examples
 

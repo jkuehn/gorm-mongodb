@@ -1,3 +1,11 @@
+mongodb {
+  replicaSet = [ "lbserver:27017"]
+//  host = 'lbserver'
+//  port = 27017
+  databaseName = 'gorm_test'
+}
+
+
 dataSource {
 	pooled = true
 	driverClassName = "org.hsqldb.jdbcDriver"

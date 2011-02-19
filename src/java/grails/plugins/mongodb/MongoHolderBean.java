@@ -6,11 +6,15 @@ import com.google.code.morphia.Morphia;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
+import com.mongodb.ServerAddress;
+import groovy.util.ConfigObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.groovy.grails.commons.GrailsApplication;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,20 +36,34 @@ public class MongoHolderBean {
    * @throws UnknownHostException
    */
   public MongoHolderBean(GrailsApplication application) throws UnknownHostException {
+    Mongo mongo;
+
     Map flatConfig = application.getConfig().flatten();
 
-    String host = getConfigVar(flatConfig, "mongodb.host", "localhost");
-    int port = parsePortFromConfig(getConfigVar(flatConfig, "mongodb.port", "27017"), 27017);
-    String database = getConfigVar(flatConfig, "mongodb.database", "test");
+    String database = getConfigVar(flatConfig, "mongodb.databaseName", null);
+    if (database == null) database = getConfigVar(flatConfig, "mongodb.database", "test");
 
-    log.info("Creating MongoDB connection to host " + host + ":" + port + " and database " + database);
+    List<String> replicaSets = null;
+    try {
+      replicaSets = (List<String>)((ConfigObject)application.getConfig().get("mongodb")).get("replicaSet");
+    } catch (Exception ignore) {}
+
+    if (replicaSets != null) { // user replica sets
+      log.info("Creating MongoDB connection with replica sets " + replicaSets + " and database " + database);
+      List<ServerAddress> addressList = new ArrayList<ServerAddress>();
+      for (String addr : replicaSets) {
+        addressList.add(new ServerAddress(addr));
+      }
+      mongo = new Mongo(addressList);
+    } else { // use host port
+      String host = getConfigVar(flatConfig, "mongodb.host", "localhost");
+      int port = parsePortFromConfig(getConfigVar(flatConfig, "mongodb.port", "27017"), 27017);
+      log.info("Creating MongoDB connection to host " + host + ":" + port + " and database " + database);
+      mongo = new Mongo(host, port);
+    }
 
     morphia = new Morphia();
-    datastore = (DatastoreImpl)morphia.createDatastore(new Mongo(host, port), database);
-
-    // register with logger - must be done before initialization of loggin system
-    // @todo fix me
-//    MorphiaLoggerFactory.registerLogger(SLF4JLoggerImplFactory.class);
+    datastore = (DatastoreImpl)morphia.createDatastore(mongo, database);
   }
 
   private String getConfigVar(Map config, String key, String defaultValue) {

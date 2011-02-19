@@ -73,7 +73,6 @@ class MongoPluginSupport {
     addInitMethods(application, domainClass, ctx)
 
     ensureIndices(application, domainClass, ctx)
-    ensureIndicesDeprecated(application, domainClass, ctx)
   }
 
   static void ensureIndices(application, domainClass, ctx) {
@@ -103,39 +102,6 @@ class MongoPluginSupport {
       throw mongoEx
     } catch (e) {
       throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name + " - " + e.message)
-    }
-  }
-
-  // @todo REMOVE ME from 0.6 on
-  static void ensureIndicesDeprecated(application, domainClass, ctx) {
-    def domain = domainClass.clazz
-    final DBCollection collection = getMongoBean(application).datastore.getCollection(domain)
-
-    try {
-      def f = domain.getDeclaredField(domainClass.ORM_MAPPING)
-      f.accessible = true
-      def mappingClosure = f.get()
-      def evaluator = new DomainClassMappingEvaluator()
-      mappingClosure.delegate = evaluator
-      mappingClosure()
-
-      def idx = evaluator.indices
-      if (idx) println("\n\n*** " + domain.name + " uses deprecated index definitions. See user guide for new syntax.\n\n\n")
-      for (i in idx) {
-        def iName = i.key
-        def fields = [:]
-        i.value.each {
-          fields[it] = 1
-        }
-        collection.ensureIndex(fields as BasicDBObject, iName)
-      }
-    } catch (NoSuchFieldException nsfe) {
-      // no problem
-    } catch (com.mongodb.MongoException mongoEx) {
-      // usually communications problems, cannot ensure index
-      throw mongoEx
-    } catch (e) {
-      throw new MappingException("Could not evaluate mapping for mongo domain " + domain.name)
     }
   }
 
@@ -301,6 +267,7 @@ class MongoPluginSupport {
     }
 
     metaClass.static.list = { Map queryParams = [:] ->
+      if (!queryParams.containsKey('max')) queryParams.max = 0 // list all by default
       findAll([:], queryParams)
     }
 
@@ -324,7 +291,7 @@ class MongoPluginSupport {
   public static void configureQuery(Query query, Map queryParams) {
     // @todo be more graceful
     def sort = queryParams.get('sort')?.toString()
-    def limit = (int)(queryParams.get('max') ?: 25).toInteger()
+    def limit = (int)(queryParams.containsKey('max') ? queryParams.get('max') : 25).toInteger()
     def offset = (int)(queryParams.get('offset') ?: 0).toInteger()
 
     if (sort) query.order(sort)

@@ -125,6 +125,9 @@ public class BasicPersistenceTests extends GroovyTestCase {
   void testGetAllCountAll() {
     def companyName = "Acme, Corp."
 
+    Contact.deleteAll([company: companyName])
+    assertEquals "there should be no tested objects in collection", 0, Contact.countAll([company: companyName])
+
     def c1 = new Contact(name: "Tom Jones 1", company: companyName)
     c1.save()
     assertNotNull "Contact 1 should have been saved", c1.id
@@ -141,6 +144,9 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertTrue "getAll should contain contact 2", all*.id.contains(c2.id)
 
     assertEquals "countAll should count the saved objects", 2, Contact.countAll([company: companyName])
+
+    assertEquals "list method should return 1 instance", 1, Contact.list(max:1).toList().size()
+    assertEquals "list method should return 2 instances", 2, Contact.list(max:2).toList().size()
 
     c1.delete()
     c2.delete()
