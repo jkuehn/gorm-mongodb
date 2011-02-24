@@ -1,5 +1,5 @@
 mongodb {
-  replicaSet = [ "lbserver:27017"]
+  replicaSet = [ "localhost:27017"]
 //  host = 'lbserver'
 //  port = 27017
   databaseName = 'gorm_test'

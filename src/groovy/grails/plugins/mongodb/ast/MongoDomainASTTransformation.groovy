@@ -97,7 +97,12 @@ class MongoDomainASTTransformation implements ASTTransformation {
 
     // if superclass has an id property, then skip injecting onto this one
     ClassNode superClass = classNode.getSuperClass()
-    if (superClass && superClass.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) return
+	
+	//loop through superclasses to make sure no ancestors have the id property
+	while (superClass) {
+		if(superClass.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) return
+		superClass = superClass.getSuperClass()
+	}
 
     // annotate node id if present, otherwise inject id property
     PropertyNode identity = getProperty(classNode, IDENTITY)
