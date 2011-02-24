@@ -1,5 +1,6 @@
 package grails.plugins.mongodb;
 
+import com.google.code.morphia.annotations.Embedded;
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.mapping.MappingException;
@@ -85,13 +86,16 @@ public class MongoDomainClass extends AbstractGrailsClass implements GrailsDomai
       }
     }
 
-    // if we don't have an annotated identifier
-    //  @todo try to find fields with the simple names and use them...
-    if (this.identifier == null) {
-      throw new MappingException("You need to set the morphia Id annotation upon your id field on class " + getClazz().getName());
+    //only check if there is an identifier when the class is not embedded
+    if(artefactClass.getAnnotation(Embedded.class) == null) {
+	    // if we don't have an annotated identifier
+	    //  @todo try to find fields with the simple names and use them...
+	    if (this.identifier == null) {
+	      throw new MappingException("You need to set the morphia Id annotation upon your id field on class " + getClazz().getName());
+	    }
+	
+	    this.identifier.setIdentity(true);
     }
-
-    this.identifier.setIdentity(true);
 
     // convert to arrays for optimization - as used by grails
     propertiesArray = propertyMap.values().toArray(new GrailsDomainClassProperty[propertyMap.size()]);
