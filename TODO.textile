@@ -1,5 +1,6 @@
 h1. TODOs / ideas for next releases
 
+* document TransformationConfiguration and put a page about inheritance in the docs
 * decorate com.google.code.morphia.Key class with "fetch()" method, that retrieves entity from db and autowires it
 * rethink countAll - drop it, make count() do the work
 * Make conversions between List and MorphiaIterator more convenient

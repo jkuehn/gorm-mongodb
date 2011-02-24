@@ -22,6 +22,7 @@ import org.codehaus.groovy.ast.ModuleNode
 import org.codehaus.groovy.ast.ClassHelper
 import org.bson.types.ObjectId
 import org.codehaus.groovy.ast.expr.ConstantExpression
+
 /**
  *
  * @author: Juri Kuehn
@@ -55,12 +56,28 @@ class MongoDomainASTTransformation implements ASTTransformation {
     }
     nodes[0].getClasses().each { ClassNode owner ->
       if (!isMongoDir && !owner.getAnnotations(MORPHIA_ENTITY)) return // do not process this class
-      injectEntityType(owner)
-      injectIdProperty(owner)
-      injectVersionProperty(owner)
-      annotateTransients(owner)
-      annotateClosureAsTransients(owner)
+      AnnotationNode configNode = getTransformationConfiguration(owner)
+
+      if (isAnnotationMemberTrue(configNode, 'injectEntityType')) injectEntityType(owner)
+      if (isAnnotationMemberTrue(configNode, 'injectId')) injectIdProperty(owner)
+      if (isAnnotationMemberTrue(configNode, 'injectVersion')) injectVersionProperty(owner)
+      if (isAnnotationMemberTrue(configNode, 'annotateTransients')) annotateTransients(owner)
+      if (isAnnotationMemberTrue(configNode, 'annotateClosuresAsTransients')) annotateClosureAsTransients(owner)
     }
+  }
+
+  private AnnotationNode getTransformationConfiguration(ClassNode classNode) {
+    def annotationNodes = classNode.getAnnotations(new ClassNode(TransformationConfiguration))
+    if (annotationNodes.size() < 1) return null
+
+    annotationNodes[0]
+  }
+
+  private boolean isAnnotationMemberTrue(AnnotationNode configNode, String memberName) {
+    if (!configNode) return true
+    def member = configNode.getMember(memberName)
+
+    return (!member || member.isTrueExpression())
   }
 
   private void injectEntityType(ClassNode classNode) {
@@ -77,6 +94,10 @@ class MongoDomainASTTransformation implements ASTTransformation {
       // there is an id annotation already, nothing to do for us
       return
     }
+
+    // if superclass has an id property, then skip injecting onto this one
+    ClassNode superClass = classNode.getSuperClass()
+    if (superClass && superClass.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) return
 
     // annotate node id if present, otherwise inject id property
     PropertyNode identity = getProperty(classNode, IDENTITY)

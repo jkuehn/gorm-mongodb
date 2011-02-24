@@ -3,7 +3,9 @@ package org.acme
 import com.google.code.morphia.annotations.Reference
 import org.bson.types.ObjectId
 import com.google.code.morphia.annotations.Entity
+import grails.plugins.mongodb.ast.TransformationConfiguration
 
+@TransformationConfiguration(injectId = true)
 class Project {
 
   String name = "You forgot to give me a name"
