@@ -5,6 +5,9 @@ Also see the "release notes of underlying morphia library":http://code.google.co
 h3. v0.7 - upcoming
 * -
 
+h3. v0.6.2 - 2011-02-24
+* "GRAILSPLUGINS-2895":http://jira.codehaus.org/browse/GRAILSPLUGINS-2895 recursive check of ancestors to support inherited nesting
+
 h3. v0.6.1 - 2011-02-24
 * "GRAILSPLUGINS-2895":http://jira.codehaus.org/browse/GRAILSPLUGINS-2895
 ** Subclasses don't get the id injected automatically anymore - if the superclass is also managed by the plugin
