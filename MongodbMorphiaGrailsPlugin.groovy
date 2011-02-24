@@ -9,7 +9,7 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 
 class MongodbMorphiaGrailsPlugin {
   // the plugin version
-  def version = "0.6.1"
+  def version = "0.6.2"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on
