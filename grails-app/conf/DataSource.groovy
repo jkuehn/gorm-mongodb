@@ -1,5 +1,9 @@
 mongodb {
-  replicaSet = [ "localhost:27017"]
+  if (System.getProperty('user.name').toLowerCase() == 'juri') {
+    replicaSet = [ "lbserver:27017"]
+  } else {
+    replicaSet = [ "localhost:27017"]
+  }
 //  host = 'lbserver'
 //  port = 27017
   databaseName = 'gorm_test'

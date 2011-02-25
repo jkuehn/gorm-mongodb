@@ -5,6 +5,9 @@ Also see the "release notes of underlying morphia library":http://code.google.co
 h3. v0.7 - upcoming
 * -
 
+h3. v0.6.3 - 2011-02-25
+* "GRAILSPLUGINS-2902":http://jira.codehaus.org/browse/GRAILSPLUGINS-2902 Embedded Classes should by default not get @Id injected
+
 h3. v0.6.2 - 2011-02-24
 * "GRAILSPLUGINS-2895":http://jira.codehaus.org/browse/GRAILSPLUGINS-2895 recursive check of ancestors to support inherited nesting
 

@@ -44,7 +44,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
   private static final ClassNode OBJECTID_TYPE = new ClassNode(ObjectId)
 
   private static final ClassNode MORPHIA_EMBEDDED = new ClassNode(Embedded)
-  
+
   private static final ClassNode STRING_TYPE = new ClassNode(String)
   private static final ClassNode LONG_TYPE = ClassHelper.long_TYPE
 
@@ -95,7 +95,7 @@ class MongoDomainASTTransformation implements ASTTransformation {
 
   private void injectIdProperty(ClassNode classNode) {
 	if (classNode.getAnnotations(MORPHIA_EMBEDDED).size() > 0) return //shouldn't inject id for embedded objects
-	  
+
     if (classNode.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) {
       // there is an id annotation already, nothing to do for us
       return
@@ -103,12 +103,12 @@ class MongoDomainASTTransformation implements ASTTransformation {
 
     // if superclass has an id property, then skip injecting onto this one
     ClassNode superClass = classNode.getSuperClass()
-	
-	//loop through superclasses to make sure no ancestors have the id property
-	while (superClass) {
-		if(superClass.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) return
-		superClass = superClass.getSuperClass()
-	}
+
+    //loop through superclasses to make sure no ancestors have the id property
+    while (superClass) {
+      if(superClass.fields.findAll({ it.getAnnotations(MORPHIA_ID) }).size() > 0) return
+      superClass = superClass.getSuperClass()
+    }
 
     // annotate node id if present, otherwise inject id property
     PropertyNode identity = getProperty(classNode, IDENTITY)

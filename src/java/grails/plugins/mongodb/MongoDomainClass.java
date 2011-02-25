@@ -13,7 +13,6 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClassProperty;
 import org.codehaus.groovy.grails.commons.GrailsDomainConfigurationUtil;
 import org.codehaus.groovy.grails.exceptions.GrailsDomainException;
 import org.codehaus.groovy.grails.validation.ConstrainedProperty;
-import org.springframework.beans.BeanUtils;
 import org.springframework.validation.Validator;
 
 import java.beans.IntrospectionException;
@@ -89,11 +88,10 @@ public class MongoDomainClass extends AbstractGrailsClass implements GrailsDomai
     //only check if there is an identifier when the class is not embedded
     if(artefactClass.getAnnotation(Embedded.class) == null) {
 	    // if we don't have an annotated identifier
-	    //  @todo try to find fields with the simple names and use them...
 	    if (this.identifier == null) {
 	      throw new MappingException("You need to set the morphia Id annotation upon your id field on class " + getClazz().getName());
 	    }
-	
+
 	    this.identifier.setIdentity(true);
     }
 
