@@ -29,6 +29,11 @@ public class MongoDomainObjectFactory extends DefaultCreator {
 
   @Override
   public Object createInstance(Class clazz, DBObject dbObj) {
+    String className = getClassName(dbObj);
+		if (className != null) {
+      return getBean(className);
+    }
+
     return createInstance(clazz);
   }
 
