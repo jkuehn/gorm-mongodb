@@ -1,0 +1,14 @@
+h1. fromDBObject
+
+h2. Purpose
+
+Creates a domain instance using data from a "DBObject":http://api.mongodb.org/java/2.3/com/mongodb/DBObject.html
+
+h2. Examples
+
+{code:java}
+Book book = Book.fromDBObject(dbObject)
+{code}
+
+
+

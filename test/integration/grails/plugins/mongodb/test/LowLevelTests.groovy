@@ -5,6 +5,9 @@ import com.mongodb.BasicDBObject
 import com.google.code.morphia.Datastore
 import org.acme.Project
 import org.acme.Task
+import com.mongodb.DBRef
+import com.mongodb.DBObject
+import com.google.code.morphia.Key
 
 /**
  * tests the mongo bean and access to the wired mongodb driver
@@ -62,6 +65,77 @@ class LowLevelTests extends GroovyTestCase {
 
     assertNull "datastore should have deleted project ", ds.get(Project.class, p.id)
     assertNull "datastore should have deleted task ", ds.get(Task.class, t.taskId)
+  }
+
+  void testDBRefCreation() {
+
+    def p = new Project(name: "Testprojekt")
+
+    p.save()
+    def dbRef = p.createDBRef()
+    println dbRef
+
+    assertNotNull "DBRef should have been created", dbRef
+    assertNotNull "DBRef should have an id", dbRef.getId()
+    assertEquals "DBRef should reference the correct collection", "Project", dbRef.getRef()
+
+    p.delete()
+  }
+
+  void testDBObjectConversion() {
+    Datastore ds = mongo.datastore
+    def taskName = "Testtask"
+
+    def t = new Task(taskId: "testedTaskId", name: taskName)
+    t.save()
+    println t
+    assertNotNull "should have retrieved id of new task", t.taskId
+    assertEquals "should have tested task in database", 1, Task.count([taskId: t.taskId])
+
+    t.delete()
+    assertEquals "should not have tested task in database anymore", 0, Task.count([taskId: t.taskId])
+
+
+    // test dbobject
+    DBObject dbObject = t.toDBObject()
+    assertEquals "should have correct name property", taskName, t.name
+
+    Task.collection.save(dbObject)
+    assertEquals "should have tested task in database", 1, Task.count([taskId: t.taskId])
+
+    dbObject = Task.collection.findOne(new BasicDBObject('_id', t.taskId))
+    println dbObject
+    assertNotNull "should find the task", dbObject
+    assertEquals "should have correct name property", taskName, dbObject.name
+
+    t.delete()
+    assertEquals "should not have tested task in database anymore", 0, Task.count([taskId: t.taskId])
+
+
+    Task taskRestored = Task.fromDBObject(dbObject)
+    assertEquals "should have correct taskId property", t.taskId, taskRestored.taskId
+    assertEquals "should have correct name property", taskName, taskRestored.name
+  }
+
+  void testKeyExtension() {
+
+    def taskName = "Testtask"
+    def t = new Task(taskId: "testedTaskId", name: taskName)
+    t.save()
+    assertNotNull "should have retrieved id of new task", t.taskId
+
+    // test key
+    def k = t.createKey()
+
+    assertTrue "should get a key instance", k instanceof Key
+    assertEquals "key should reference the correct entity", t.taskId, k.id
+
+    Task fetchedTask = k.fetch()
+    assertNotNull "should have fetched task", fetchedTask
+    assertEquals "should have fetched task by key", t.taskId, fetchedTask.taskId
+
+    t.delete()
+    assertEquals "should not have tested task in database anymore", 0, Task.count([taskId: t.taskId])
   }
 
 }

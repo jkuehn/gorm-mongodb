@@ -55,7 +55,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
     def t1 = new Task()
     t1.taskId = "${p2.id}-task"
     t1.name = "task"
-    t1.projectId = p2.makeKey()
+    t1.projectId = p2.createKey()
     t1.startDate = new Date()
     t1.description = "This is the description."
     t1.estimatedHours = 5
@@ -126,7 +126,9 @@ public class BasicPersistenceTests extends GroovyTestCase {
     def companyName = "Acme, Corp."
 
     Contact.deleteAll([company: companyName])
-    assertEquals "there should be no tested objects in collection", 0, Contact.countAll([company: companyName])
+    assertEquals "there should be no tested objects in collection", 0, Contact.count([company: companyName])
+
+    def allCount = Contact.count()
 
     def c1 = new Contact(name: "Tom Jones 1", company: companyName)
     c1.save()
@@ -143,15 +145,18 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertTrue "getAll should contain contact 1", all*.id.contains(c1.id)
     assertTrue "getAll should contain contact 2", all*.id.contains(c2.id)
 
-    assertEquals "countAll should count the saved objects", 2, Contact.countAll([company: companyName])
+    assertEquals "countAll should count the saved objects", 2, Contact.count([company: companyName])
 
     assertEquals "list method should return 1 instance", 1, Contact.list(max:1).toList().size()
     assertEquals "list method should return 2 instances", 2, Contact.list(max:2).toList().size()
 
+    def expectedInstanceCount = allCount + 2
+    assertEquals "there should be ${expectedInstanceCount} instances", expectedInstanceCount, Contact.count()
+
     c1.delete()
     c2.delete()
 
-    assertEquals "countAll should return 0", 0, Contact.countAll([company: companyName])
+    assertEquals "countAll should return 0", 0, Contact.count([company: companyName])
   }
 
   void testEvents() {

@@ -2,7 +2,7 @@ h1. count
 
 h2. Purpose
 
-Returns the number of documents stored in the database
+Returns the number of documents stored in the database. Optionally a query can be passed to count by query.
 
 h2. Examples
 
@@ -21,11 +21,6 @@ The basic syntax for the method is:
 Book.count()
 Book.count( Map query )
 {code}
-
-{warning}
-Count by query is not implemented yet
-{warning}
-
 
 Parameters:
 

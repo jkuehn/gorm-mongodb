@@ -26,7 +26,9 @@ class SpringTests extends GroovyTestCase {
     assertNotNull "contact should be fetched by find", m2
     assertNotNull "mongo instance should be autowired to class fetched with find", m2.mongo
 
-    // @todo add findAll test as soon as autowiring works
+    for (Contact c in Contact.list([max: 3])) {
+      assertNotNull "mongo instance should be autowired to class fetched with list", c.mongo
+    }
 
     m.delete()
   }

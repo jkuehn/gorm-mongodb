@@ -1,0 +1,14 @@
+h1. fetch
+
+h2. Purpose
+
+Can be called from Groovy on a "com.google.code.morphia.Key<T>":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/Key.html object to obtain according domain instance
+
+h2. Examples
+
+{code:java}
+Book book = key.fetch()
+{code}
+
+
+

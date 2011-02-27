@@ -11,9 +11,11 @@ import groovy.util.ConfigObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.groovy.grails.commons.GrailsApplication;
+import org.springframework.context.ApplicationContext;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +66,9 @@ public class MongoHolderBean {
 
     morphia = new Morphia();
     datastore = (DatastoreImpl)morphia.createDatastore(mongo, database);
+
+    // init ObjectFactory
+    morphia.getMapper().getOptions().objectFactory = new MongoDomainObjectFactory(application);
   }
 
   private String getConfigVar(Map config, String key, String defaultValue) {

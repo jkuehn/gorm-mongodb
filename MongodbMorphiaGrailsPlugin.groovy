@@ -6,10 +6,12 @@ import org.codehaus.groovy.grails.commons.GrailsDomainClass
 import org.codehaus.groovy.grails.validation.GrailsDomainClassValidator
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean
 import grails.plugins.mongodb.MongoDomainClassArtefactHandler
+import com.google.code.morphia.Morphia
+import com.google.code.morphia.Datastore
 
 class MongodbMorphiaGrailsPlugin {
   // the plugin version
-  def version = "0.6.3"
+  def version = "0.7"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on
@@ -74,7 +76,8 @@ class MongodbMorphiaGrailsPlugin {
   }
 
   def doWithDynamicMethods = { ApplicationContext ctx ->
-    def morphia = ctx.getBean('mongo').morphia
+    Morphia morphia = ctx.getBean('mongo').morphia
+    Datastore datastore = ctx.getBean('mongo').datastore
 
     application.MongoDomainClasses.each { GrailsDomainClass domainClass ->
       try {
@@ -89,6 +92,11 @@ class MongodbMorphiaGrailsPlugin {
       } catch (e) {
         log.error ("Error processing mongodb domain $domainClass: " + e.message)
       }
+    }
+
+    // add fetch method to morphias Key
+    com.google.code.morphia.Key.metaClass.fetch = {
+      datastore.getByKey(delegate.getKindClass(), delegate)
     }
   }
 

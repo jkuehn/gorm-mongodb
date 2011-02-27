@@ -1,0 +1,14 @@
+h1. createKey
+
+h2. Purpose
+
+Creates a "com.google.code.morphia.Key<T>":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/Key.html object that can be used for referencing.
+
+h2. Examples
+
+{code:java}
+book.createKey()
+{code}
+
+
+

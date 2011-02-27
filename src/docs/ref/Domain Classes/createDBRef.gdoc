@@ -1,0 +1,14 @@
+h1. createDBRef
+
+h2. Purpose
+
+Creates a "com.mongodb.DBRef":http://api.mongodb.org/java/2.3/com/mongodb/DBRef.html object that can be used for referencing.
+
+h2. Examples
+
+{code:java}
+book.createDBRef()
+{code}
+
+
+

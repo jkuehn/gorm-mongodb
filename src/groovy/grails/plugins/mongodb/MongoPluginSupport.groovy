@@ -12,11 +12,9 @@ import org.codehaus.groovy.grails.web.binding.DataBindingLazyMetaPropertyMap
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.query.Query
 import java.beans.Introspector
-import com.mongodb.BasicDBObject
 import com.google.code.morphia.mapping.Mapper
 import org.codehaus.groovy.grails.commons.GrailsDomainClass
 import com.google.code.morphia.mapping.MappingException
-import com.mongodb.DBCollection
 import org.springframework.validation.BeanPropertyBindingResult
 import org.springframework.validation.Errors
 import org.codehaus.groovy.grails.plugins.DomainClassPluginSupport
@@ -28,6 +26,8 @@ import org.apache.commons.logging.LogFactory
 import com.google.code.morphia.utils.IndexFieldDef
 import com.mongodb.WriteConcern
 import org.bson.types.ObjectId
+import com.google.code.morphia.DatastoreImpl
+import com.mongodb.DBObject
 
 /**
  * Author: Juri Kuehn
@@ -108,7 +108,8 @@ class MongoPluginSupport {
   private static addInstanceMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
     def metaClass = dc.metaClass
     def domainClass = dc
-    final Datastore datastore = getMongoBean(application).datastore
+    final MongoHolderBean mongoHolderBean = getMongoBean(application)
+    final DatastoreImpl datastore = (DatastoreImpl)mongoHolderBean.datastore
 
     metaClass.save = {->
       save(null)
@@ -132,8 +133,23 @@ class MongoPluginSupport {
     /**
      * creates a key object that can be used for referencing
      */
-    metaClass.makeKey = {
+    metaClass.createKey = {
       return datastore.getKey(delegate)
+    }
+
+    /**
+     * @deprecated use createKey instead
+     */
+    metaClass.makeKey = {
+      log.error "makeKey is deprecated, please use createKey instead"
+      return datastore.getKey(delegate)
+    }
+
+    /**
+     * creates a DBRef object that can be used for referencing
+     */
+    metaClass.createDBRef = {
+      return datastore.createRef(delegate)
     }
 
     /**
@@ -141,6 +157,13 @@ class MongoPluginSupport {
      */
     metaClass.merge = {
       return datastore.merge(delegate)
+    }
+
+    /**
+     * creates a DBObject based on the values of this instance
+     */
+    metaClass.toDBObject = {
+      return mongoHolderBean.morphia.toDBObject(delegate)
     }
 
     /**
@@ -181,19 +204,16 @@ class MongoPluginSupport {
   private static addStaticMethods(GrailsApplication application, MongoDomainClass dc, ApplicationContext ctx) {
     def final metaClass = dc.metaClass
     def final domainClass = dc
-    final Datastore datastore = getMongoBean(application).datastore
+    final MongoHolderBean mongoHolderBean = getMongoBean(application)
+    final Datastore datastore = mongoHolderBean.datastore
 
     metaClass.static.get = { Serializable docId ->
       try {
         // fetch from db
-        def obj = datastore.get(domainClass.clazz, _checkedId(domainClass, docId))
-
-        // dependency injection
-        if (obj) ctx.beanFactory.autowireBeanProperties(obj, ctx.beanFactory.AUTOWIRE_BY_NAME, false)
-        return obj
+        return datastore.get(domainClass.clazz, _checkedId(domainClass, docId))
       } catch (Exception e) {
         // fall through to return null
-        e.printStackTrace()
+        log.error("Could not get instance from DB", e)
       }
       return null
     }
@@ -230,7 +250,15 @@ class MongoPluginSupport {
       datastore.delete(query)
     }
 
+    /**
+     * @deprecated use count instead
+     */
     metaClass.static.countAll = { Map filter = [:] ->
+      log.error "countAll is deprecated, please use count instead"
+      count(filter)
+    }
+
+    metaClass.static.count = { Map filter = [:] ->
       Query query = datastore.find(domainClass.clazz)
 
       filter.each { k, v ->
@@ -240,10 +268,6 @@ class MongoPluginSupport {
       datastore.getCount(query)
     }
 
-    metaClass.static.count = {
-      return (datastore.getCount(domainClass.clazz) as Long)
-    }
-
     /**
      * return only the first object, if any
      */
@@ -251,7 +275,6 @@ class MongoPluginSupport {
       queryParams['max'] = 1
 
       def res = findAll(filter, queryParams).toList()
-      if (res) ctx.beanFactory.autowireBeanProperties(res[0], ctx.beanFactory.AUTOWIRE_BY_NAME, false)
       return res?res[0]:null
     }
 
@@ -286,6 +309,14 @@ class MongoPluginSupport {
 
       def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
     }
+
+    /**
+     * creates a new instance of this class and populates fields from DBObject
+     */
+    metaClass.static.fromDBObject = { DBObject dbObject ->
+      return mongoHolderBean.morphia.fromDBObject(domainClass.clazz, dbObject)
+    }
+
   }
 
   public static void configureQuery(Query query, Map queryParams) {

@@ -2,6 +2,10 @@ h1. countAll
 
 h2. Purpose
 
+{warning}
+This method is deprecated. Use count() instead
+{warning}
+
 Counts all of the domain class instances for the specified query
 
 h2. Examples

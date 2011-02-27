@@ -1,0 +1,14 @@
+h1. toDBObject
+
+h2. Purpose
+
+Generates a "DBObject":http://api.mongodb.org/java/2.3/com/mongodb/DBObject.html from a domain instance
+
+h2. Examples
+
+{code:java}
+DBObject dbObject = book.toDBObject()
+{code}
+
+
+

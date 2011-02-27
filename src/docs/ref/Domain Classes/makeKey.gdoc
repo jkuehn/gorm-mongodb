@@ -2,6 +2,10 @@ h1. makeKey
 
 h2. Purpose
 
+{warning}
+This method was renamed and is deprecated. Use createKey instead
+{warning}
+
 Creates a com.google.code.morphia.Key<T> object that can be used for referencing.
 
 h2. Examples
