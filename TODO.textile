@@ -1,7 +1,6 @@
 h1. TODOs / ideas for next releases
 
 * document TransformationConfiguration annotation and put a page about inheritance in the docs
-* contains and remove does not work on referenced collections -> because collections that use hashCode for comparison compare hashcodes and are not using equals
 * document merge() instance method
 * figure out some tests for inheritance scenarios
 * add a refresh method to instances, to pull current data from db again
@@ -14,7 +13,7 @@ h1. TODOs / ideas for next releases
 * Add test for index definition syntax
 * save method: add support for failOnError:true in grails 1.2 (GRAILS-4343)
 * implement GridFS access
-* process belongsTo and hasMany properties (via AST)
+* -process belongsTo and hasMany properties (via AST)
 
 h1. NOTES
 

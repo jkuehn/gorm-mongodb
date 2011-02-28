@@ -2,6 +2,9 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.1 - 2011-02-28
+* Fix in ObjectFactory: inherited classes were not always resolved correctly
+
 h3. v0.7 - 2011-02-27
 * an "ObjectFactory":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/ObjectFactory.html is used to create domain instances. Now all domain objects are autowired automatically, also those returned by find* and list methods.
 * makeKey method is now deprecated, please use createKey instead
