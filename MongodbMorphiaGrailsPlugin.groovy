@@ -96,7 +96,18 @@ class MongodbMorphiaGrailsPlugin {
 
     // add fetch method to morphias Key
     com.google.code.morphia.Key.metaClass.fetch = {
-      datastore.getByKey(delegate.getKindClass(), delegate)
+      // @todo waiting until getClassFromKind works
+      Class clazz = delegate.kindClass
+      if (!clazz) {
+        String kind = delegate.kind
+        for (MappedClass mc in morphia.getMapper().getMappedClasses()) {
+          if (mc.getCollectionName().equals(kind)) {
+            clazz = mc.getClazz()
+            break
+          }
+        }
+      }
+      datastore.getByKey(clazz, delegate)
     }
   }
 
