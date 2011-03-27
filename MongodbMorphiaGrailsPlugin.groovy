@@ -8,10 +8,11 @@ import org.springframework.beans.factory.config.MethodInvokingFactoryBean
 import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 import com.google.code.morphia.Morphia
 import com.google.code.morphia.Datastore
+import com.google.code.morphia.mapping.MappedClass
 
 class MongodbMorphiaGrailsPlugin {
   // the plugin version
-  def version = "0.7.1"
+  def version = "0.7.2"
   // the version or versions of Grails the plugin is designed for
   def grailsVersion = "1.3.4 > *"
   // the other plugins this plugin depends on

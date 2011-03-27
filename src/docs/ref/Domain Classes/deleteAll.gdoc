@@ -11,7 +11,7 @@ h2. Examples
 Book.deleteAll([author:'Dan Brown'])
 // delete by ids
 Book.deleteAll(["4c0cceac61b32d536cc6fdfa", "4c0cceac61b32d536cc6fdfb", "4c0cceac61b32d536cc6fdfc"])
-// deletes nothing
+// deletes ALL entities
 Book.deleteAll()
 {code}
 

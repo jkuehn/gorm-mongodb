@@ -16,11 +16,8 @@ Mapped MongoDB entities are autowired as described in the "Grails user guide":ht
 class Car {
 
   def mongo // autowired by spring
-  def cacheService // autowired by spring
+  def someService // autowired by spring
 
-  def afterSave = {
-    cacheService.invalidate('car', id)
-  }
 }
 {code}
 

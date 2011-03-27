@@ -279,6 +279,8 @@ class MongoPluginSupport {
     }
 
     metaClass.static.findAll = { Map filter = [:], Map queryParams = [:] ->
+      if (!queryParams.containsKey('max')) queryParams.max = 0 // list all by default
+
       Query query = datastore.find(domainClass.clazz)
       configureQuery query, queryParams
 
@@ -290,7 +292,6 @@ class MongoPluginSupport {
     }
 
     metaClass.static.list = { Map queryParams = [:] ->
-      if (!queryParams.containsKey('max')) queryParams.max = 0 // list all by default
       findAll([:], queryParams)
     }
 
