@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>1. Introduction</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1><a name="1. Introduction">1. Introduction</a></h1><a href="http://www.mongodb.org/" target="blank">MongoDB</a> is a scalable, high-performance, schemafree and <a href="http://www.mongodb.org/display/DOCS/Production+Deployments" target="blank">production ready</a> NoSQL database. This plugin implements the GORM functionality for MongoDB. Under the hood it uses <a href="http://code.google.com/p/morphia/" target="blank">Morphia</a> as a lightweight type-safe library for mapping domain classes to/from MongoDB.<p class="paragraph"/><h3>Features</h3><p class="paragraph"/>Features implemented to far:
+<ul class="star">
+<li>Instance methods: save, delete</li>
+<li>Class methods: get, find, findAll, delete, deleteAll, exists, count, list</li>
+<li>Dynamic finders like findAllByNameAndDegreeBetween(...)</li>
+<li>Constraints and validation support</li>
+<li>Automatic timestamping of dateCreated and lastUpdated</li>
+<li>Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by <a href="http://code.google.com/p/morphia/wiki/LifecycleMethods" target="blank">Morphia</a> )</li>
+<li>Works with MongoDB 1.4 and 1.6</li>
+<li>AST Transformations that inject all necessary fields and annotations for morphia</li>
+<li>Lazy references supported</li>
+<li>generate-all support</li>
+</ul><p class="paragraph"/>This plugin is not feature complete concerning the GORM api. Yet it has been proven to be very stable in our production environment. See the <a href="2.%20Quickstart.html">quickstart</a> page for a usage example. You can also download a <a href="https://github.com/jkuehn/gorm-mongodb" target="blank">petclinic sample application port</a> which uses mongodb-morphia to see the use of embedded and referenced domain classes.<p class="paragraph"/><h3>Questions and Bug Reports</h3>
+<ul class="star">
+<li><a href="http://www.grails.org/Mailing+lists" target="blank">Mailing list</a></li>
+<li><a href="https://github.com/jkuehn/gorm-mongodb/issues" target="blank">Bug tracker</a></li>
+</ul><p class="paragraph"/><h3>Other links</h3>
+<ul class="star">
+<li><a href="http://www.grails.org/" target="blank">Grails Framework</a></li>
+<li><a href="http://grails.org/doc/latest/index.html" target="blank">Grails Documentation</a></li>
+<li><a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a></li>
+<li><a href="http://www.mongodb.org/display/DOCS/Java+Language+Center" target="blank">MongoDB Java Language Center</a></li>
+<li><a href="http://github.com/mpriatel/mongodb-grails" target="blank">MongoDB Grails Plugin</a> that exposes a mongo bean for interaction with MongoDB</li>
+</ul><p class="paragraph"/><h3>Change Log</h3><p class="paragraph"/>see <a href="http://github.com/jkuehn/gorm-mongodb/blob/master/CHANGES.textile" target="blank">here</a><p class="paragraph"/><h3>Author:</h3>
+<ul class="star">
+<li>Juri Kuehn (juri.kuehn at gmail.com)</li>
+</ul><p class="paragraph"/>
+    </body>
+</html>
