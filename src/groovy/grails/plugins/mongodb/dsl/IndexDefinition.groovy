@@ -5,6 +5,7 @@ protected class IndexDefinition {
   public List fields = []
   public boolean unique
   public boolean dropDups
+  public boolean sparse
 
   public String toString ( ) {
     return "IndexDefinition{" +

@@ -1,6 +1,10 @@
 mongodb {
   if (System.getProperty('user.name').toLowerCase() == 'juri') {
-    replicaSet = [ "lbserver:27017"]
+      if (System.getenv('COMPUTERNAME') == 'JURI-PC') {
+          replicaSet = [ "10.20.1.240:27017"]
+      } else {
+          replicaSet = [ "lbserver:27017"]
+      }
   } else {
     replicaSet = [ "localhost:27017"]
   }

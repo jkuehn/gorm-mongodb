@@ -1,8 +1,10 @@
 h1. TODOs / ideas for next releases
 
+* implement "sparse index definitions":http://www.mongodb.org/display/DOCS/Indexes#Indexes-SparseIndexes for MongoDB 1.8
+* Check out Datastore getByKeys(keys) for Key.fetch() - if not working with fetched keys from db (has no kindClass), then raise issue
+* write some documentation with examples for referencing and embedding entities
 * document TransformationConfiguration annotation and put a page about inheritance in the docs
 * document merge() instance method
-* implement "sparse index definitions":http://www.mongodb.org/display/DOCS/Indexes#Indexes-SparseIndexes for MongoDB 1.8
 * figure out some tests for inheritance scenarios
 * add a refresh method to instances, to pull current data from db again
 * remove deprecated stuff

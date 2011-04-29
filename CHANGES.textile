@@ -2,6 +2,9 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.3 - 2011-04-29
+* Support for sparse index definitions
+
 h3. v0.7.2 - 2011-03-27
 * Fix in Key.fetch(): NullPointerException if Key didn't hold a class reference
 * findAll now returns all found entities as documented, not only the first 25

@@ -93,6 +93,7 @@ class MongoPluginSupport {
 
       for (i in builder.indexes) {
         // add index to db
+        // @todo implement sparse indexes as soon as morphia provides the api - boolean:i.sparse
         datastore.ensureIndex(domain, i.name, i.fields as IndexFieldDef[], i.unique, i.dropDups)
       }
     } catch (NoSuchFieldException nsfe) {

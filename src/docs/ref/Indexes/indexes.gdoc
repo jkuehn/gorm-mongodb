@@ -12,11 +12,11 @@ class Book {
 	Date releaseDate
 	Author author
 	String ISBN
-	
+
 	static indexes = {
 		idx_isbn unique:true, dropDups:true, fields:[desc('ISBN')]
-		idx_author fields:[asc('author')]
-		idx_book fields:[both('author'), 'title'] // asc is the default direction
+		idx_author sparse:true, fields:[asc('author')]
+		idx_book fields:['author', desc('title')] // asc is the default direction
 	}
 }
 {code}
@@ -33,7 +33,8 @@ Where <index properties> may be:
 
 * *unique*: guarantees that no two documents have the same values for given fields. Defaults to false
 * *dropDups*: if you create unique indexes on existing data, setting dropDups to true tells MongoDB to drop documents with same unique values. Defaults to false
-* *fields*: a list of fields that should be indexed. You can set the index direction by enclosing the property names by the sorting keywords @asc@, @desc@ or @both@.
+* *sparse*: creates a sparse index. Defaults to false
+* *fields*: a list of fields that should be indexed. You can set the index direction by enclosing the property names by the sorting keywords @asc@ or @desc@.
 
 h2. See also
 

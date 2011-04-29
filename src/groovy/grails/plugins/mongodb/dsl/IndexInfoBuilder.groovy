@@ -23,10 +23,6 @@ class IndexInfoBuilder {
     __createIndexField(field, IndexDirection.DESC)
   }
 
-  def both = { String field ->
-    __createIndexField(field, IndexDirection.ASC)
-  }
-
   private __createIndexField(String name, IndexDirection direction) {
     new IndexFieldDef(name, direction)
   }
@@ -40,6 +36,7 @@ class IndexInfoBuilder {
     id.name = name
     id.unique = (boolean)params.unique?:false
     id.dropDups = (boolean)params.dropDups?:false
+    id.sparse = (boolean)params.sparse?:false
 
     if (params.fields instanceof List) params.fields.each { field ->
       if (!field) return // dont bother
