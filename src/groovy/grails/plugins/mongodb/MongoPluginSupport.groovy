@@ -327,7 +327,14 @@ class MongoPluginSupport {
     def limit = (int)(queryParams.containsKey('max') ? queryParams.get('max') : 25).toInteger()
     def offset = (int)(queryParams.get('offset') ?: 0).toInteger()
 
-    if (sort) query.order(sort)
+    if (sort){
+	    // in case we have a sorting defined we also need to handle the sort order:
+	    // default order -> asc
+	    // asc will become an empty prefix in front or the sorting field
+	    // desc will become a '-' prefix
+	    def order = (queryParams.containsKey('order') && queryParams.get('order') == 'desc' )? '-' : ''
+	    query.order(order+sort)
+    }
     query.limit(limit)
     query.offset(offset)
   }
