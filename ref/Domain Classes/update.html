@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <title>mongodb-morphia 0.7.2 - Reference Documentation</title>
+        <title>mongodb-morphia 0.7.3 - Reference Documentation</title>
         <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
     </head>
     <body class="body">
@@ -14,13 +14,8 @@ Task.update(params.id, &#123;
 &#125;, <span class="java&#45;keyword">true</span>)<p class="paragraph"/>// update set
 document.update &#123;
   add 'tags', 'mongodb' // add string 'mongodb' to the 'tags' set
-&#125;</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>On instances:<p class="paragraph"/><div class="code"><pre>book.update( Closure updateOperations )
-book.update( Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent )
-book.update( Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent, WriteConcern wc )</pre></div><p class="paragraph"/>As class method:<p class="paragraph"/><div class="code"><pre>book.update( id, Closure updateOperations )
-book.update( id, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent )
-book.update( id, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent, WriteConcern wc )<p class="paragraph"/>book.update( Map query, Closure updateOperations )
-book.update( Map query, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent )
-book.update( Map query, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent, WriteConcern wc )</pre></div><p class="paragraph"/>
+&#125;</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>On instances:<p class="paragraph"/><div class="code"><pre>book.update( Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent = <span class="java&#45;keyword">false</span>, WriteConcern wc = <span class="java&#45;keyword">null</span> )</pre></div><p class="paragraph"/>The static method updates all matched instances:<p class="paragraph"/><div class="code"><pre>book.update( id, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent = <span class="java&#45;keyword">false</span>, WriteConcern wc = <span class="java&#45;keyword">null</span> )
+book.update( Map query, Closure updateOperations, <span class="java&#45;object">boolean</span> createIfAbsent = <span class="java&#45;keyword">false</span>, WriteConcern wc = <span class="java&#45;keyword">null</span> )</pre></div><p class="paragraph"/>
 Parameters:
 <ul class="star">
 <li><code>id</code> - id of the entity</li>

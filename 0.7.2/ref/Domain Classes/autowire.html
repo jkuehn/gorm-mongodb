@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>mongodb-morphia 0.7.2 - Reference Documentation</title>
+        <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1>autowire</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Autowires domain class properties using Spring's dependency injection. All domain objects returned by the plugin (find, list, get, etc) are autowired automatically.<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>@MongoEntity
+class Book &#123;
+  <span class="java&#45;keyword">transient</span> mailService<p class="paragraph"/>  def afterSave = &#123;
+    <span class="java&#45;keyword">if</span> (!mailService) autowire()<p class="paragraph"/>    // mailservice is now injected
+  &#125;<p class="paragraph"/>&#125;</pre></div>
+
+    </body>
+</html>
