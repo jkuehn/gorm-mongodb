@@ -172,19 +172,23 @@ class MongoPluginSupport {
      * http://code.google.com/p/morphia/wiki/Updating
      */
     metaClass.update = { Closure data, boolean createIfMissing = false, WriteConcern wc = null ->
-      if (!delegate.ident()) {
-        throw new IllegalStateException("Cannot update instances without an id")
-      }
-      def query = datastore.createQuery(delegate.class)
-      def updateOp = datastore.createUpdateOperations(delegate.class)
-
-      query.filter(Mapper.ID_KEY, delegate.ident());
-
-      data.delegate = updateOp
-      data()
-
-      def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
+        update(data, createIfMissing, false, wc)
     }
+
+	metaClass.update = { Closure data, boolean createIfMissing = false, boolean multi = true, WriteConcern wc = null ->
+		if (!delegate.ident()) {
+		  throw new IllegalStateException("Cannot update instances without an id")
+		}
+		def query = datastore.createQuery(delegate.class)
+		def updateOp = datastore.createUpdateOperations(delegate.class)
+
+		query.filter(Mapper.ID_KEY, delegate.ident());
+
+		data.delegate = updateOp
+		data()
+
+		datastore.update(query, updateOp, createIfMissing, multi, wc)
+	  }
 
     metaClass.delete = { ->
       triggerEvent(EVENT_BEFORE_DELETE, delegate)
@@ -297,20 +301,24 @@ class MongoPluginSupport {
     }
 
     metaClass.static.update = { filter, Closure data, boolean createIfMissing = false, WriteConcern wc = null ->
-      if (!(filter instanceof Map)) filter = [(Mapper.ID_KEY): _checkedId(domainClass, filter)]
-
-      def query = datastore.createQuery(domainClass.clazz)
-      def updateOp = datastore.createUpdateOperations(domainClass.clazz)
-
-      filter.each { k, v ->
-        query.filter(k.toString(), v)
-      }
-
-      data.delegate = updateOp
-      data()
-
-      def updateResult = datastore.update(query, updateOp, createIfMissing, wc)
+        update(filter, data, createIfMissing, false, wc)
     }
+
+	metaClass.static.update = { filter, Closure data, boolean createIfMissing = false, boolean multi = true, WriteConcern wc = null ->
+		if (!(filter instanceof Map)) filter = [(Mapper.ID_KEY): _checkedId(domainClass, filter)]
+
+		def query = datastore.createQuery(domainClass.clazz)
+		def updateOp = datastore.createUpdateOperations(domainClass.clazz)
+
+		filter.each { k, v ->
+		  query.filter(k.toString(), v)
+		}
+
+		data.delegate = updateOp
+		data()
+
+		datastore.update(query, updateOp, createIfMissing, multi, wc)
+	  }
 
     /**
      * creates a new instance of this class and populates fields from DBObject
