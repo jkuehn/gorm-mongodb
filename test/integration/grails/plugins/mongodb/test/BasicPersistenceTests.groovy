@@ -277,7 +277,9 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
   void testUpdateMethod() {
     def t = new Task(taskId: "Update me good", name: "Task that will be updated!", actualHours: 10)
+    def t2 = new Task(taskId: "Update me good 2", name: "Task that will be updated too!", actualHours: 10)
     t.save()
+    t2.save()
     println "testUpdateMethod:task:"
     println t.errors?.allErrors
 
@@ -285,6 +287,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     assertEquals "task should have the right actualHours value", 10, t.actualHours
 
+    // update on instance
     t.update {
       inc "actualHours", 5
     }
@@ -294,6 +297,26 @@ public class BasicPersistenceTests extends GroovyTestCase {
     assertNotNull "correct task should have been reretrieved from db", t.taskId
     assertEquals "task should have incremented actualHours value", 15, t.actualHours
 
+
+    // updateFirst
+    Task.updateFirst(['actualHours >=': 10]) { inc "actualHours", 1 }
+    t = Task.get(t.taskId) // refresh from db
+    t2 = Task.get(t2.taskId) // refresh from db
+    assertEquals "updateFirst should update only one entity", 26, t.actualHours + t2.actualHours
+
+    // update multiple
+    Task.update(['actualHours >=': 10]) { inc "actualHours", 1 }
+    t = Task.get(t.taskId) // refresh from db
+    t2 = Task.get(t2.taskId) // refresh from db
+    assertNotNull "task should have been reretrieved from db", t
+    assertNotNull "correct task should have been reretrieved from db", t.taskId
+    assertNotNull "task should have been reretrieved from db", t2
+    assertNotNull "correct task should have been reretrieved from db", t2.taskId
+    assertEquals "tasks should have incremented actualHours value", 28, t.actualHours + t2.actualHours
+    println t
+    println t2
+
     t.delete()
+    t2.delete()
   }
 }

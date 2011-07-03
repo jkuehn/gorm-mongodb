@@ -1,0 +1,27 @@
+h3. Mixing with Java entities
+
+MongoDB domain classes are automatically recognized and added to the morphia instance. If you need to map further classes with morphia, you will have to register them as beans and add them to morphia manually.
+
+Add your classes as beans to @grails-app/conf/spring/resources.groovy@:
+
+{code}
+    "com.example.Container"(com.example.Container.class) { bean ->
+      bean.singleton = false
+      bean.autowire = "byName"
+    }
+{code}
+
+Then map those instances to morphia, for example within BootStrap.groovy:
+
+{code}
+class BootStrap {
+
+    def mongo // mongo bean
+
+    def init = { servletContext ->
+        mongo.morphia.map(com.example.Container.class);
+    }
+}
+{code}
+
+The mapped classes may be in @src/java@ directory or any included .jar file on the classpath

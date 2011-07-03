@@ -2,8 +2,11 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
-h3. v0.7.3 - 2011-04-29
-* Support for sparse index definitions
+h3. v0.7.3 - 2011-07-03
+* updated morphia library to *1.00-SNAPSHOT* (r1740)
+* Added sorting order parameter in MongoDB queries - better gorm compatibility
+* *breaking change* static update method now updates all matched entities! There was a bug: instead of updating all matched entities, it updated only the first
+* "GPGORMMONGODB-15":http://jira.grails.org/browse/GPGORMMONGODB-15 Added updateFirst operation
 
 h3. v0.7.2 - 2011-03-27
 * Fix in Key.fetch(): NullPointerException if Key didn't hold a class reference

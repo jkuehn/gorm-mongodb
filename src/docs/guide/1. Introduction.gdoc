@@ -9,7 +9,7 @@ Features implemented to far:
 * Constraints and validation support
 * Automatic timestamping of dateCreated and lastUpdated
 * Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by "Morphia":http://code.google.com/p/morphia/wiki/LifecycleMethods )
-* Works with MongoDB 1.4 and 1.6
+* Works with MongoDB 1.6 and 1.8
 * AST Transformations that inject all necessary fields and annotations for morphia
 * Lazy references supported
 * generate-all support
