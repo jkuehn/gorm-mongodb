@@ -1,43 +1,25 @@
-h1. update
+h1. updateFirst
 
 h2. Purpose
 
-Updates fields of instances
+Static method that updates fields of an instance. Only the first instance that matches the query will be updated
 
 Be aware that after calling update the domain class instance is not refreshed automatically. You need to fetch the entity from db again to get the new state.
 
 h2. Examples
 
-{code:java}
+{code}
 // increase field value of actualHours by 5
-task.update {
+Task.updateFirst([incomplete: true], {
   inc 'actualHours', 5
-}
-
-// increase field value of actualHours by 5, create entity if not in db
-Task.update(params.id, {
-  inc 'actualHours', 5
-}, true)
-
-// update set
-document.update {
-  add 'tags', 'mongodb' // add string 'mongodb' to the 'tags' set
-}
+})
 {code}
 
 h2. Description
 
-On instances:
-
 {code:java}
-book.update( Closure updateOperations, boolean createIfAbsent = false, WriteConcern wc = null )
-{code}
-
-The static method updates all matched instances:
-
-{code:java}
-book.update( id, Closure updateOperations, boolean createIfAbsent = false, WriteConcern wc = null )
-book.update( Map query, Closure updateOperations, boolean createIfAbsent = false, WriteConcern wc = null )
+book.updateFirst( id, Closure updateOperations, boolean createIfAbsent = false, WriteConcern wc = null )
+book.updateFirst( Map query, Closure updateOperations, boolean createIfAbsent = false, WriteConcern wc = null )
 {code}
 
 

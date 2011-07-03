@@ -5,3 +5,11 @@ h2. MongoDB GORM plugin for Grails
 You will find a list of all domain class methods and other information in the "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
 Built with "IntelliJ IDEA":http://www.jetbrains.com/idea/
+
+Special thanks to the contributors:
+* Hubert Chang
+* Jesper Zedlitz
+* Alex Duan
+* Alexander Riss
+* Hasan Ozgan
+
