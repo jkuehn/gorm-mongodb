@@ -340,8 +340,14 @@ class MongoPluginSupport {
     def sort = queryParams.get('sort')?.toString()
     def limit = (int)(queryParams.containsKey('max') ? queryParams.get('max') : 25).toInteger()
     def offset = (int)(queryParams.get('offset') ?: 0).toInteger()
+	// handle the morphia query validation - default validation is set to true
+	def validation = queryParams.containsKey('validation') ? (boolean) queryParams.get('validation')  : true
 
-    if (sort){
+	if(!validation){
+			// disables query validation - this enables querying of embedded object properties like 'parent.embedded.property'
+			query.disableValidation();
+	}
+	if (sort){
 	    // in case we have a sorting defined we also need to handle the sort order:
 	    // default order -> asc
 	    // asc will become an empty prefix in front or the sorting field
