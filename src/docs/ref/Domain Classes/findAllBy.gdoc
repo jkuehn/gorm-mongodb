@@ -18,7 +18,7 @@ class Book {
 }
 {code}
 
-The following are all possible:
+Examples:
 
 {code:java}
 def results = Book.findAllByTitle("The Shining", [max:10, sort:"-title", offset:100] )
@@ -34,7 +34,7 @@ h2. Description
 
 Parameters:
 
-* @paginateParams@ - A Map containing parameters @max@, @offset@ and @sort@
+* @queryParams@ - A Map containing parameters @max@, @offset@, @sort@ and @validation@ (to turn off morphia mapping validation)
 
 Pagination and sorting parameters can be used as the last argument to a dynamic method:
 
@@ -55,4 +55,4 @@ The following operator names can be used within the respective dynamic methods:
 * @NotEqual@
 * @And@
 
-The above operator names can be considered keywords, and you will run into problems when querying domain classes that have one of these names used as property names. 
+The above operator names can be considered keywords, and you will run into problems when querying domain classes that have one of these names used as property names.

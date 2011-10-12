@@ -3,3 +3,6 @@ out/*
 /stacktrace.log
 /grais-gorm-mongodb*.zip
 /MongoPlugin*.i*
+*.iml
+*.ipr
+*.iws

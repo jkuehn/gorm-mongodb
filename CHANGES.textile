@@ -2,6 +2,12 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.4 - 2011-10-13
+* Grails 2.0 compatibility
+* Added validation property to query parameters to optionally turn of validation (thanks to Alexander)
+* Using MongoDB java driver *2.6*
+
+
 h3. v0.7.3 - 2011-07-03
 * updated morphia library to *1.00-SNAPSHOT* (r1740)
 * Added sorting order parameter in MongoDB queries - better gorm compatibility

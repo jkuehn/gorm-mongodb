@@ -256,7 +256,15 @@ public class MongoDomainClassProperty implements GrailsDomainClassProperty {
     return false;
   }
 
-  public String toString() {
+    public void setDerived(boolean derived) {
+        // no action
+    }
+
+    public boolean isDerived() {
+        return false;
+    }
+
+    public String toString() {
     String assType = null;
     if (isManyToMany()) {
       assType = "many-to-many";

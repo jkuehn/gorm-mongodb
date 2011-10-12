@@ -18,7 +18,7 @@ class Book {
 }
 {code}
 
-The following are all possible:
+More examples:
 
 {code:java}
 def book = Book.findByTitle("The Shining")
