@@ -7,7 +7,6 @@ h3. v0.7.4 - 2011-10-13
 * Added validation property to query parameters to optionally turn of validation (thanks to Alexander)
 * Using MongoDB java driver *2.6*
 
-
 h3. v0.7.3 - 2011-07-03
 * updated morphia library to *1.00-SNAPSHOT* (r1740)
 * Added sorting order parameter in MongoDB queries - better gorm compatibility

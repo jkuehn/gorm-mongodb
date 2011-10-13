@@ -1,16 +1,15 @@
-<plugin name='mongodb-morphia' version='0.6.2' grailsVersion='1.3.4 &gt; *'>
+<plugin name='mongodb-morphia' version='0.7.4' grailsVersion='1.3.4 &gt; *'>
   <author>Juri Kuehn</author>
   <authorEmail>juri.kuehn at gmail.com</authorEmail>
   <title>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb)</title>
   <description>GORM implementation for the MongoDB NoSQL database based on the Morphia library</description>
   <documentation>http://wiki.github.com/jkuehn/gorm-mongodb/</documentation>
+  <type>MongodbMorphiaGrailsPlugin</type>
   <resources>
-    <resource>BuildConfig</resource>
-    <resource>Config</resource>
-    <resource>DataSource</resource>
-    <resource>UrlMappings</resource>
     <resource>org.acme.Project</resource>
     <resource>org.acme.Task</resource>
+    <resource>org.acme.inheritance.Person</resource>
+    <resource>org.acme.inheritance.User</resource>
     <resource>org.acme.Contact</resource>
   </resources>
   <dependencies>
