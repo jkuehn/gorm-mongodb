@@ -1,32 +1,89 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>mongodb-morphia 0.7.2 - Reference Documentation</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Style" charset="utf-8"/>
+        <title>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb) 0.7.4</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
     </head>
-    <body class="body">
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <ul>
+                <li>
+                    <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                        <a href="../guide/index.html" class="button">Table of contents</a>
+                        <div id="nav-summary-childs" style="display:none;">
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#1.%20Introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#2.%20Quickstart"><strong>2</strong><span>Quickstart</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#3.%20Mongo%20Entities"><strong>3</strong><span>Mongo Entities</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#4.%20Querying"><strong>4</strong><span>Querying</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#5.%20Low%20Level%20Access"><strong>5</strong><span>Low Level Access</span></a></div>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="separator selected">
+                    <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                </li>
+            </ul>
+        </div>
         <div id="header">
-            <div class="images"><br/><br/>
-                <a href="http://grails.org" target="_blank"><img alt="The Grails Framework" src="../img/grails.png" border="0"/></a>
-                <span style="right:30px; top:20px; position:absolute;">
-                    <a href="../index.html" target="_top">Frames</a> | <a href="index.html" target="_top">No Frames</a><br/><br/>
-                    <a href="http://springsource.com" target="_blank"><img alt="SpringSource - A Division of VMware" src="../img/springsource-logo.png" border="0"/></a>
-                </span>
+            <div class="images clearfix">
+                
+                
             </div>
-            <div class="message">mongodb-morphia</div>
-            <h1>mongodb-morphia - Reference Documentation</h1>
-            <p><strong>Authors:</strong> Juri Kuehn</p>
-            <p><strong>Version:</strong> 0.7.2</p>
-            <em></em>
+            <p>GORM implementation for the MongoDB NoSQL database based on the Morphia library</p>
         </div>
 
-        <div id="toc">
-            <h2>Table of Contents</h2>
-            <div class="tocItem" style="margin-left:0px"><a href="#1. Introduction">1. Introduction</a></div><div class="tocItem" style="margin-left:0px"><a href="#2. Quickstart">2. Quickstart</a></div><div class="tocItem" style="margin-left:0px"><a href="#3. Mongo Entities">3. Mongo Entities</a></div><div class="tocItem" style="margin-left:0px"><a href="#4. Querying">4. Querying</a></div><div class="tocItem" style="margin-left:0px"><a href="#5. Low Level Access">5. Low Level Access</a></div>
-        </div>
-        <div id="content">
-            <h1><a name="1. Introduction">1. Introduction</a></h1><a href="http://www.mongodb.org/" target="blank">MongoDB</a> is a scalable, high-performance, schemafree and <a href="http://www.mongodb.org/display/DOCS/Production+Deployments" target="blank">production ready</a> NoSQL database. This plugin implements the GORM functionality for MongoDB. Under the hood it uses <a href="http://code.google.com/p/morphia/" target="blank">Morphia</a> as a lightweight type-safe library for mapping domain classes to/from MongoDB.<p class="paragraph"/><h3>Features</h3><p class="paragraph"/>Features implemented to far:
+
+        <table id="colset" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb) - Reference Documentation</h1>
+                            <p><strong>Authors:</strong> Juri Kuehn</p>
+                            <p><strong>Version:</strong> 0.7.4</p>
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#1.%20Introduction"><strong>1</strong><span>Introduction</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#2.%20Quickstart"><strong>2</strong><span>Quickstart</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#3.%20Mongo%20Entities"><strong>3</strong><span>Mongo Entities</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#4.%20Querying"><strong>4</strong><span>Querying</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#5.%20Low%20Level%20Access"><strong>5</strong><span>Low Level Access</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+
+<h1 id="1. Introduction">1 Introduction</h1>
+<a href="http://www.mongodb.org/" target="blank">MongoDB</a> is a scalable, high-performance, schemafree and <a href="http://www.mongodb.org/display/DOCS/Production+Deployments" target="blank">production ready</a> NoSQL database. This plugin implements the GORM functionality for MongoDB. Under the hood it uses <a href="http://code.google.com/p/morphia/" target="blank">Morphia</a> as a lightweight type-safe library for mapping domain classes to/from MongoDB.<p class="paragraph"/><h3>Features</h3><p class="paragraph"/>Features implemented to far:
 <ul class="star">
 <li>Instance methods: save, delete</li>
 <li>Class methods: get, find, findAll, delete, deleteAll, exists, count, list</li>
@@ -34,7 +91,7 @@
 <li>Constraints and validation support</li>
 <li>Automatic timestamping of dateCreated and lastUpdated</li>
 <li>Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by <a href="http://code.google.com/p/morphia/wiki/LifecycleMethods" target="blank">Morphia</a> )</li>
-<li>Works with MongoDB 1.4 and 1.6</li>
+<li>Works with MongoDB 1.6 and 1.8</li>
 <li>AST Transformations that inject all necessary fields and annotations for morphia</li>
 <li>Lazy references supported</li>
 <li>generate-all support</li>
@@ -52,7 +109,11 @@
 </ul><p class="paragraph"/><h3>Change Log</h3><p class="paragraph"/>see <a href="http://github.com/jkuehn/gorm-mongodb/blob/master/CHANGES.textile" target="blank">here</a><p class="paragraph"/><h3>Author:</h3>
 <ul class="star">
 <li>Juri Kuehn (juri.kuehn at gmail.com)</li>
-</ul><p class="paragraph"/><h1><a name="2. Quickstart">2. Quickstart</a></h1>Here you will find a step by step guide to set up a test project that uses the mongodb-morphia plugin to manipulate domain classes in Grails<p class="paragraph"/><h2>Creating a test project that uses mongodb-morphia</h2><p class="paragraph"/>We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.<p class="paragraph"/>Let's start off, create a new Grails project and install the mongodb-morphia plugin:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;app MongoGrailsQuickstart
+</ul><p class="paragraph"/>
+
+
+<h1 id="2. Quickstart">2 Quickstart</h1>
+Here you will find a step by step guide to set up a test project that uses the mongodb-morphia plugin to manipulate domain classes in Grails<p class="paragraph"/><h2>Creating a test project that uses mongodb-morphia</h2><p class="paragraph"/>We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.<p class="paragraph"/>Let's start off, create a new Grails project and install the mongodb-morphia plugin:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;app MongoGrailsQuickstart
 &#62; cd MongoGrailsQuickstart
 &#62; grails install&#45;plugin mongodb&#45;morphia</pre></div><p class="paragraph"/>The mongodb-morphia plugin provides a create-mongodb-class command that creates a stub for the domain class, as well as corresponding test cases. Let's call it:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;mongodb&#45;class Car</pre></div><p class="paragraph"/>MongoDB domain classes are put into the grails-app/mongo directory. Now we need to edit some files: Config.groovy for the database connection and our new Car domain, where we want to put some fields:<p class="paragraph"/><strong class="bold">grails-app/conf/DataSource.groovy</strong><p class="paragraph"/><div class="code"><pre>mongodb &#123;
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
@@ -71,8 +132,16 @@ Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-
         ps min: 30, max: 1001
     &#125;
 &#125;</pre></div><p class="paragraph"/>Now generate the controllers and views and fire up the app!<p class="paragraph"/><div class="code"><pre>&#62; grails generate&#45;all mongograilsquickstart.Car
-&#62; grails run&#45;app</pre></div><p class="paragraph"/>Now point your browser to http://localhost:8080/MongoGrailsQuickstart <strong class="bold">Done!</strong><h1><a name="3. Mongo Entities">3. Mongo Entities</a></h1><h3>Creating Mongo Entities</h3><p class="paragraph"/>Classes that should be mapped to MongoDB should be put into the  <em class="italic">/grails-app/mongo</em>  directory. You can also use the <code>create-mongodb-class</code> command to generate mongo classes.<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;mongodb&#45;class Car</pre></div><p class="paragraph"/>Classes that should be mapped have to be put into the grails-app/mongo directory or have to be annotated with the <code>com.google.code.morphia.annotations.Entity</code> annotation.<p class="paragraph"/><h3>Dependency Injection</h3><p class="paragraph"/>Mapped MongoDB entities are autowired as described in the <a href="http://grails.org/doc/1.3.x/guide/8.%20The%20Service%20Layer.html#8.3%20Dependency%20Injection%20and%20Services" target="blank">Grails user guide</a><p class="paragraph"/><div class="code"><pre>class Car &#123;<p class="paragraph"/>  def mongo // autowired by spring
-  def someService // autowired by spring<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/><h1><a name="4. Querying">4. Querying</a></h1>You have two options for getting objects out of your MongoDB: by using queries/filters or the dynamic finders.<p class="paragraph"/><h2>Filters</h2><p class="paragraph"/>The mongo domain classes provide <code>find</code> and <code>findAll</code> methods that accept a map with filtering constraints and optional query options. Every filter consists of a fieldname, operator and a value. If no operator is given, = is assumed.<p class="paragraph"/><strong class="bold">Examples</strong><p class="paragraph"/><div class="code"><pre>Exampledomain.findAll(&#91;<span class="java&#45;quote">"yearsOfOperation &#62;"</span>: 5&#93;, &#91;max:20, sort:'yearsOfOperation'&#93;)
+&#62; grails run&#45;app</pre></div><p class="paragraph"/>Now point your browser to http://localhost:8080/MongoGrailsQuickstart <strong class="bold">Done!</strong>
+
+
+<h1 id="3. Mongo Entities">3 Mongo Entities</h1>
+<h3>Creating Mongo Entities</h3><p class="paragraph"/>Classes that should be mapped to MongoDB should be put into the  <em class="italic">/grails-app/mongo</em>  directory. You can also use the <code>create-mongodb-class</code> command to generate mongo classes.<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;mongodb&#45;class Car</pre></div><p class="paragraph"/>Classes that should be mapped have to be put into the grails-app/mongo directory or have to be annotated with the <code>com.google.code.morphia.annotations.Entity</code> annotation.<p class="paragraph"/><h3>Dependency Injection</h3><p class="paragraph"/>Mapped MongoDB entities are autowired as described in the <a href="http://grails.org/doc/1.3.x/guide/8.%20The%20Service%20Layer.html#8.3%20Dependency%20Injection%20and%20Services" target="blank">Grails user guide</a><p class="paragraph"/><div class="code"><pre>class Car &#123;<p class="paragraph"/>  def mongo // autowired by spring
+  def someService // autowired by spring<p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>
+
+
+<h1 id="4. Querying">4 Querying</h1>
+You have two options for getting objects out of your MongoDB: by using queries/filters or the dynamic finders.<p class="paragraph"/><h2>Filters</h2><p class="paragraph"/>The mongo domain classes provide <code>find</code> and <code>findAll</code> methods that accept a map with filtering constraints and optional query options. Every filter consists of a fieldname, operator and a value. If no operator is given, = is assumed.<p class="paragraph"/><strong class="bold">Examples</strong><p class="paragraph"/><div class="code"><pre>Exampledomain.findAll(&#91;<span class="java&#45;quote">"yearsOfOperation &#62;"</span>: 5&#93;, &#91;max:20, sort:'yearsOfOperation'&#93;)
 Exampledomain.findAll(&#91;<span class="java&#45;quote">"rooms.maxBeds &#62;="</span>: 2, <span class="java&#45;quote">"rooms.occupied"</span>: <span class="java&#45;keyword">false</span>&#93;)
 Exampledomain.findAll(&#91;<span class="java&#45;quote">"rooms.bathrooms exists"</span>: 1&#93;)
 Exampledomain.findAll(&#91;<span class="java&#45;quote">"stars in"</span>: &#91;3,4&#93;&#93;)
@@ -85,7 +154,11 @@ Exampledomain.findAll(&#91;<span class="java&#45;quote">"customers.loyaltyYears 
 Limits the result set to given number of entries<p class="paragraph"/><strong class="bold">offset</strong>
 Skips the given number of results<p class="paragraph"/><strong class="bold">sort</strong>
 Sorts the results. You can provide multiple fieldnames delimited by comma. If you want the results to be sorted in descending order, you have to prepend the fieldname with a minus: <code>sort:"-lastname,-firstname,age"</code><p class="paragraph"/><h2>Dynamic finders</h2><p class="paragraph"/>The dynamic finders provided by mongodb-morphia work just as the <a href="http://grails.org/doc/latest/ref/Domain%20Classes/findAllBy.html" target="blank">default gorm finders</a> (example: <code>Car.findAllByNameAndPsGreaterThan("Polo", 50, sort: "-ps")</code>).
-<h1><a name="5. Low Level Access">5. Low Level Access</a></h1>If you want to, you can also access <a href="http://code.google.com/p/morphia/" target="blank">Morphia's</a> Datastore or the underlying <a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a> directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.<p class="paragraph"/><h2>Access using the mongo bean</h2><p class="paragraph"/>The bean <code>mongo</code> provides access to the configured java driver and morphia instance (since 0.1.2):<p class="paragraph"/><strong class="bold">usage:</strong><p class="paragraph"/><div class="code"><pre>class MongoController &#123;
+
+
+
+<h1 id="5. Low Level Access">5 Low Level Access</h1>
+If you want to, you can also access <a href="http://code.google.com/p/morphia/" target="blank">Morphia's</a> Datastore or the underlying <a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a> directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.<p class="paragraph"/><h2>Access using the mongo bean</h2><p class="paragraph"/>The bean <code>mongo</code> provides access to the configured java driver and morphia instance (since 0.1.2):<p class="paragraph"/><strong class="bold">usage:</strong><p class="paragraph"/><div class="code"><pre>class MongoController &#123;
     def mongo<p class="paragraph"/>    def lowlevel = &#123;
         mongo.mongo     // com.mongodb.Mongo &#45; already connected
         mongo.db        // com.mongodb.DB &#45; configured db
@@ -94,9 +167,131 @@ Sorts the results. You can provide multiple fieldnames delimited by comma. If yo
         mongo.getCollection(Person.class)
     &#125;
 &#125;</pre></div><p class="paragraph"/><h2>Access using the collection property</h2><p class="paragraph"/>Every MongoDB domain has a <code>collection</code> property for convenient access to the drivers <a href="http://api.mongodb.org/java/current/com/mongodb/DBCollection.html" target="blank">DBCollection</a> instance:<p class="paragraph"/><strong class="bold">usage example:</strong><p class="paragraph"/><div class="code"><pre>Project.collection.insert(<span class="java&#45;keyword">new</span> BasicDBObject('name', 'Project MongoDB'))</pre></div><p class="paragraph"/>
-        </div>
+
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Domain Classes</h1><div class="menu-sub">
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/Usage.html">Usage</a></div>
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/addTo.html">addTo</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/autowire.html">autowire</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/count.html">count</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/countAll.html">countAll</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/createDBRef.html">createDBRef</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/createKey.html">createKey</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/delete.html">delete</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/deleteAll.html">deleteAll</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/deleteOne.html">deleteOne</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/exists.html">exists</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/find.html">find</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/findAll.html">findAll</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/findAllBy.html">findAllBy</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/findBy.html">findBy</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/fromDBObject.html">fromDBObject</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/get.html">get</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/getAll.html">getAll</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/getCollection.html">getCollection</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/list.html">list</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/makeKey.html">makeKey</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/save.html">save</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/toDBObject.html">toDBObject</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/update.html">update</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/updateFirst.html">updateFirst</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Indexes</h1><div class="menu-sub">
+                        
+                        <div class="menu-item"><a href="../ref/Indexes/Usage.html">Usage</a></div>
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Indexes/indexes.html">indexes</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Key</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Key/fetch.html">fetch</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
         <div id="footer">
-             
+            
+            
         </div>
+
+
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
     </body>
 </html>

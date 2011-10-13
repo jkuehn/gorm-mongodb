@@ -1,11 +1,91 @@
-<html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-        <title>2. Quickstart</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
-    </head>
-    <body class="body">
-    <h1><a name="2. Quickstart">2. Quickstart</a></h1>Here you will find a step by step guide to set up a test project that uses the mongodb-morphia plugin to manipulate domain classes in Grails<p class="paragraph"/><h2>Creating a test project that uses mongodb-morphia</h2><p class="paragraph"/>We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.<p class="paragraph"/>Let's start off, create a new Grails project and install the mongodb-morphia plugin:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;app MongoGrailsQuickstart
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>2 Quickstart 0.7.4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/1.%20Introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/2.%20Quickstart.html"><strong>2</strong><span>Quickstart</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/3.%20Mongo%20Entities.html"><strong>3</strong><span>Mongo Entities</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/4.%20Querying.html"><strong>4</strong><span>Querying</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/5.%20Low%20Level%20Access.html"><strong>5</strong><span>Low Level Access</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>GORM implementation for the MongoDB NoSQL database based on the Morphia library</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/1.%20Introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/3.%20Mongo%20Entities.html"><strong>3</strong><span>Mongo Entities</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2 Quickstart - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Juri Kuehn</p>
+
+                    <p><strong>Version:</strong> 0.7.4</p>
+                </div>
+
+                
+
+                
+
+<h1 id="2. Quickstart">2 Quickstart</h1>
+Here you will find a step by step guide to set up a test project that uses the mongodb-morphia plugin to manipulate domain classes in Grails<p class="paragraph"/><h2>Creating a test project that uses mongodb-morphia</h2><p class="paragraph"/>We are going to create a new Grails application that has only one domain class: Car. Using the generate-all command we will generate the controllers and views necessary to manipulate instances of that domain.<p class="paragraph"/>Let's start off, create a new Grails project and install the mongodb-morphia plugin:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;app MongoGrailsQuickstart
 &#62; cd MongoGrailsQuickstart
 &#62; grails install&#45;plugin mongodb&#45;morphia</pre></div><p class="paragraph"/>The mongodb-morphia plugin provides a create-mongodb-class command that creates a stub for the domain class, as well as corresponding test cases. Let's call it:<p class="paragraph"/><div class="code"><pre>&#62; grails create&#45;mongodb&#45;class Car</pre></div><p class="paragraph"/>MongoDB domain classes are put into the grails-app/mongo directory. Now we need to edit some files: Config.groovy for the database connection and our new Car domain, where we want to put some fields:<p class="paragraph"/><strong class="bold">grails-app/conf/DataSource.groovy</strong><p class="paragraph"/><div class="code"><pre>mongodb &#123;
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
@@ -25,5 +105,137 @@ Now the fields and constraints<p class="paragraph"/><strong class="bold">grails-
     &#125;
 &#125;</pre></div><p class="paragraph"/>Now generate the controllers and views and fire up the app!<p class="paragraph"/><div class="code"><pre>&#62; grails generate&#45;all mongograilsquickstart.Car
 &#62; grails run&#45;app</pre></div><p class="paragraph"/>Now point your browser to http://localhost:8080/MongoGrailsQuickstart <strong class="bold">Done!</strong>
-    </body>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/1.%20Introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/3.%20Mongo%20Entities.html"><strong>3</strong><span>Mongo Entities</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Domain Classes</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/addTo.html">addTo</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/autowire.html">autowire</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/count.html">count</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/countAll.html">countAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/createDBRef.html">createDBRef</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/createKey.html">createKey</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/delete.html">delete</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/deleteAll.html">deleteAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/deleteOne.html">deleteOne</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/exists.html">exists</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/find.html">find</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findAll.html">findAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findAllBy.html">findAllBy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findBy.html">findBy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/fromDBObject.html">fromDBObject</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/get.html">get</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/getAll.html">getAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/getCollection.html">getCollection</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/list.html">list</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/makeKey.html">makeKey</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/save.html">save</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/toDBObject.html">toDBObject</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/update.html">update</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/updateFirst.html">updateFirst</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Indexes</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../ref/Indexes/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../ref/Indexes/indexes.html">indexes</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Key</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../ref/Key/fetch.html">fetch</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
 </html>
