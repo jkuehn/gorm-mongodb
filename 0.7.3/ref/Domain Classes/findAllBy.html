@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>mongodb-morphia 0.7.3 - Reference Documentation</title>
+        <link rel="stylesheet" href="../../css/ref.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1>findAllBy*</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Dynamic method that uses the properties of the domain class to allow the creation of Grails query method expressions that return all instances of the domain class<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/>Given the domain class <code>Book</code>:<p class="paragraph"/><div class="code"><pre>class Book &#123;
+   <span class="java&#45;object">Long</span> id
+   <span class="java&#45;object">Long</span> version
+   <span class="java&#45;object">String</span> title
+   Date releaseDate
+   <span class="java&#45;object">String</span> author
+&#125;</pre></div><p class="paragraph"/>The following are all possible:<p class="paragraph"/><div class="code"><pre>def results = Book.findAllByTitle(<span class="java&#45;quote">"The Shining"</span>, &#91;max:10, sort:<span class="java&#45;quote">"&#45;title"</span>, offset:100&#93; )
+results = Book.findAllByTitleAndAuthor(<span class="java&#45;quote">"The Sum of All Fears"</span>, <span class="java&#45;quote">"Tom Clancy"</span>)
+results = Book.findAllByReleaseDateBetween(firstDate, <span class="java&#45;keyword">new</span> Date())
+results = Book.findAllByReleaseDateGreaterThanEquals(firstDate)
+results = Book.findAllByTitleNotEqual(<span class="java&#45;quote">"Harry Potter"</span>)
+results = Book.findAllByReleaseDateIsNull()
+results = Book.findAllByReleaseDateIsNotNull()</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>Parameters:
+<ul class="star">
+<li><code>paginateParams</code> - A Map containing parameters <code>max</code>, <code>offset</code> and <code>sort</code></li>
+</ul><p class="paragraph"/>Pagination and sorting parameters can be used as the last argument to a dynamic method:<p class="paragraph"/><div class="code"><pre>def results = Book.findAllByTitle(<span class="java&#45;quote">"The Shining"</span>, &#91;max:10, sort:<span class="java&#45;quote">"title"</span>, offset:100&#93; )</pre></div><p class="paragraph"/>The following operator names can be used within the respective dynamic methods:
+<ul class="star">
+<li><code>LessThan</code></li>
+<li><code>LessThanEquals</code></li>
+<li><code>GreaterThan</code></li>
+<li><code>GreaterThanEquals</code></li>
+<li><code>Between</code></li>
+<li><code>IsNotNull</code></li>
+<li><code>IsNull</code></li>
+<li><code>Equal</code></li>
+<li><code>NotEqual</code></li>
+<li><code>And</code></li>
+</ul><p class="paragraph"/>The above operator names can be considered keywords, and you will run into problems when querying domain classes that have one of these names used as property names. 
+    </body>
+</html>

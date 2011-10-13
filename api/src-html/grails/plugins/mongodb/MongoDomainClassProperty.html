@@ -259,22 +259,30 @@
 <FONT color="green">256</FONT>        return false;<a name="line.256"></a>
 <FONT color="green">257</FONT>      }<a name="line.257"></a>
 <FONT color="green">258</FONT>    <a name="line.258"></a>
-<FONT color="green">259</FONT>      public String toString() {<a name="line.259"></a>
-<FONT color="green">260</FONT>        String assType = null;<a name="line.260"></a>
-<FONT color="green">261</FONT>        if (isManyToMany()) {<a name="line.261"></a>
-<FONT color="green">262</FONT>          assType = "many-to-many";<a name="line.262"></a>
-<FONT color="green">263</FONT>        } else if (isOneToMany()) {<a name="line.263"></a>
-<FONT color="green">264</FONT>          assType = "one-to-many";<a name="line.264"></a>
-<FONT color="green">265</FONT>        } else if (isOneToOne()) {<a name="line.265"></a>
-<FONT color="green">266</FONT>          assType = "one-to-one";<a name="line.266"></a>
-<FONT color="green">267</FONT>        } else if (isManyToOne()) {<a name="line.267"></a>
-<FONT color="green">268</FONT>          assType = "many-to-one";<a name="line.268"></a>
-<FONT color="green">269</FONT>        } else if (isEmbedded()) {<a name="line.269"></a>
-<FONT color="green">270</FONT>          assType = "embedded";<a name="line.270"></a>
-<FONT color="green">271</FONT>        }<a name="line.271"></a>
-<FONT color="green">272</FONT>        return new ToStringBuilder(this).append("name", this.name).append("type", this.type).append("persistent", isPersistent()).append("optional", isOptional()).append("association", isAssociation()).append("bidirectional", isBidirectional()).append("association-type", assType).toString();<a name="line.272"></a>
-<FONT color="green">273</FONT>      }<a name="line.273"></a>
-<FONT color="green">274</FONT>    }<a name="line.274"></a>
+<FONT color="green">259</FONT>        public void setDerived(boolean derived) {<a name="line.259"></a>
+<FONT color="green">260</FONT>            // no action<a name="line.260"></a>
+<FONT color="green">261</FONT>        }<a name="line.261"></a>
+<FONT color="green">262</FONT>    <a name="line.262"></a>
+<FONT color="green">263</FONT>        public boolean isDerived() {<a name="line.263"></a>
+<FONT color="green">264</FONT>            return false;<a name="line.264"></a>
+<FONT color="green">265</FONT>        }<a name="line.265"></a>
+<FONT color="green">266</FONT>    <a name="line.266"></a>
+<FONT color="green">267</FONT>        public String toString() {<a name="line.267"></a>
+<FONT color="green">268</FONT>        String assType = null;<a name="line.268"></a>
+<FONT color="green">269</FONT>        if (isManyToMany()) {<a name="line.269"></a>
+<FONT color="green">270</FONT>          assType = "many-to-many";<a name="line.270"></a>
+<FONT color="green">271</FONT>        } else if (isOneToMany()) {<a name="line.271"></a>
+<FONT color="green">272</FONT>          assType = "one-to-many";<a name="line.272"></a>
+<FONT color="green">273</FONT>        } else if (isOneToOne()) {<a name="line.273"></a>
+<FONT color="green">274</FONT>          assType = "one-to-one";<a name="line.274"></a>
+<FONT color="green">275</FONT>        } else if (isManyToOne()) {<a name="line.275"></a>
+<FONT color="green">276</FONT>          assType = "many-to-one";<a name="line.276"></a>
+<FONT color="green">277</FONT>        } else if (isEmbedded()) {<a name="line.277"></a>
+<FONT color="green">278</FONT>          assType = "embedded";<a name="line.278"></a>
+<FONT color="green">279</FONT>        }<a name="line.279"></a>
+<FONT color="green">280</FONT>        return new ToStringBuilder(this).append("name", this.name).append("type", this.type).append("persistent", isPersistent()).append("optional", isOptional()).append("association", isAssociation()).append("bidirectional", isBidirectional()).append("association-type", assType).toString();<a name="line.280"></a>
+<FONT color="green">281</FONT>      }<a name="line.281"></a>
+<FONT color="green">282</FONT>    }<a name="line.282"></a>
 
 
 
