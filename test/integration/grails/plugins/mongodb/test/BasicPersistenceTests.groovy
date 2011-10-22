@@ -4,6 +4,8 @@ import org.acme.Contact
 import org.acme.Project
 import org.acme.Task
 import org.bson.types.ObjectId
+import com.mongodb.DBRef
+import com.google.code.morphia.Key
 
 public class BasicPersistenceTests extends GroovyTestCase {
 
@@ -71,6 +73,24 @@ public class BasicPersistenceTests extends GroovyTestCase {
 
     p2.delete()
     t2.delete()
+  }
+
+  void testGetVariants() {
+      def p1 = new Project(name: "InConcert2")
+      p1.startDate = new Date()
+      p1.save()
+
+      assertNotNull "should have saved new project", p1
+      assertNotNull "should have retrieved id of new project", p1.id
+
+      DBRef dbRef = p1.createDBRef()
+      Key key = p1.createKey()
+
+      assertEquals "fetch using get() by DBRef should work", Project.get(dbRef)?.id, p1.id
+      assertEquals "fetch using get() by Key should work", Project.get(key)?.id, p1.id
+      assertEquals "fetch using get() by Id should work", Project.get(p1.id)?.id, p1.id
+
+      p1.delete()
   }
 
   void testUpdateAndDelete() {

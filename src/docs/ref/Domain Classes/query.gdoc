@@ -1,0 +1,58 @@
+h1. query
+
+h2. Purpose
+
+Finds all of the domain class instances using morphias "query":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/query/QueryImpl.html
+
+h2. Examples
+
+{code:java}
+// get a query instance for Book class
+def query = Book.query()
+
+// get a query instance for Book class, precofigured with pagination params
+def query = Book.query(params)
+
+// pass a closure that will be executed in query context
+def query = Book.query([sort: "releaseDate", order: "desc"]) {
+    field('author').equal("Steven King")
+    field('title').startsWith("The")
+}
+
+// pass a closure only
+def query = Book.query() {
+    field('author').equal("Steven King")
+    field('title').startsWith("The")
+    offset(10)
+}.asList()
+
+// work with query object
+def query = Book.query()
+query.field('author').equal("Steven King")
+query.field('title').startsWith("The")
+query.offset(10)
+
+
+// Query interface provides many methods for returning the results
+query.asList() // return matched results as List
+query.get() // return first result
+for (Book book in query) { ... } // query implements the Iterable interface
+
+{code}
+
+h2. Description
+
+{code:java}
+Book.query( )
+Book.query( Map params )
+Book.query( Map params, Closure config )
+{code}
+
+Parameters:
+
+* @params@ - A Map containing parameters @max@, @offset@, @sort@, @order@ and @validation@ (to turn off morphia mapping validation)
+* @config@ - A closure that will be executed in context of Query
+
+Returns:
+
+Instance of a "QueryImpl":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/query/QueryImpl.html

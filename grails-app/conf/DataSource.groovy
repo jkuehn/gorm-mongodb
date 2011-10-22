@@ -4,7 +4,7 @@ mongodb {
     if (currentHost == 'rem-juri') {
         replicaSet = [ "localhost:27017"]
     } else if (System.getProperty('user.name').toLowerCase() == 'juri') {
-        replicaSet = [ "192.168.1.101:27017"]
+        replicaSet = [ "192.168.1.100:27017"]
     } else {
         replicaSet = [ "localhost:27017"]
     }

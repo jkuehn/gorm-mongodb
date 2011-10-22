@@ -1,7 +1,7 @@
 h1. TODOs / ideas for next releases
 
+* check code in MongoPluginSupport for changes borrowed from org.codehaus.groovy.grails.plugins.DomainClassGrailsPlugin
 * implement "sparse index definitions":http://www.mongodb.org/display/DOCS/Indexes#Indexes-SparseIndexes for MongoDB 1.8
-* Check out Datastore getByKeys(keys) for Key.fetch() - if not working with fetched keys from db (has no kindClass), then raise issue
 * write some documentation with examples for referencing and embedding entities
 * document TransformationConfiguration annotation and put a page about inheritance in the docs
 * document merge() instance method

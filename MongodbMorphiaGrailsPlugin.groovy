@@ -20,7 +20,7 @@ class MongodbMorphiaGrailsPlugin {
     def scm = [ url: "https://github.com/jkuehn/gorm-mongodb" ]
 
     // the plugin version
-    def version = "0.7.4"
+    def version = "0.7.5"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
@@ -39,7 +39,7 @@ class MongodbMorphiaGrailsPlugin {
 
     def author = "Juri Kuehn"
     def authorEmail = "juri.kuehn at gmail.com"
-    def title = "Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb)"
+    def title = "Alternative MongoDB GORM based on the Morphia library"
     def description = '''GORM implementation for the MongoDB NoSQL database based on the Morphia library'''
 
     // URL to the plugin's documentation
@@ -118,6 +118,8 @@ class MongodbMorphiaGrailsPlugin {
             }
             datastore.getByKey(clazz, delegate)
         }
+
+        MongoPluginSupport.enhanceMorphiaQueryClass()
     }
 
     /**

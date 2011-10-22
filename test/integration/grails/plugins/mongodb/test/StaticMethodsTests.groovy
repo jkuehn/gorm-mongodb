@@ -40,6 +40,25 @@ class StaticMethodsTests extends GroovyTestCase {
         assertEquals "find should find the searched task", Task.find(["name >": "S"], [sort: "-estimatedHours"])?.taskId, taskList[1].taskId
     }
 
+    void testQueryInterface() {
+        assertEquals "findByProjectId should find all testobjects", Task.findAllByProjectId(projectId)*.taskId.sort(), taskList*.taskId.sort()
+        assertEquals "subsequent call to now cached findByProjectId should find all testobjects", Task.findAllByProjectId(projectId)*.taskId.sort(), taskList*.taskId.sort()
+
+        // test sorting
+        def found = Task.query([sort: "estimatedHours"]) {
+            field('projectId').equal(projectId)
+            field('name').startsWith("Sim")
+        }.asList()
+        println "Task List:"
+        taskList.each { println it.toString() }
+        println "Found entities: "
+        found.each { println it.toString() }
+
+        assertEquals "Task 1 should be at 0 place in sorted result", found[0].taskId, taskList[0].taskId
+        assertEquals "Task 4 should be at 1 place in sorted result", found[1].taskId, taskList[3].taskId
+        assertEquals "Task 2 should be at 2 place in sorted result", found[2].taskId, taskList[1].taskId
+    }
+
     /**
      * test deleteOne and deleteAll
      */

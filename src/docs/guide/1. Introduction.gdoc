@@ -9,9 +9,9 @@ Features implemented to far:
 * Constraints and validation support
 * Automatic timestamping of dateCreated and lastUpdated
 * Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by "Morphia":http://code.google.com/p/morphia/wiki/LifecycleMethods )
-* Works with MongoDB 1.6 and 1.8
+* Works with MongoDB 1.6, 1.8 and 2.0
 * AST Transformations that inject all necessary fields and annotations for morphia
-* Lazy references supported
+* Lazy references supported (experimental)
 * generate-all support
 
 This plugin is not feature complete concerning the GORM api. Yet it has been proven to be very stable in our production environment. See the "quickstart":2.%20Quickstart.html page for a usage example. You can also download a "petclinic sample application port":https://github.com/jkuehn/gorm-mongodb which uses mongodb-morphia to see the use of embedded and referenced domain classes.

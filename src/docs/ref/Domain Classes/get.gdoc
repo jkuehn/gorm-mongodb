@@ -14,5 +14,5 @@ h2. Description
 
 Parameters:
 
-* @id@ - The id of the object to retrieve
+* @id@ - The id of the object to retrieve. Alternatively, you can pass a "com.mongodb.DBRef":http://api.mongodb.org/java/current/com/mongodb/DBRef.html or a "com.google.code.morphia.Key":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/Key.html object.
 
