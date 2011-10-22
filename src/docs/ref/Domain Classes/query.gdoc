@@ -20,7 +20,7 @@ def query = Book.query([sort: "releaseDate", order: "desc"]) {
 }
 
 // pass a closure only
-def query = Book.query() {
+def query = Book.query {
     field('author').equal("Steven King")
     field('title').startsWith("The")
     offset(10)
@@ -50,9 +50,11 @@ Book.query( Map params, Closure config )
 
 Parameters:
 
-* @params@ - A Map containing parameters @max@, @offset@, @sort@, @order@ and @validation@ (to turn off morphia mapping validation)
+* @params@ - A Map containing parameters @max@, @offset@, @sort@ and @order@ (to turn off morphia mapping validation)
 * @config@ - A closure that will be executed in context of Query
 
 Returns:
 
 Instance of a "QueryImpl":http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/query/QueryImpl.html
+
+.
