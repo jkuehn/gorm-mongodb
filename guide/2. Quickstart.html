@@ -91,6 +91,8 @@ Here you will find a step by step guide to set up a test project that uses the m
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
   port = 27017
   databaseName = 'test'
+  username = 'user'  // database user and password, if server requires authentication
+  password = 's3cret' 
 &#125;</pre></div><p class="paragraph"/>You can configure <a href="http://www.mongodb.org/display/DOCS/Replica+Sets" target="blank">replica sets</a> this way:<p class="paragraph"/><div class="code"><pre>mongodb &#123;
   replicaSet = &#91; <span class="java&#45;quote">"localhost:27017"</span>, <span class="java&#45;quote">"localhost:27018"</span>&#93;
   databaseName = 'test'
