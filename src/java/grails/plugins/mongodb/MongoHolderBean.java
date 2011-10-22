@@ -65,10 +65,16 @@ public class MongoHolderBean {
     }
 
     morphia = new Morphia();
-    datastore = (DatastoreImpl)morphia.createDatastore(mongo, database);
+    String username = getConfigVar(flatConfig,"mongodb.username",null);
+    char[] password = getCharArray(getConfigVar(flatConfig, "mongodb.password", null));
+    datastore = (DatastoreImpl)morphia.createDatastore(mongo, database,username,password);
 
     // init ObjectFactory
     morphia.getMapper().getOptions().objectFactory = new MongoDomainObjectFactory(application);
+  }
+
+  private char[] getCharArray(String configVar) {
+      return configVar == null ? null : configVar.toCharArray();
   }
 
   private String getConfigVar(Map config, String key, String defaultValue) {
