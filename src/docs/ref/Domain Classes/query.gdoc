@@ -50,7 +50,7 @@ Book.query( Map params, Closure config )
 
 Parameters:
 
-* @params@ - A Map containing parameters @max@, @offset@, @sort@ and @order@ (to turn off morphia mapping validation)
+* @params@ - A Map containing parameters @max@, @offset@, @sort@ and @order@
 * @config@ - A closure that will be executed in context of Query
 
 Returns:

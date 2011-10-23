@@ -27,6 +27,8 @@ mongodb {
   host = '192.168.1.36' // adjust this according to your settings
   port = 27017
   databaseName = 'test'
+  username = 'user'  // database user and password, if server requires authentication
+  password = 's3cret' 
 }
 {code}
 
