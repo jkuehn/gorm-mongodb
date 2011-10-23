@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb) 0.7.4</title>
+        <title>Alternative MongoDB GORM based on the Morphia library 0.7.5</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -58,9 +58,10 @@ function addJsClass(el) {
                         <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                         <div class="project">
-                            <h1>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb) - Reference Documentation</h1>
+                            <h1>Alternative MongoDB GORM based on the Morphia library - Reference Documentation</h1>
                             <p><strong>Authors:</strong> Juri Kuehn</p>
-                            <p><strong>Version:</strong> 0.7.4</p>
+                            <p><strong>Version:</strong> 0.7.5</p>
+                            
                         </div>
 
                         
@@ -91,9 +92,9 @@ function addJsClass(el) {
 <li>Constraints and validation support</li>
 <li>Automatic timestamping of dateCreated and lastUpdated</li>
 <li>Gorm events beforeSave, afterSave, beforeDelete, afterDelete, beforeValidate (others, like afterLoad are supported by <a href="http://code.google.com/p/morphia/wiki/LifecycleMethods" target="blank">Morphia</a> )</li>
-<li>Works with MongoDB 1.6 and 1.8</li>
+<li>Works with MongoDB 1.6, 1.8 and 2.0</li>
 <li>AST Transformations that inject all necessary fields and annotations for morphia</li>
-<li>Lazy references supported</li>
+<li>Lazy references supported (experimental)</li>
 <li>generate-all support</li>
 </ul><p class="paragraph"/>This plugin is not feature complete concerning the GORM api. Yet it has been proven to be very stable in our production environment. See the <a href="2.%20Quickstart.html">quickstart</a> page for a usage example. You can also download a <a href="https://github.com/jkuehn/gorm-mongodb" target="blank">petclinic sample application port</a> which uses mongodb-morphia to see the use of embedded and referenced domain classes.<p class="paragraph"/><h3>Questions and Bug Reports</h3>
 <ul class="star">
@@ -119,6 +120,8 @@ Here you will find a step by step guide to set up a test project that uses the m
   host = '192.168.1.36' // adjust <span class="java&#45;keyword">this</span> according to your settings
   port = 27017
   databaseName = 'test'
+  username = 'user'  // database user and password, <span class="java&#45;keyword">if</span> server requires authentication
+  password = 's3cret' 
 &#125;</pre></div><p class="paragraph"/>You can configure <a href="http://www.mongodb.org/display/DOCS/Replica+Sets" target="blank">replica sets</a> this way:<p class="paragraph"/><div class="code"><pre>mongodb &#123;
   replicaSet = &#91; <span class="java&#45;quote">"localhost:27017"</span>, <span class="java&#45;quote">"localhost:27018"</span>&#93;
   databaseName = 'test'
@@ -241,6 +244,9 @@ If you want to, you can also access <a href="http://code.google.com/p/morphia/" 
                         </div>
                         
                         <div class="menu-item"><a href="../ref/Domain%20Classes/makeKey.html">makeKey</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="../ref/Domain%20Classes/query.html">query</a>
                         </div>
                         
                         <div class="menu-item"><a href="../ref/Domain%20Classes/save.html">save</a>

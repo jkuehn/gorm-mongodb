@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>Alternative MongoDB GORM based on the Morphia library (former gorm-mongodb) 0.7.4</title>
+    <title>Alternative MongoDB GORM based on the Morphia library 0.7.5</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -66,7 +66,7 @@ function addJsClass(el) {
 
                 <h1>get</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>Retrieves an instance of the domain class for the specified id, otherwise returns null<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>def b = Book.get(<span class="java&#45;quote">"4c0cceac61b32d536cc6fdfb"</span>)</pre></div><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>Parameters:
 <ul class="star">
-<li><code>id</code> - The id of the object to retrieve</li>
+<li><code>id</code> - The id of the object to retrieve. Alternatively, you can pass a <a href="http://api.mongodb.org/java/current/com/mongodb/DBRef.html" target="blank">com.mongodb.DBRef</a> or a <a href="http://morphia.googlecode.com/svn/site/morphia/apidocs/com/google/code/morphia/Key.html" target="blank">com.google.code.morphia.Key</a> object.</li>
 </ul><p class="paragraph"/>
             </div>
         </td>
@@ -143,6 +143,9 @@ function addJsClass(el) {
                             </div>
                             
                             <div class="menu-item"><a href="../../ref/Domain%20Classes/makeKey.html">makeKey</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Domain%20Classes/query.html">query</a>
                             </div>
                             
                             <div class="menu-item"><a href="../../ref/Domain%20Classes/save.html">save</a>
