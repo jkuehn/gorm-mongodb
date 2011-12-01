@@ -67,7 +67,7 @@ public class MongoDomainClass extends AbstractGrailsClass implements GrailsDomai
             try {
                 descriptor = new PropertyDescriptor(field.getName(), artefactClass);
             } catch (IntrospectionException e) {
-                log.error("Could not create PropertyDescriptor for class " + artefactClass.getName() + " field " + field.getName());
+                log.warn("Could not create PropertyDescriptor for class " + artefactClass.getName() + " field " + field.getName(), e);
                 continue;
             }
             if (GrailsDomainConfigurationUtil.isNotConfigurational(descriptor)) {

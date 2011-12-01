@@ -21,5 +21,5 @@ Book.findAll( Map query, Map queryParams )
 Parameters:
 
 * @query@ - A "filter for querying":http://jkuehn.github.com/gorm-mongodb/guide/4.%20Querying.html
-* @queryParams@ - A Map containing parameters @max@, @offset@, @sort@ and @validation@ (to turn off morphia mapping validation)
+* @queryParams@ - A Map containing parameters @max@, @offset@, @sort@ and @validate@ (to turn off morphia mapping validation)
 

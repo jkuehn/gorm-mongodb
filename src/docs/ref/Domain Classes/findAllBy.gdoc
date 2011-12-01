@@ -34,7 +34,7 @@ h2. Description
 
 Parameters:
 
-* @queryParams@ - A Map containing parameters @max@, @offset@, @sort@ and @validation@ (to turn off morphia mapping validation)
+* @queryParams@ - A Map containing parameters @max@, @offset@, @sort@ and @validate@ (to turn off morphia mapping validation)
 
 Pagination and sorting parameters can be used as the last argument to a dynamic method:
 

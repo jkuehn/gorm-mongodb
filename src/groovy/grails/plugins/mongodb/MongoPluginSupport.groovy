@@ -32,6 +32,7 @@ import com.google.code.morphia.Key
 import com.mongodb.DBRef
 import com.google.code.morphia.AdvancedDatastore
 import org.apache.commons.lang.math.NumberUtils
+import grails.validation.ValidationException
 
 /**
  * Author: Juri Kuehn
@@ -123,15 +124,25 @@ class MongoPluginSupport {
         }
 
         metaClass.save = {Map args = [:] ->
-            // todo: add support for failOnError:true in grails 1.2 (GRAILS-4343)
+            boolean doValidate = args.containsKey('validate') ? (boolean) args.get('validate')  : true
+            boolean doFailOnError = args.containsKey('failOnError') ? (boolean) args.get('failOnError')  : false
 
-            // only process if beforeSave didnt return false
-            if (!triggerEvent(EVENT_BEFORE_SAVE, delegate) && validate()) {
-                autoTimeStamp(application, delegate)
-                if (datastore.save(delegate)) {
-                    triggerEvent(EVENT_AFTER_SAVE, delegate) // call only on successful save
-                    return delegate
+            // only process if beforeSave didnt return false to permit
+            if (!triggerEvent(EVENT_BEFORE_SAVE, delegate)) {
+
+                // do validation if requested
+                if (doValidate && !validate()) {
+                    // validation has errors
+                    if (doFailOnError) throw new ValidationException(dc.getFullName() + ' has validation errors', errors)
+                } else {
+                    // no errors, save
+                    autoTimeStamp(application, delegate)
+                    if (datastore.save(delegate)) {
+                        triggerEvent(EVENT_AFTER_SAVE, delegate) // call only on successful save
+                        return delegate
+                    }
                 }
+
             }
 
             return null
@@ -378,7 +389,12 @@ class MongoPluginSupport {
         def limit = (int)(queryParams.containsKey('max') ? queryParams.get('max') : DEFAULT_MAX_RESULTS).toInteger()
         def offset = (int)(queryParams.get('offset') ?: 0).toInteger()
         // handle the morphia query validation - default validation is set to true
-        def validation = queryParams.containsKey('validation') ? (boolean) queryParams.get('validation')  : true
+        def validation = queryParams.containsKey('validate') ? (boolean) queryParams.get('validate')  : true
+        if (queryParams.containsKey('validation')) {
+            // @todo #jk 01.12.11 14:16 (jk): remove deprecated
+            log.error("'validation' parameter is deprecated for queries. Use the new name 'validate'")
+            validation = queryParams.containsKey('validation') ? (boolean) queryParams.get('validation')  : true
+        }
 
         if(!validation){
             // disables query validation - this enables querying of embedded object properties like 'parent.embedded.property'

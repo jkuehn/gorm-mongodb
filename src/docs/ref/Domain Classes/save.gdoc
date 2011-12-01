@@ -22,3 +22,9 @@ if( !b.save() ) {
    }
 }
 {code}
+
+Parameters:
+
+* @validate@ - If set to false no constraint validation will occurr. Default: true
+* @failOnError@ - If set to true an exception with validation errors will be thrown. Default: false
+

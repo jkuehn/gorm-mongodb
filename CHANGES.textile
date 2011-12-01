@@ -2,6 +2,10 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.6 - 2011-12-02
+* Renamed "validation" to "validate" as parameter for queries
+* "validate" and "failOnError" parameters for save() method
+
 h3. v0.7.5 - 2011-10-23
 * MongoDB authentication configuration (thanks to Dave)
 * "Convenient access to morphias query methods":http://jkuehn.github.com/gorm-mongodb/ref/Domain%20Classes/query.html
