@@ -1,0 +1,6 @@
+DefaultPackage
+grails.plugins.mongodb
+grails.plugins.mongodb.ast
+grails.plugins.mongodb.dsl
+org.acme
+org.acme.inheritance

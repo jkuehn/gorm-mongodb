@@ -70,7 +70,7 @@
 <FONT color="green">067</FONT>                try {<a name="line.67"></a>
 <FONT color="green">068</FONT>                    descriptor = new PropertyDescriptor(field.getName(), artefactClass);<a name="line.68"></a>
 <FONT color="green">069</FONT>                } catch (IntrospectionException e) {<a name="line.69"></a>
-<FONT color="green">070</FONT>                    log.error("Could not create PropertyDescriptor for class " + artefactClass.getName() + " field " + field.getName());<a name="line.70"></a>
+<FONT color="green">070</FONT>                    log.warn("Could not create PropertyDescriptor for class " + artefactClass.getName() + " field " + field.getName(), e);<a name="line.70"></a>
 <FONT color="green">071</FONT>                    continue;<a name="line.71"></a>
 <FONT color="green">072</FONT>                }<a name="line.72"></a>
 <FONT color="green">073</FONT>                if (GrailsDomainConfigurationUtil.isNotConfigurational(descriptor)) {<a name="line.73"></a>

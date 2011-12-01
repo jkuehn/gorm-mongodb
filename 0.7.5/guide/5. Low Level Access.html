@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>5 Low Level Access 0.7.4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/1.%20Introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/2.%20Quickstart.html"><strong>2</strong><span>Quickstart</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/3.%20Mongo%20Entities.html"><strong>3</strong><span>Mongo Entities</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/4.%20Querying.html"><strong>4</strong><span>Querying</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/5.%20Low%20Level%20Access.html"><strong>5</strong><span>Low Level Access</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>GORM implementation for the MongoDB NoSQL database based on the Morphia library</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/4.%20Querying.html">&lt;&lt; <strong>4</strong><span>Querying</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+
+
+                <div class="project">
+                    <h1>5 Low Level Access - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Juri Kuehn</p>
+
+                    <p><strong>Version:</strong> 0.7.4</p>
+                </div>
+
+                
+
+                
+
+<h1 id="5. Low Level Access">5 Low Level Access</h1>
+If you want to, you can also access <a href="http://code.google.com/p/morphia/" target="blank">Morphia's</a> Datastore or the underlying <a href="http://github.com/mongodb/mongo-java-driver" target="blank">MongoDB Java Driver</a> directly. Morphia is used to transform between MongoDB DBObjects and annotated POJOs. The Java Driver can be used for slick low level access to MongoDB.<p class="paragraph"/><h2>Access using the mongo bean</h2><p class="paragraph"/>The bean <code>mongo</code> provides access to the configured java driver and morphia instance (since 0.1.2):<p class="paragraph"/><strong class="bold">usage:</strong><p class="paragraph"/><div class="code"><pre>class MongoController &#123;
+    def mongo<p class="paragraph"/>    def lowlevel = &#123;
+        mongo.mongo     // com.mongodb.Mongo &#45; already connected
+        mongo.db        // com.mongodb.DB &#45; configured db
+        mongo.morphia   // com.google.code.morphia.Morphia &#45; used <span class="java&#45;keyword">for</span> mapping
+        mongo.datastore // com.google.code.morphia.Datastore &#45; ORM layer<p class="paragraph"/>        // com.mongodb.DBCollection that holds entities <span class="java&#45;keyword">for</span> given class
+        mongo.getCollection(Person.class)
+    &#125;
+&#125;</pre></div><p class="paragraph"/><h2>Access using the collection property</h2><p class="paragraph"/>Every MongoDB domain has a <code>collection</code> property for convenient access to the drivers <a href="http://api.mongodb.org/java/current/com/mongodb/DBCollection.html" target="blank">DBCollection</a> instance:<p class="paragraph"/><strong class="bold">usage example:</strong><p class="paragraph"/><div class="code"><pre>Project.collection.insert(<span class="java&#45;keyword">new</span> BasicDBObject('name', 'Project MongoDB'))</pre></div><p class="paragraph"/>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/4.%20Querying.html">&lt;&lt; <strong>4</strong><span>Querying</span></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Domain Classes</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/addTo.html">addTo</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/autowire.html">autowire</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/count.html">count</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/countAll.html">countAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/createDBRef.html">createDBRef</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/createKey.html">createKey</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/delete.html">delete</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/deleteAll.html">deleteAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/deleteOne.html">deleteOne</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/exists.html">exists</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/find.html">find</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findAll.html">findAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findAllBy.html">findAllBy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/findBy.html">findBy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/fromDBObject.html">fromDBObject</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/get.html">get</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/getAll.html">getAll</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/getCollection.html">getCollection</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/list.html">list</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/makeKey.html">makeKey</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/save.html">save</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/toDBObject.html">toDBObject</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/update.html">update</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/Domain%20Classes/updateFirst.html">updateFirst</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Indexes</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../ref/Indexes/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../ref/Indexes/indexes.html">indexes</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Key</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../ref/Key/fetch.html">fetch</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
