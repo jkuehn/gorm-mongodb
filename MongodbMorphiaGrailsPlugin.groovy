@@ -20,7 +20,7 @@ class MongodbMorphiaGrailsPlugin {
     def scm = [ url: "https://github.com/jkuehn/gorm-mongodb" ]
 
     // the plugin version
-    def version = "0.7.6"
+    def version = "0.7.7"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
