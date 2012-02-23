@@ -27,7 +27,7 @@ includeTargets << grailsScript("_GrailsCompile")
 
 
 target ('default': "Builds the ast jar to be bundled with the plugin") {
-    def mongoAstSrcDir = new File("${mongodbMorphiaPluginDir}/src/groovy/grails/plugins/mongodb/ast")
+    def mongoAstSrcDir = new File("${mongodbMorphiaPluginDir}/src/ast/grails/plugins/mongodb/ast")
     def mongoAstBuildDir = new File(grailsSettings.pluginBuildClassesDir, "ast")
     def mongoAstDestDir = new File(grailsSettings.baseDir, "lib")
 

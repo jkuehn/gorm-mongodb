@@ -20,9 +20,9 @@
     <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
   </repositories>
   <dependencies>
-    <runtime>
+    <compile>
       <dependency group='org.mongodb' name='mongo-java-driver' version='2.7.+' />
-    </runtime>
+    </compile>
   </dependencies>
   <plugins />
   <runtimePluginRequirements>
