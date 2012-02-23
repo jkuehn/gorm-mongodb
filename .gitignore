@@ -2,7 +2,9 @@ target/*
 out/*
 /stacktrace.log
 /grais-gorm-mongodb*.zip
+/grails-mongodb-morphia-*.zip
 /MongoPlugin*.i*
 *.iml
 *.ipr
 *.iws
+/lib/mongodb-morphia-ast.jar

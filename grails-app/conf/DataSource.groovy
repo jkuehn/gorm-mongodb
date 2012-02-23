@@ -1,18 +1,9 @@
 def currentHost = java.net.InetAddress.getLocalHost().getHostName().toLowerCase()
 
 mongodb {
-    if (currentHost == 'rem-juri') {
-        replicaSet = [ "localhost:27017"]
-    } else if (System.getProperty('user.name').toLowerCase() == 'juri') {
-        replicaSet = [ "192.168.1.100:27017"]
-    } else {
-        replicaSet = [ "localhost:27017"]
-    }
-//  host = 'lbserver'
-    //  port = 27017
+    replicaSet = [ "localhost:27017"]
     databaseName = 'gorm_test'
 }
-
 
 dataSource {
     pooled = true

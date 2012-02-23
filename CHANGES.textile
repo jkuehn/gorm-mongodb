@@ -2,6 +2,11 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.7 - 2012-02-23
+* Moved ast-transformations to a jar - fixed bug where a additional "clean" is required on first run
+* Updated morphia library to *0.99.1-SNAPSHOT* (it was renamed from 1.00 by the morphia team)
+* Updated MongoDB Java driver to *2.7*
+
 h3. v0.7.6 - 2011-12-02
 * Renamed "validation" to "validate" as parameter for queries
 * "validate" and "failOnError" parameters for save() method
@@ -17,7 +22,7 @@ h3. v0.7.4 - 2011-10-13
 * Using MongoDB java driver *2.6*
 
 h3. v0.7.3 - 2011-07-03
-* updated morphia library to *1.00-SNAPSHOT* (r1740)
+* Updated morphia library to *1.00-SNAPSHOT* (r1740)
 * Added sorting order parameter in MongoDB queries - better gorm compatibility
 * *breaking change* static update method now updates all matched entities! There was a bug: instead of updating all matched entities, it updated only the first
 * "GPGORMMONGODB-15":http://jira.grails.org/browse/GPGORMMONGODB-15 Added updateFirst operation
