@@ -2,6 +2,9 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.8 - 2012-02-24
+* ast-transformations fix
+
 h3. v0.7.7 - 2012-02-23
 * Moved ast-transformations to a jar - fixed bug where a additional "clean" is required on first run
 * Updated morphia library to *0.99.1-SNAPSHOT* (it was renamed from 1.00 by the morphia team)
