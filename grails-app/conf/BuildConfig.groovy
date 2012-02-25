@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
 //        not using ivy currently because of https://issues.apache.org/jira/browse/IVY-933 resolution of the 0.98 version fails
 //        runtime 'com.google.code.morphia:morphia:0.98'
 //        runtime 'com.google.code.morphia:logging-slf4j:0.98'
-        compile 'org.mongodb:mongo-java-driver:2.7.+'
+//        compile 'org.mongodb:mongo-java-driver:2.7.+'
     }
 
 }

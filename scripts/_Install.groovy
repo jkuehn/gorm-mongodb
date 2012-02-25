@@ -10,6 +10,8 @@
 //
 
 includeTargets << grailsScript("_GrailsClean")
+includeTargets << grailsScript("_GrailsCompile")
+
 
 // Because we make use of ASTTransformations, make sure that everything is clean
 // after installing the plugin.
@@ -18,11 +20,10 @@ cleanAll()
 // make the mongodb domains folder
 ant.mkdir(dir:"${basedir}/grails-app/mongo")
 
-
-
-// compile ast transformations
-def pluginDir = grailsSettings.projectPluginsDir.listFiles().find({ it.isDirectory() && it.name.startsWith('mongodb-morphia') })
-
+/**
+ * build ast jar
+ */
+def pluginDir = mongodbMorphiaPluginDir
 if (pluginDir) {
 
     def mongoAstSrcDir = new File("${mongodbMorphiaPluginDir}/src/groovy/grails/plugins/mongodb/ast")
@@ -33,7 +34,7 @@ if (pluginDir) {
     ant.mkdir(dir:mongoAstBuildDir)
 
     // compile ast classes
-    ant.groovyc(destdir: mongoAstBuildDir, encoding: "UTF-8") {
+    ant.groovyc(destdir: mongoAstBuildDir, encoding: "UTF-8", classpathref:"grails.compile.classpath") {
         src(path: mongoAstSrcDir)
     }
 

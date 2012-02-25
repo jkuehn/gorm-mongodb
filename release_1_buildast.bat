@@ -1,1 +1,0 @@
-@grails build-ast
