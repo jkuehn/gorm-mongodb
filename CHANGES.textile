@@ -2,6 +2,9 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.7.9 - 2012-08-31
+* Updated MongoDB Java driver to *2.9* (aggregation framework)
+
 h3. v0.7.8 - 2012-02-24
 * ast-transformations fix
 

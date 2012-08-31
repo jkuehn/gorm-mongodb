@@ -45,7 +45,7 @@ Parameters:
 
 * @id@ - id of the entity
 * @query@ - query as used in findAll method
-* @updateOperations@ - This closure is executed within the context of morphias "UpdateOperations":http://code.google.com/p/morphia/source/browse/trunk/morphia/src/main/java/com/google/code/morphia/query/UpdateOperations.java
+* @updateOperations@ - This closure is executed within the context of morphias "UpdateOperations":http://morphia.googlecode.com/svn/site/morphia/apidocs/index.html
 * @createIfAbsent@ - If set to true, flieds that are not present in entity will be created
 * @wc@ - A WriteConcern object which configures the write strategy for the update operation
 

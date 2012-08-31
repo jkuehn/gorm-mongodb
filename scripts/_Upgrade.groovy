@@ -8,3 +8,7 @@
 //
 //    ant.mkdir(dir:"${basedir}/grails-app/jobs")
 //
+
+
+// update the ast transformations jar
+includeTargets << new File("${mongodbMorphiaPluginDir}/scripts/_BuildAst.groovy")
