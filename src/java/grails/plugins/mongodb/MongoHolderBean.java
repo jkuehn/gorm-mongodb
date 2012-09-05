@@ -3,10 +3,7 @@ package grails.plugins.mongodb;
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.DatastoreImpl;
 import com.google.code.morphia.Morphia;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
-import com.mongodb.ServerAddress;
+import com.mongodb.*;
 import groovy.util.ConfigObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,18 +47,26 @@ public class MongoHolderBean {
       replicaSets = (List<String>)((ConfigObject)application.getConfig().get("mongodb")).get("replicaSet");
     } catch (Exception ignore) {}
 
+    MongoOptions mongoOptions = null;
+    try {
+      mongoOptions = (MongoOptions)((ConfigObject)application.getConfig().get("mongodb")).get("options");
+    } catch (Exception ignore) {
+        mongoOptions = new MongoOptions();
+    }
+
     if (replicaSets != null) { // user replica sets
       log.info("Creating MongoDB connection with replica sets " + replicaSets + " and database " + database);
       List<ServerAddress> addressList = new ArrayList<ServerAddress>();
       for (String addr : replicaSets) {
         addressList.add(new ServerAddress(addr));
       }
-      mongo = new Mongo(addressList);
+      mongo = new Mongo(addressList, mongoOptions);
     } else { // use host port
       String host = getConfigVar(flatConfig, "mongodb.host", "localhost");
       int port = parsePortFromConfig(getConfigVar(flatConfig, "mongodb.port", "27017"), 27017);
       log.info("Creating MongoDB connection to host " + host + ":" + port + " and database " + database);
-      mongo = new Mongo(host, port);
+
+      mongo = new Mongo(new ServerAddress(host, port), mongoOptions);
     }
 
     morphia = new Morphia();
