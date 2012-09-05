@@ -50,9 +50,8 @@ public class MongoHolderBean {
     MongoOptions mongoOptions = null;
     try {
       mongoOptions = (MongoOptions)((ConfigObject)application.getConfig().get("mongodb")).get("options");
-    } catch (Exception ignore) {
-        mongoOptions = new MongoOptions();
-    }
+    } catch (Exception ignore) { }
+    if (mongoOptions == null) mongoOptions = new MongoOptions();
 
     if (replicaSets != null) { // user replica sets
       log.info("Creating MongoDB connection with replica sets " + replicaSets + " and database " + database);
@@ -60,6 +59,7 @@ public class MongoHolderBean {
       for (String addr : replicaSets) {
         addressList.add(new ServerAddress(addr));
       }
+
       mongo = new Mongo(addressList, mongoOptions);
     } else { // use host port
       String host = getConfigVar(flatConfig, "mongodb.host", "localhost");
