@@ -28,16 +28,17 @@ mongodb {
   port = 27017
   databaseName = 'test'
   username = 'user'  // database user and password, if server requires authentication
-  password = 's3cret' 
+  password = 's3cret'
 }
 {code}
 
-You can configure "replica sets":http://www.mongodb.org/display/DOCS/Replica+Sets this way:
+You can configure "replica sets":http://www.mongodb.org/display/DOCS/Replica+Sets and override default "MongoOptions":http://api.mongodb.org/java/2.9.1/com/mongodb/MongoOptions.html this way:
 
 {code}
 mongodb {
   replicaSet = [ "localhost:27017", "localhost:27018"]
   databaseName = 'test'
+  options = new MongoOptions(readPreference: ReadPreference.nearest()) // optional: configure MongoOptions here
 }
 {code}
 
