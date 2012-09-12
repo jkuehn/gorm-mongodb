@@ -8,3 +8,4 @@ out/*
 *.ipr
 *.iws
 /lib/mongodb-morphia-ast.jar
+/mongodb-morphia-ast.jar

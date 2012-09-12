@@ -5,7 +5,6 @@
 includeTargets << grailsScript("_GrailsClean")
 includeTargets << grailsScript("_GrailsCompile")
 
-
 // Because we make use of ASTTransformations, make sure that everything is clean
 // after installing the plugin.
 cleanAll()

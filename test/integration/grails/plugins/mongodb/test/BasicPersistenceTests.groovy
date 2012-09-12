@@ -296,7 +296,7 @@ public class BasicPersistenceTests extends GroovyTestCase {
   }
 
   void testUpdateMethod() {
-    def t = new Task(taskId: "Update me good", name: "Task that will be updated!", actualHours: 10)
+    def t = new Task(taskId: "Update me good", name: "Task that will be updated!", actualHours: 10, dateCreated: new Date() - 1)
     def t2 = new Task(taskId: "Update me good 2", name: "Task that will be updated too!", actualHours: 10)
     t.save()
     t2.save()
