@@ -37,4 +37,11 @@ grails.project.dependency.resolution = {
 //        compile 'org.mongodb:mongo-java-driver:2.7.+'
     }
 
+    plugins {
+        build(":release:2.0.4",
+              ":rest-client-builder:1.0.2") {
+            excludes 'svn'
+            export = false
+        }
+    }
 }
