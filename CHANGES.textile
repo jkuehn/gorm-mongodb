@@ -2,6 +2,10 @@ h2. Change Log
 
 Also see the "release notes of underlying morphia library":http://code.google.com/p/morphia/wiki/ReleaseNotes and the GORM-MongoDB "User Guide":http://jkuehn.github.com/gorm-mongodb/
 
+h3. v0.8.1 - 2012-11-19
+* Added a basic auditing feature. Mongo-Domain classes having the @grails.plugins.mongodb.audit.Audited@ annotation will have a copy of every saved instance persited to a @collectionName@ + "History" collection.
+* Updated MongoDB Java driver to *2.9.3*
+
 h3. v0.8.0 - 2012-09-12
 * Updated MongoDB Java driver to *2.9.1*
 * Added the ability to configure MongoOptions in DataSource.groovy - see quickstart in user guide (thanks to Thomas)

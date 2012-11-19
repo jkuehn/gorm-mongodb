@@ -9,6 +9,8 @@ import grails.plugins.mongodb.MongoDomainClassArtefactHandler
 import com.google.code.morphia.Morphia
 import com.google.code.morphia.Datastore
 import com.google.code.morphia.mapping.MappedClass
+import grails.plugins.mongodb.audit.MorphiaAuditEntityInterceptor
+import com.google.code.morphia.AbstractEntityInterceptor
 
 class MongodbMorphiaGrailsPlugin {
 
@@ -20,7 +22,7 @@ class MongodbMorphiaGrailsPlugin {
     def scm = [ url: "https://github.com/jkuehn/gorm-mongodb" ]
 
     // the plugin version
-    def version = "0.8.0"
+    def version = "0.8.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.4 > *"
     // the other plugins this plugin depends on
@@ -82,6 +84,8 @@ class MongodbMorphiaGrailsPlugin {
                 grailsApplication = ref("grailsApplication", true)
             }
         }
+
+        morphiaAuditEntityInterceptor(MorphiaAuditEntityInterceptor)
     }
 
     def doWithDynamicMethods = { ApplicationContext ctx ->
@@ -120,6 +124,10 @@ class MongodbMorphiaGrailsPlugin {
         }
 
         MongoPluginSupport.enhanceMorphiaQueryClass()
+
+        // add auditing feature
+        def morphiaAuditInterceptor = ctx.getBean('morphiaAuditEntityInterceptor')
+        if (morphiaAuditInterceptor instanceof AbstractEntityInterceptor) morphia.getMapper().addInterceptor(morphiaAuditInterceptor)
     }
 
     /**
