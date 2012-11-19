@@ -11,6 +11,7 @@ import grails.plugins.mongodb.MongoHolderBean;
 import org.codehaus.groovy.grails.commons.GrailsApplication;
 import org.codehaus.groovy.grails.commons.GrailsClass;
 import org.codehaus.groovy.grails.commons.GrailsDomainClass;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,7 +37,10 @@ public class MorphiaAuditEntityInterceptor extends AbstractEntityInterceptor imp
         String historyCollectionName = watchedClasses.get(ent.getClass());
         if (historyCollectionName != null) {
             // persist this entity to the history collection
-            db.getCollection(ent.getClass().getSimpleName() + "History").save(new BasicDBObject("date", new Date()).append("entity", dbObj));
+            BasicDBObject historyEntity = new BasicDBObject("date", new Date()).append("entity", dbObj);
+            boolean abort = false;
+            if (auditProcessor != null) abort = !auditProcessor.processHistoryEntry(historyEntity, ent, dbObj, mapr);
+            if (!abort) db.getCollection(historyCollectionName).save(historyEntity);
         }
     }
 
@@ -67,7 +71,11 @@ public class MorphiaAuditEntityInterceptor extends AbstractEntityInterceptor imp
         }
 
         // init audit processor
-        Object mongodbAuditProcessor = grailsApplication.getMainContext().getBean("mongodbAuditProcessor");
-        if (mongodbAuditProcessor instanceof MongodbAuditProcessor) this.auditProcessor = (MongodbAuditProcessor)mongodbAuditProcessor;
+        try {
+            Object mongodbAuditProcessor = grailsApplication.getMainContext().getBean("mongodbAuditProcessor");
+            if (mongodbAuditProcessor instanceof MongodbAuditProcessor) this.auditProcessor = (MongodbAuditProcessor)mongodbAuditProcessor;
+        } catch (BeansException ignore) {
+            // do not care if not defined
+        }
     }
 }
