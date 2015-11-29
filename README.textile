@@ -1,3 +1,5 @@
+This plugin is no longer maintained. Please consider using the official Grails MongoDB Plugin: https://grails.org/plugin/mongodb
+
 h2. MongoDB GORM plugin for Grails
 
 "MongoDB":http://www.mongodb.org/ is a scalable, high-performance, schemafree and "production ready":http://www.mongodb.org/display/DOCS/Production+Deployments NoSQL database. This plugin implements the GORM functionality for MongoDB. Under the hood it uses "Morphia":http://code.google.com/p/morphia/ as a lightweight type-safe library for mapping domain classes to/from MongoDB.
